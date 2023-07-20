@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:padding="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="100px"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_back_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingTop="15dp"
+                android:src="@drawable/ic_arrow_back_24" />
+
+            <TextView
+                android:id="@+id/loginlable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Iniciar sesión"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="35sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/montserrat"/>
+        </FrameLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:hint="Correo electrónico"
+            android:fontFamily="@font/montserrat">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_Email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:fontFamily="@font/montserrat"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:hint="Contraseña"
+            app:passwordToggleEnabled="true"
+            android:fontFamily="@font/montserrat">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_Pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:fontFamily="@font/montserrat"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/Btn_Login"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/black"
+        android:layout_marginEnd="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginBottom="25dp"
+        android:text="Ingresar"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/montserrat"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
