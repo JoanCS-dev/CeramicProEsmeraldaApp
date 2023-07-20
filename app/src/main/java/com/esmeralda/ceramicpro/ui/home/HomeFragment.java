@@ -42,4 +42,13 @@ public class HomeFragment extends Fragment {
         return view;
 
     }
+
+    public void Inversion(View view) {
+    }
+
+    public void New(View view) {
+    }
+
+    public void Maintenance(View view) {
+    }
 }

@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:text="Validaremos tú ubicación por código postal (CP)."
+                android:text="(Opcional)\nValidaremos tú ubicación por código postal."
                 android:textAlignment="center"
                 android:textColor="@color/simple_text"
                 android:fontFamily="@font/montserrat"/>
@@ -59,7 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:hint="Código Postal(CP) *"
+                    android:hint="Código Postal"
                     android:layout_weight="1"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:fontFamily="@font/montserrat">

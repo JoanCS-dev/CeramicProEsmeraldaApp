@@ -127,6 +127,7 @@ public class RegisterAccountTwoFragment extends Fragment {
         });
 
         Back.setOnClickListener(view -> {
+            validateBack();
             Fragment fragment = new RegisterAccountOneFragment();
             FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
             fm.replace(R.id.container,fragment).commit();
@@ -137,7 +138,7 @@ public class RegisterAccountTwoFragment extends Fragment {
             String __txt_Calle = txt_Calle.getText().toString();
             String __txt_NumExterior = txt_NumExterior.getText().toString();
             String __txt_NumInterior = txt_NumInterior.getText().toString();
-            if(
+            /*if(
                     __txt_CodigoPostal.equals("") ||
                             __txt_Calle.equals("") ||
                             __txt_NumExterior.equals("") ||
@@ -153,10 +154,10 @@ public class RegisterAccountTwoFragment extends Fragment {
                 }else if(__txt_NumInterior.equals("")){
                     Message("Información", "Por favor escribe el número interior.");
                 }
-            }else{
+            }else{*/
                 Show();
                 SaveAs();
-            }
+            //}
         });
 
         btn_search_cp.setOnClickListener(view -> {
@@ -250,10 +251,11 @@ public class RegisterAccountTwoFragment extends Fragment {
             peopleRequestVM.peDateOfBirth = "2023-01-01";
             peopleRequestVM.peStatus = false;
             peopleRequestVM.peRDate = "2023-01-01";
-            peopleRequestVM.peStreet = txt_Calle.getText().toString();
-            peopleRequestVM.peOutsideCode = txt_NumExterior.getText().toString();
-            peopleRequestVM.peInsideCode = txt_NumInterior.getText().toString();
-            peopleRequestVM.settlementID = SettlementID;
+            //peopleRequestVM.peStreet = txt_Calle.getText().toString();
+            peopleRequestVM.peStreet = txt_Calle.getText().equals("") ? "SD" : txt_Calle.getText().toString();
+            peopleRequestVM.peOutsideCode = txt_NumExterior.getText().equals("") ? "SD" : txt_NumExterior.getText().toString();
+            peopleRequestVM.peInsideCode = txt_NumInterior.getText().equals("") ? "SD" : txt_NumInterior.getText().toString();
+            peopleRequestVM.settlementID = SettlementID == 0 ? 0 : SettlementID;
 
             AccountRequestVM acc = new AccountRequestVM();
             acc.accountID = 0;
@@ -331,5 +333,15 @@ public class RegisterAccountTwoFragment extends Fragment {
         Builder.setTitle(Title)
                 .setMessage(Message)
                 .setPositiveButton("Ok", null).show();
+    }
+
+    private void validateBack() {
+        Bundle result = new Bundle();
+        result.putString("txt_NameParse", txt_Name);
+        result.putString("txt_LastnameParse", txt_Lastname);
+        result.putString("txt_PhoneParse", txt_Phone);
+        result.putString("txt_EmailParse", txt_Email);
+        result.putString("txt_PassParse", txt_Pass);
+        getParentFragmentManager().setFragmentResult("databack", result);
     }
 }
