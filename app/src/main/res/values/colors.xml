@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="InfoWarning">#E1CC8B</color>
+    <color name="color_New">#D30E00</color>
+    <color name="color_Maintenance">#0077D1</color>
+    <color name="color_Inversion">#24C200</color>
     <color name="InfoLight">#73A7D1</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>

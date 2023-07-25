@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.esmeralda.ceramicpro.R;
 import com.google.zxing.BarcodeFormat;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
@@ -20,6 +21,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 public class MembershipFragment extends Fragment {
     private ImageView ivQrCode;
+    private LottieAnimationView ivaQrCode;
     private View view;
     private SharedPreferences cookies;
     private String strCode;
@@ -37,19 +39,27 @@ public class MembershipFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_membership, container, false);
         cookies = view.getContext().getSharedPreferences("SHA_CST_DB", Context.MODE_PRIVATE);
         ivQrCode = view.findViewById(R.id.QR_content);
+        ivaQrCode = view.findViewById(R.id.QR_content_Anim);
         strCode = cookies.getString("strCode", "0");
-        try {
-            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-            Bitmap bitmap = barcodeEncoder.encodeBitmap(
-                    strCode,
-                    BarcodeFormat.QR_CODE,
-                    1000,
-                    1000
-            );
-            ivQrCode.setImageBitmap(bitmap);
-        }catch (Exception e) {
-            e.printStackTrace();
+
+        if(strCode.equals("0")){
+            try {
+                BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+                Bitmap bitmap = barcodeEncoder.encodeBitmap(
+                        strCode,
+                        BarcodeFormat.QR_CODE,
+                        1000,
+                        1000
+                );
+                ivQrCode.setImageBitmap(bitmap);
+                ivQrCode.setVisibility(View.VISIBLE);
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else{
+            ivaQrCode.setVisibility(View.VISIBLE);
         }
+
 
         return view;
     }

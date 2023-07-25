@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="¿Eres mayor de edad?"
+        android:text="¿Quieres formar parte de nuestro equipo?"
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="25sp"
@@ -31,36 +31,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Para poder utilizar esta aplicación debes verificar que cumples con la mayoría de edad."
+        android:text="Ingresa tu correo electrónico y te estaremos contactando."
         android:gravity="center"
         android:textSize="20sp"
         style="@style/TextDescription"
         android:fontFamily="@font/montserrat"/>
 
-    <Button
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:id="@+id/Btn_Si"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:textAllCaps="false"
-        android:text="Soy mayor de edad"
-        android:backgroundTint="@color/appColor"
-        android:layout_gravity="bottom"
-        android:textSize="20sp"
-        app:cornerRadius="12dp"
-        android:fontFamily="@font/montserrat"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30px"
+        android:hint="Correo electrónico"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:fontFamily="@font/montserrat">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_Email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:fontFamily="@font/montserrat"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:id="@+id/Btn_No"
+        android:id="@+id/Btn_Send"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:textAllCaps="false"
-        android:text="No soy mayor de edad"
-        android:backgroundTint="@color/black"
+        android:text="Enviar"
+        android:backgroundTint="@color/appColor"
         android:layout_gravity="bottom"
         android:textSize="20sp"
         app:cornerRadius="12dp"
@@ -70,7 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Al usar Ceramic Pro estás confirmando que tienes 18 años o más."
+        android:text="Al enviar tu correo estás de acuerdo a recebir mails de información sobre Ceramic Pro."
         android:gravity="center"
         android:textSize="15sp"
         style="@style/TextDescription"
