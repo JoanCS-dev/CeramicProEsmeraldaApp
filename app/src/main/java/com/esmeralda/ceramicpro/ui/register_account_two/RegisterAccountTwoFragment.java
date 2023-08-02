@@ -63,7 +63,7 @@ public class RegisterAccountTwoFragment extends Fragment {
     private String txt_Name, txt_Lastname, txt_Phone, txt_Email, txt_Pass;
     private TextInputEditText txt_CodigoPostal, txt_Estado, txt_Municipio, txt_Calle, txt_NumExterior, txt_NumInterior;
     private Button btn_search_cp;
-    private String URL = "";
+    private String URL = "https://ceramicproesmeralda.azurewebsites.net";
     private View view;
     private AutoCompleteTextView autoCompleteAsentamiento;
     private List<SettlementVM> Lst;
@@ -81,7 +81,6 @@ public class RegisterAccountTwoFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_register_account_two, container, false);
         cookies = view.getContext().getSharedPreferences("SHA_CST_DB", Context.MODE_PRIVATE);
 
-        URL = cookies.getString("url", "http://localhost:8082");
 
         if(URL.equals("")){
             Toast.makeText(view.getContext(), "Por favor ingresa la url del servidor", Toast.LENGTH_SHORT).show();

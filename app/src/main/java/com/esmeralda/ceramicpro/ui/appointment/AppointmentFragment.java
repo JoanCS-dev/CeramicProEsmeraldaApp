@@ -65,7 +65,7 @@ public class AppointmentFragment extends Fragment {
     private AutoCompleteTextView dropdown_service, dropdown_brand, dropdown_model, dropdown_color, dropdown_hour;
     private TextInputEditText edit_date;
     private Button btn_confirm;
-    private String serviceName, colorName, token, URL = "";
+    private String serviceName, colorName, token, URL = "https://ceramicproesmeralda.azurewebsites.net";
     private List<ServiceVM> lst_service;
     private List<BrandVM> lst_brand;
     private List<ModelVM> lst_model;
@@ -107,11 +107,7 @@ public class AppointmentFragment extends Fragment {
 
         cookies = view.getContext().getSharedPreferences("SHA_CST_DB", Context.MODE_PRIVATE);
         token = cookies.getString("strToken", "");
-        URL = cookies.getString("url", "http://localhost:8082");
 
-        if(URL.equals("")){
-            Toast.makeText(view.getContext(), "Por favor ingresa la url del servidor", Toast.LENGTH_SHORT).show();
-        }
 
         gson = new Gson();
 
@@ -242,35 +238,29 @@ public class AppointmentFragment extends Fragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            loading.hide();
-                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
-                        }
-                    });
+                    loading.hide();
+                    Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
                 }
 
                 @Override
                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            loading.hide();
-                            try {
-                                String string_json = response.body().string();
-
-                                ResponseVM res = gson.fromJson(string_json, ResponseVM.class);
+                    loading.hide();
+                    final String string_json = response.body().string();
+                    if(response.isSuccessful()){
+                        ResponseVM res = gson.fromJson(string_json, ResponseVM.class);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
                                 if (res.ok) {
                                     Message("Correcto", res.message);
-                                }else {
+                                } else {
                                     Message("Información", res.message);
                                 }
-                            } catch (Exception ex) {
-                                Message("Error", ex.getMessage());
                             }
-                        }
-                    });
+                        });
+                    }else{
+                        Message("Error", response.message() + " - " + response.code());
+                    }
                 }
             });
 
@@ -292,34 +282,31 @@ public class AppointmentFragment extends Fragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            loading.hide();
-                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
-                        }
-                    });
+                    loading.hide();
+                    Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
                 }
 
                 @Override
                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            loading.hide();
-                            try {
-                                String string_json = response.body().string();
-                                QuoteDatesResponseVM res = gson.fromJson(string_json, QuoteDatesResponseVM.class);
+                    final String string_json = response.body().string();
+                    if(response.isSuccessful()){
+                        QuoteDatesResponseVM res = gson.fromJson(string_json, QuoteDatesResponseVM.class);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
                                 if (res.ok) {
+                                    loading.hide();
                                     lst_dates = res.data;
                                 } else {
+                                    loading.hide();
                                     Message("Información", res.message);
                                 }
-                            } catch (Exception ex) {
-                                Message("Error", ex.getMessage());
                             }
-                        }
-                    });
+                        });
+                    }else{
+                        loading.hide();
+                        Message("Error", response.message() + " - " + response.code());
+                    }
                 }
             });
 

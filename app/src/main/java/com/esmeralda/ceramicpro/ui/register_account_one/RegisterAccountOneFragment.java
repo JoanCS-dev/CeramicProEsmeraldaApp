@@ -1,9 +1,15 @@
 package com.esmeralda.ceramicpro.ui.register_account_one;
 
+import static java.net.HttpURLConnection.HTTP_OK;
+
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,17 +21,39 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.esmeralda.ceramicpro.HomeActivity;
+import com.esmeralda.ceramicpro.LoginActivity;
 import com.esmeralda.ceramicpro.R;
+import com.esmeralda.ceramicpro.RegisterActivity;
+import com.esmeralda.ceramicpro.model.AccountRequestVM;
+import com.esmeralda.ceramicpro.model.PeopleRequestVM;
+import com.esmeralda.ceramicpro.model.ResponseVM;
 import com.esmeralda.ceramicpro.ui.register_account_two.RegisterAccountTwoFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class RegisterAccountOneFragment extends Fragment {
 
     private Button B_Continuar;
+    private Dialog loading;
+    private Gson gson;
+    private OkHttpClient client;
+    private MediaType mediaType = MediaType.parse("application/json");
+    private String URL = "https://ceramicproesmeralda.azurewebsites.net";
     private ImageButton Back;
     private TextInputEditText txt_Name, txt_Lastname, txt_Phone, txt_Email, txt_Pass, txt_Confirm_Pass;
     private String txt_NameParse, txt_LastnameParse, txt_PhoneParse, txt_EmailParse, txt_PassParse;
@@ -48,12 +76,15 @@ public class RegisterAccountOneFragment extends Fragment {
         txt_Pass = view.findViewById(R.id.txt_Pass);
         txt_Confirm_Pass = view.findViewById(R.id.txt_Confirm_Pass);
         validateBack();
+
         Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), HomeActivity.class));
             }
         });
+        client = new OkHttpClient();
+        gson = new Gson();
 
         B_Continuar.setOnClickListener(view -> {
             String __txt_Name = txt_Name.getText().toString();
@@ -80,7 +111,9 @@ public class RegisterAccountOneFragment extends Fragment {
                 if(!__txt_Pass.equals(__txt_Confirm_Pass)){
                     Message("Información", "Las contraseñas no coinciden");
                 }else{
-                    Bundle result = new Bundle();
+                    Show();
+                    SaveAs();
+                    /*Bundle result = new Bundle();
                     result.putString("txt_Name", txt_Name.getText().toString());
                     result.putString("txt_Lastname", txt_Lastname.getText().toString());
                     result.putString("txt_Phone", txt_Phone.getText().toString());
@@ -89,7 +122,7 @@ public class RegisterAccountOneFragment extends Fragment {
                     getParentFragmentManager().setFragmentResult("requestKey", result);
                     Fragment fragment = new RegisterAccountTwoFragment();
                     FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
-                    fm.replace(R.id.container, fragment).commit();
+                    fm.replace(R.id.container, fragment).commit();*/
                 }
             }
         });
@@ -130,5 +163,87 @@ public class RegisterAccountOneFragment extends Fragment {
                 txt_Confirm_Pass.setText("");
             }
         });
+    }
+
+    private void Show() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setCancelable(false);
+        builder.setView(R.layout.design_dialog_progress);
+        loading = builder.create();
+        loading.show();
+        loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    }
+
+    public void SaveAs() {
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        if(!URL.equals("")){
+            PeopleRequestVM peopleRequestVM = new PeopleRequestVM();
+            peopleRequestVM.peopleID = 0;
+            peopleRequestVM.peFirstName = txt_Name.getText().toString();
+            peopleRequestVM.peLastName = txt_Lastname.getText().toString();
+            peopleRequestVM.peDateOfBirth = "2023-01-01";
+            peopleRequestVM.peStatus = false;
+            peopleRequestVM.peRDate = date;
+            //peopleRequestVM.peStreet = txt_Calle.getText().toString();
+            peopleRequestVM.peStreet = "SD";
+            peopleRequestVM.peOutsideCode = "SD";
+            peopleRequestVM.peInsideCode = "SD";
+            peopleRequestVM.settlementID = 0;
+
+            AccountRequestVM acc = new AccountRequestVM();
+            acc.accountID = 0;
+            acc.acUser = txt_Email.getText().toString();
+            acc.acPassword = txt_Pass.getText().toString();
+            acc.acEmailAddress = txt_Email.getText().toString();
+            acc.acPhoneNumber = txt_Phone.getText().toString();
+            acc.acVerifyEmail = false;
+            acc.acStatus = "NA";
+            acc.acRDate = date;
+            acc.peopleID = 0;
+            acc.profileID = 0;
+            acc.peopleVM = peopleRequestVM;
+
+            RequestBody body = RequestBody.create(gson.toJson(acc), mediaType);
+            Request request = new Request.Builder()
+                    .url(URL + "/Api/Account/Add")
+                    .post(body)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    loading.hide();
+                    Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                }
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+
+                    final String string_json = response.body().string();
+                    if(response.isSuccessful()){
+                        ResponseVM res = gson.fromJson(string_json, ResponseVM.class);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (res.ok) {
+                                    loading.hide();
+                                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                                }else{
+                                    loading.hide();
+                                    Message("Información", res.message);
+                                }
+                            }
+                        });
+                    }else{
+                        loading.hide();
+                        Message("Error", response.message() + " - " + response.code());
+                    }
+                }
+            });
+
+        }else{
+            Message("Error", "Por favor ingresa la url del servidor");
+        }
     }
 }

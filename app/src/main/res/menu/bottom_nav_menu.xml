@@ -11,10 +11,7 @@
         android:icon="@drawable/ic_appointment_24"
         android:title="@string/title_appointment" />
 
-    <item
-        android:id="@+id/navigation_membership"
-        android:icon="@drawable/ic_membership_24"
-        android:title="@string/title_membership" />
+    
     <item
         android:id="@+id/navigation_subscriptions"
         android:icon="@drawable/ic_subscriptions_24"

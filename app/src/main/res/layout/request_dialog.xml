@@ -41,6 +41,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30px"
+        android:hint="Nombre completo"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:fontFamily="@font/montserrat">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_NameFull"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:fontFamily="@font/montserrat"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30px"
         android:hint="Correo electrónico"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:fontFamily="@font/montserrat">
@@ -54,13 +71,28 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30px"
+        android:hint="Celular"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:fontFamily="@font/montserrat">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_PhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:fontFamily="@font/montserrat"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:id="@+id/Btn_Send"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:textAllCaps="false"
         android:text="Enviar"
         android:backgroundTint="@color/appColor"

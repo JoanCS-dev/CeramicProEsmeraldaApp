@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -42,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     private ImageButton Back;
     private Button Ingresar;
     private TextInputEditText txt_Email, txt_Pass;
-    private String URL = "";
+    private String URL = "https://ceramicproesmeralda.azurewebsites.net";
     private SharedPreferences cookies;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
 
         cookies = getSharedPreferences("SHA_CST_DB", MODE_PRIVATE);
 
-        URL = cookies.getString("url", "http://localhost:8082");
+        //URL = cookies.getString("url", "https://ceramicproesmeralda.azurewebsites.net");
 
         if(URL.equals("")){
             Toast.makeText(this, "Por favor ingresa la url del servidor", Toast.LENGTH_SHORT).show();
@@ -103,41 +104,39 @@ public class LoginActivity extends AppCompatActivity {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            loading.hide();
-                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
-                        }
-                    });
+
+                    loading.hide();
+                    Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+
                 }
 
                 @Override
                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            loading.hide();
-                            try {
-                                if(response.code() == HTTP_OK){
-                                    String string_json = response.body().string();
-                                    AuthResponseVM res = gson.fromJson(string_json, AuthResponseVM.class);
-                                    if (res.ok) {
-                                        RegisterToken(res.data.strToken, res.data.fullName, res.data.strCode);
-                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                        finish();
-                                    } else {
-                                        Message("Información", res.message);
-                                    }
-                                }else{
-                                    Message("Error", response.message() + " - " + response.code());
-                                }
 
-                            } catch (Exception ex) {
-                                Message("Error", ex.getMessage());
-                            }
-                        }
-                    });
+                    final String string_json = response.body().string();
+                    if(response.isSuccessful()){
+                        AuthResponseVM res = gson.fromJson(string_json, AuthResponseVM.class);
+                            LoginActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (res.ok) {
+                                    RegisterToken(res.data.strToken, res.data.fullName, res.data.strCode);
+                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    loading.hide();
+                                    finish();
+                                }else{
+                                    loading.hide();
+                                    Message("Información", res.message);
+                                    }
+                                }
+                            });
+
+                    }else{
+                        loading.hide();
+                        Message("Error", response.message() + " - " + response.code());
+                    }
+
+
                 }
             });
 

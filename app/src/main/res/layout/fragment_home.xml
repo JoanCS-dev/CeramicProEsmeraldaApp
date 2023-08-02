@@ -119,7 +119,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Poco Mantenimiento"
+                            android:text="Menos Mantenimiento"
                             android:gravity="center"
                             android:textStyle="bold"
                             android:fontFamily="@font/montserrat"/>

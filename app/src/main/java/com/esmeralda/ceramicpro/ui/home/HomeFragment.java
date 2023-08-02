@@ -1,8 +1,13 @@
 package com.esmeralda.ceramicpro.ui.home;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -16,18 +21,41 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.esmeralda.ceramicpro.HomeActivity;
+import com.esmeralda.ceramicpro.LoginActivity;
 import com.esmeralda.ceramicpro.MainActivity;
 import com.esmeralda.ceramicpro.R;
+import com.esmeralda.ceramicpro.model.AccountRequestVM;
+import com.esmeralda.ceramicpro.model.InterestedInOurServiceVM;
+import com.esmeralda.ceramicpro.model.PeopleRequestVM;
+import com.esmeralda.ceramicpro.model.ResponseVM;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.Gson;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class HomeFragment extends Fragment {
     private View view;
     private BottomSheetDialog dialog;
     private ImageView teamwork, img_inversion, img_new, img_maintenance;
+    private String URL = "https://ceramicproesmeralda.azurewebsites.net";
+    private MediaType mediaType = MediaType.parse("application/json");
+    private OkHttpClient client;
+    private Gson gson;
+    private Dialog loading;
     private MaterialCardView cw_inversion, cw_new, cw_maintenance;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,7 +70,8 @@ public class HomeFragment extends Fragment {
         List<SlideModel> imageList = new ArrayList<>(); // Create image list
         dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
         teamwork = view.findViewById(R.id.TeamWork);
-
+        client = new OkHttpClient();
+        gson = new Gson();
         img_inversion = view.findViewById(R.id.img_Inversion);
         img_new = view.findViewById(R.id.img_New);
         img_maintenance = view.findViewById(R.id.img_Maintenance);
@@ -57,6 +86,8 @@ public class HomeFragment extends Fragment {
                 img_inversion.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_Inversion), android.graphics.PorterDuff.Mode.MULTIPLY);
                 img_new.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
                 img_maintenance.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
+                Show();
+                SaveInterested("OPTION1");
             }
         });
         cw_new.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +96,8 @@ public class HomeFragment extends Fragment {
                 img_inversion.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
                 img_new.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_New), android.graphics.PorterDuff.Mode.MULTIPLY);
                 img_maintenance.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
+                Show();
+                SaveInterested("OPTION2");
             }
         });
         cw_maintenance.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +106,8 @@ public class HomeFragment extends Fragment {
                 img_inversion.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
                 img_new.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
                 img_maintenance.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_Maintenance), android.graphics.PorterDuff.Mode.MULTIPLY);
+                Show();
+                SaveInterested("OPTION3");
             }
         });
 
@@ -110,5 +145,66 @@ public class HomeFragment extends Fragment {
         dialog.setContentView(view);
     }
 
+    public void SaveInterested(String Option) {
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        if(!URL.equals("")){
+            InterestedInOurServiceVM interestedInOurServiceVM = new InterestedInOurServiceVM();
+            interestedInOurServiceVM.interestedInOurServiceID = 0;
+            interestedInOurServiceVM.interestedStatus = "ACTIVE";
+            interestedInOurServiceVM.interestedRDate = date;
+            interestedInOurServiceVM.interestedOption = Option;
+            interestedInOurServiceVM.accountID = 0;
+
+            RequestBody body = RequestBody.create(gson.toJson(interestedInOurServiceVM), mediaType);
+            Request request = new Request.Builder()
+                    .url(URL + "/Api/InterestedInOurService/Add")
+                    .post(body)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    loading.hide();
+                    Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                }
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                    final String string_json = response.body().string();
+                    if(response.isSuccessful()){
+                        ResponseVM res = gson.fromJson(string_json, ResponseVM.class);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                loading.hide();
+                                Message("Información", res.message);
+                            }
+                        });
+                    }else{
+                        loading.hide();
+                        Message("Error", response.message() + " - " + response.code());
+                    }
+                }
+            });
+
+        }else{
+            Message("Error", "Por favor ingresa la url del servidor");
+        }
+    }
+    private void Show() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setCancelable(false);
+        builder.setView(R.layout.design_dialog_progress);
+        loading = builder.create();
+        loading.show();
+        loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    }
+    private void Message(String Title, String Message) {
+        MaterialAlertDialogBuilder Builder = new MaterialAlertDialogBuilder(view.getContext());
+        Builder.setTitle(Title)
+                .setMessage(Message)
+                .setPositiveButton("Ok", null).show();
+    }
 
 }
