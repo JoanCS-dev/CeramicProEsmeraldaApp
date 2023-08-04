@@ -142,9 +142,7 @@
             <com.denzcoskun.imageslider.ImageSlider
                 android:id="@+id/image_slider"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginStart="150dp"
-                android:layout_marginEnd="150dp"
+                android:layout_height="400dp"
                 app:iss_auto_cycle="true"
                 app:iss_period="4000"
                 app:iss_delay="4000"
@@ -170,7 +168,7 @@
                     <ImageView
                         android:id="@+id/TeamWork"
                         android:layout_width="match_parent"
-                        android:layout_height="150dp"
+                        android:layout_height="300dp"
                         android:layout_marginTop="10dp"
                         android:src="@drawable/img_part_of_team"
                         />

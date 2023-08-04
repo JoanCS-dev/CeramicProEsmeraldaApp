@@ -10,5 +10,6 @@ public class PeopleRequestVM {
     public String peStreet;
     public String peOutsideCode;
     public String peInsideCode;
+    public String PeCP;
     public long settlementID;
 }

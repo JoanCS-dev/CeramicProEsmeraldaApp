@@ -58,6 +58,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+                android:layout_marginStart="150dp"
+                android:layout_marginEnd="150dp"
                 android:hint="Correo electrónico"
                 android:fontFamily="@font/montserrat">
 
@@ -75,6 +77,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+                android:layout_marginStart="150dp"
+                android:layout_marginEnd="150dp"
                 android:hint="Contraseña"
                 app:passwordToggleEnabled="true"
                 android:fontFamily="@font/montserrat">
@@ -95,8 +99,8 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_gravity="center"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
+            android:layout_marginStart="175dp"
+            android:layout_marginEnd="175dp"
             android:layout_marginBottom="25dp"
             android:backgroundTint="@color/black"
             android:fontFamily="@font/montserrat"

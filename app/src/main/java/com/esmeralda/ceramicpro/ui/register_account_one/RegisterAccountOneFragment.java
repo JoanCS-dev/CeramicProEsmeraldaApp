@@ -55,7 +55,7 @@ public class RegisterAccountOneFragment extends Fragment {
     private MediaType mediaType = MediaType.parse("application/json");
     private String URL = "https://ceramicproesmeralda.azurewebsites.net";
     private ImageButton Back;
-    private TextInputEditText txt_Name, txt_Lastname, txt_Phone, txt_Email, txt_Pass, txt_Confirm_Pass;
+    private TextInputEditText txt_Name, txt_Lastname, txt_Phone, txt_Email, txt_Pass, txt_Confirm_Pass, txt_CodigoPostal;
     private String txt_NameParse, txt_LastnameParse, txt_PhoneParse, txt_EmailParse, txt_PassParse;
     private View view;
     @Override
@@ -75,6 +75,7 @@ public class RegisterAccountOneFragment extends Fragment {
         txt_Email = view.findViewById(R.id.txt_Email);
         txt_Pass = view.findViewById(R.id.txt_Pass);
         txt_Confirm_Pass = view.findViewById(R.id.txt_Confirm_Pass);
+        txt_CodigoPostal = view.findViewById(R.id.txt_CodigoPostal);
         validateBack();
 
         Back.setOnClickListener(new View.OnClickListener() {
@@ -188,6 +189,7 @@ public class RegisterAccountOneFragment extends Fragment {
             peopleRequestVM.peStreet = "SD";
             peopleRequestVM.peOutsideCode = "SD";
             peopleRequestVM.peInsideCode = "SD";
+            peopleRequestVM.PeCP = txt_CodigoPostal.getText().toString();
             peopleRequestVM.settlementID = 0;
 
             AccountRequestVM acc = new AccountRequestVM();

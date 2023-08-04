@@ -14,8 +14,8 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:src="@drawable/ic_ceramic_pro"/>
@@ -25,9 +25,9 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_gravity="bottom"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="150dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="150dp"
             android:backgroundTint="@color/appColor"
             android:fontFamily="@font/montserrat"
             android:text="Regístrate"
@@ -40,9 +40,9 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_gravity="bottom"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="150dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="150dp"
             android:backgroundTint="@color/black"
             android:fontFamily="@font/montserrat"
             android:text="Iniciar sesión"

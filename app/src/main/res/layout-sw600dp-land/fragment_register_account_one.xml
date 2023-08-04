@@ -55,6 +55,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30px"
+                android:layout_marginStart="200dp"
+                android:layout_marginEnd="200dp"
                 android:hint="Nombre(s)"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:fontFamily="@font/montserrat">
@@ -72,6 +74,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30px"
+                android:layout_marginStart="200dp"
+                android:layout_marginEnd="200dp"
                 android:hint="Apellido(s)"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:fontFamily="@font/montserrat">
@@ -87,7 +91,9 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="30px"
+                android:layout_marginStart="200dp"
+                android:layout_marginEnd="200dp"
                 android:hint="Código Postal"
                 android:layout_weight="1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -106,6 +112,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30px"
+                android:layout_marginStart="200dp"
+                android:layout_marginEnd="200dp"
                 android:hint="Celular"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:fontFamily="@font/montserrat">
@@ -124,6 +132,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30px"
+                android:layout_marginStart="200dp"
+                android:layout_marginEnd="200dp"
                 android:hint="Correo electrónico"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:fontFamily="@font/montserrat">
@@ -141,6 +151,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30px"
+                android:layout_marginStart="200dp"
+                android:layout_marginEnd="200dp"
                 android:hint="Contraseña"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:fontFamily="@font/montserrat">
@@ -158,6 +170,8 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="200dp"
+                android:layout_marginEnd="200dp"
                 android:hint="Confirmar contraseña"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:fontFamily="@font/montserrat">
@@ -176,6 +190,8 @@
                 android:layout_height="65dp"
                 android:id="@+id/Btn_Continuar"
                 android:layout_marginBottom="10dp"
+                android:layout_marginStart="200dp"
+                android:layout_marginEnd="200dp"
                 android:layout_marginTop="20dp"
                 android:textAllCaps="false"
                 android:text="Registrar"
