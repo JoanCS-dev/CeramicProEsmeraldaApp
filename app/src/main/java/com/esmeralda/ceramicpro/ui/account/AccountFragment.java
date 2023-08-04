@@ -29,7 +29,7 @@ public class AccountFragment extends Fragment {
     private TextView txt_fullName;
     private ImageView ivQrCodeA;
     private LottieAnimationView ivaQrCodeA;
-    private CardView btn_logout, card_view_alert, card_view_name_account;
+    private CardView btn_logout, card_view_alert, card_view_name_account, cvLast_Date;
     private String strCode;
 
     @Override
@@ -43,6 +43,7 @@ public class AccountFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_account, container, false);
         card_view_alert = view.findViewById(R.id.card_view_alert);
         card_view_name_account = view.findViewById(R.id.card_view_name_account);
+        cvLast_Date = view.findViewById(R.id.Last_Date);
         txt_fullName = view.findViewById(R.id.txt_fullName);
         btn_logout = view.findViewById(R.id.btn_logout);
         ivQrCodeA = view.findViewById(R.id.QR_contentA);
@@ -64,7 +65,7 @@ public class AccountFragment extends Fragment {
         if(fullName.equals("") || fullName.equals("0000000000")){
             card_view_name_account.setVisibility(View.GONE);
             card_view_alert.setVisibility(View.VISIBLE);
-            ivaQrCodeA.setVisibility(View.VISIBLE);
+            //ivaQrCodeA.setVisibility(View.VISIBLE);
         }else{
             card_view_alert.setVisibility(View.GONE);
             card_view_name_account.setVisibility(View.VISIBLE);
@@ -78,6 +79,7 @@ public class AccountFragment extends Fragment {
                 );
                 ivQrCodeA.setImageBitmap(bitmap);
                 ivQrCodeA.setVisibility(View.VISIBLE);
+                cvLast_Date.setVisibility(View.VISIBLE);
             }catch (Exception e) {
                 e.printStackTrace();
             }
