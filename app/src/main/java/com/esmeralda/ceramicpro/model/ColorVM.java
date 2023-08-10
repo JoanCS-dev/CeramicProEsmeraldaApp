@@ -1,9 +1,7 @@
 package com.esmeralda.ceramicpro.model;
 
 public class ColorVM {
-    public String Color;
+    public long id;
+    public String name;
 
-    public ColorVM(String color) {
-        Color = color;
-    }
 }

@@ -1,11 +1,9 @@
 package com.esmeralda.ceramicpro.model;
 
 public class BrandVM {
-    public long Id;
-    public  String Name;
+    public long id;
+    public  String name;
+    public  String url;
 
-    public BrandVM(long id, String name) {
-        Id = id;
-        Name = name;
-    }
+
 }
