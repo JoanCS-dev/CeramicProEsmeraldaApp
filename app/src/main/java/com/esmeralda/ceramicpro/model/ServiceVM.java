@@ -1,9 +1,9 @@
 package com.esmeralda.ceramicpro.model;
 
 public class ServiceVM {
-    public  String Service;
+    public long id;
+    public String name;
+    public float price;
 
-    public ServiceVM(String service) {
-        Service = service;
-    }
+
 }

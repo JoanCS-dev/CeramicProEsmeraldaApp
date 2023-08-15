@@ -1,13 +1,8 @@
 package com.esmeralda.ceramicpro.model;
 
 public class ModelVM {
-    public long Id;
-    public String Name;
-    public long Brand;
+    public long id;
+    public String name;
 
-    public ModelVM(long id, String name, long brand) {
-        Id = id;
-        Name = name;
-        Brand = brand;
-    }
+
 }

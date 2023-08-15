@@ -1,6 +1,5 @@
 package com.esmeralda.ceramicpro.ui.appointment;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,21 +23,26 @@ import com.esmeralda.ceramicpro.R;
 import com.esmeralda.ceramicpro.model.AppointmentResponseVM;
 import com.esmeralda.ceramicpro.model.BrandVM;
 import com.esmeralda.ceramicpro.model.ColorVM;
+import com.esmeralda.ceramicpro.model.HoursRequestVM;
+import com.esmeralda.ceramicpro.model.ModelRequestVM;
 import com.esmeralda.ceramicpro.model.ModelVM;
 import com.esmeralda.ceramicpro.model.QuoteDatesResponseVM;
 import com.esmeralda.ceramicpro.model.QuoteDatesVM;
+import com.esmeralda.ceramicpro.model.QuoteHoursVM;
 import com.esmeralda.ceramicpro.model.QuotesRequestVM;
+import com.esmeralda.ceramicpro.model.ResponseModelVM;
+import com.esmeralda.ceramicpro.model.ResponseQuotesHoursVM;
+import com.esmeralda.ceramicpro.model.ResponseServiceVM;
 import com.esmeralda.ceramicpro.model.ResponseVM;
+import com.esmeralda.ceramicpro.model.ServiceRequestVM;
 import com.esmeralda.ceramicpro.model.ServiceVM;
 import com.esmeralda.ceramicpro.model.TypeVM;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import okhttp3.Call;
@@ -55,18 +59,19 @@ public class AppointmentFragment extends Fragment {
     private View view;
     private Dialog loading;
     private CardView card_view_alert;
-    private TextInputLayout dropdown_type_layout, dropdown_service_layout, dropdown_brand_layout, dropdown_model_layout, dropdown_color_layout, edit_date_layout, dropdown_hour_layout;
-    private AutoCompleteTextView dropdown_type, dropdown_service, dropdown_brand, dropdown_model, dropdown_color, dropdown_hour;
-    private TextInputEditText edit_date;
+    private TextInputLayout dropdown_type_layout, dropdown_service_layout, dropdown_brand_layout, dropdown_model_layout, dropdown_color_layout, dropdown_date_layout, dropdown_hour_layout;
+    private AutoCompleteTextView dropdown_type, dropdown_service, dropdown_brand, dropdown_model, dropdown_color, dropdown_date, dropdown_hour;
+
     private Button btn_confirm;
-    private String typeName, serviceName, colorName, token, URL = "https://ceramicproesmeralda.azurewebsites.net";
+    private String typeName, serviceName, brandName, modelName, dateName, colorName, hoursName, token, URL = "https://ceramicproesmeralda.azurewebsites.net";
     private List<ServiceVM> lst_service;
     private List<BrandVM> lst_brand;
     private List<ModelVM> lst_model;
     private List<ColorVM> lst_color;
+    private List<QuoteHoursVM> lst_hours;
     private List<QuoteDatesVM> lst_dates;
     private List<TypeVM> lst_type;
-    private long brandID, modelID, quoteHoursID;
+    private long brandID, modelID, typeID, dateID, hoursID, serviceID, colorID;
     private int dia, mes, ano;
     private SharedPreferences cookies;
     private OkHttpClient client;
@@ -89,16 +94,16 @@ public class AppointmentFragment extends Fragment {
         dropdown_brand_layout = view.findViewById(R.id.dropdown_brand_layout);
         dropdown_model_layout = view.findViewById(R.id.dropdown_model_layout);
         dropdown_color_layout = view.findViewById(R.id.dropdown_color_layout);
+        dropdown_date_layout = view.findViewById(R.id.dropdown_date_layout);
         dropdown_hour_layout = view.findViewById(R.id.dropdown_hour_layout);
-        edit_date_layout = view.findViewById(R.id.edit_date_layout);
 
         dropdown_type = view.findViewById(R.id.dropdown_type);
         dropdown_service = view.findViewById(R.id.dropdown_service);
         dropdown_brand = view.findViewById(R.id.dropdown_brand);
         dropdown_model = view.findViewById(R.id.dropdown_model);
         dropdown_color = view.findViewById(R.id.dropdown_color);
+        dropdown_date = view.findViewById(R.id.dropdown_date);
         dropdown_hour = view.findViewById(R.id.dropdown_hour);
-        edit_date = view.findViewById(R.id.edit_date);
         btn_confirm = view.findViewById(R.id.btn_confirm);
 
         client = new OkHttpClient();
@@ -115,87 +120,268 @@ public class AppointmentFragment extends Fragment {
             Confirm();
         });
 
-        dropdown_type.setOnItemClickListener((adapterView, view, i, l) -> typeName = adapterView.getItemAtPosition(i).toString());
 
-        dropdown_service.setOnItemClickListener((adapterView, view, i, l) -> serviceName = adapterView.getItemAtPosition(i).toString());
+        dropdown_type.setOnItemClickListener((adapterView, view, i, l) -> {
+            typeName = adapterView.getItemAtPosition(i).toString();
+            typeID = 0;
+            dropdown_service.clearListSelection();
+            dropdown_service.setText("Servicio");
+            for (TypeVM item: lst_type) {
+                if(typeName.equals(item.name)){
+                    typeID = item.id;
+                    if(!URL.equals("") && !token.equals("")){
+                        Show();
+                        ServiceRequestVM serviceRequestVM = new ServiceRequestVM();
+                        serviceRequestVM.TypeServiceVehicleID = typeID;
+                        RequestBody body = RequestBody.create(gson.toJson(serviceRequestVM), mediaType);
+                        Request request = new Request.Builder()
+                                .url(URL + "/Api/Service/GetShortByType")
+                                .post(body)
+                                .addHeader("Authorization", "Bearer " + token)
+                                .addHeader("Content-Type", "application/json")
+                                .build();
 
-        dropdown_brand.setOnItemClickListener((adapterView, view, i, l) -> {
-            String data = adapterView.getItemAtPosition(i).toString();
-            brandID = 0;
-            for (BrandVM item: lst_brand) {
-                if(data.equals(item.name)){
-                    brandID = item.id;
+                        client.newCall(request).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                                loading.hide();
+                                Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                            }
+
+                            @Override
+                            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                final String string_json = response.body().string();
+                                if(response.isSuccessful()){
+                                    ResponseServiceVM res = gson.fromJson(string_json, ResponseServiceVM.class);
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if (res.ok) {
+                                                loading.hide();
+                                                lst_service = res.data;
+
+                                                ArrayList<String> arr_service = new ArrayList<>();
+                                                for (ServiceVM item:lst_service) {
+                                                    arr_service.add(item.name);
+                                                }
+
+                                                ArrayAdapter<String> arrayAdapterService = new ArrayAdapter<>(view.getContext(), R.layout.design_drop_down_item, arr_service);
+
+                                                dropdown_service.setAdapter(arrayAdapterService);
+                                            } else {
+                                                loading.hide();
+                                                Message("Información", res.message);
+                                            }
+                                        }
+                                    });
+                                }else{
+                                    loading.hide();
+                                    Message("Error", response.message() + " - " + response.code());
+                                }
+                            }
+                        });
+
+                    }else{
+                        loading.hide();
+                        Message("Error", "Por favor ingresa la url del servidor e inicia sessión");
+                    }
                     break;
                 }
             }
 
-            ArrayList<String> arr_model = new ArrayList<>();
-            for (ModelVM item:lst_model) {
-                if(item.Brand == brandID){
-                    arr_model.add(item.Name);
+        });
+
+        dropdown_service.setOnItemClickListener((adapterView, view, i, l) -> {
+            serviceName = adapterView.getItemAtPosition(i).toString();
+            serviceID = 0;
+            for (ServiceVM item: lst_service) {
+                if (serviceName.equals(item.name)) {
+                    serviceID = item.id;
+                    break;
                 }
             }
-            ArrayAdapter<String> arrayAdapterModel = new ArrayAdapter<>(view.getContext(), R.layout.design_drop_down_item, arr_model);
-            dropdown_model.setAdapter(arrayAdapterModel);
+        });
+
+
+
+        dropdown_brand.setOnItemClickListener((adapterView, view, i, l) -> {
+            brandName = adapterView.getItemAtPosition(i).toString();
+            brandID = 0;
+            dropdown_model.clearListSelection();
+            dropdown_model.setText("Modelo del vehiculo");
+            for (BrandVM item: lst_brand) {
+                if(brandName.equals(item.name)){
+                    brandID = item.id;
+                    if(!URL.equals("") && !token.equals("")){
+                        Show();
+                        ModelRequestVM modelRequestVM = new ModelRequestVM();
+                        modelRequestVM.vehicleBrandID = brandID;
+                        RequestBody body = RequestBody.create(gson.toJson(modelRequestVM), mediaType);
+                        Request request = new Request.Builder()
+                                .url(URL + "/Api/VehicleModel/DropList")
+                                .post(body)
+                                .addHeader("Authorization", "Bearer " + token)
+                                .addHeader("Content-Type", "application/json")
+                                .build();
+
+                        client.newCall(request).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                                loading.hide();
+                                Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                            }
+
+                            @Override
+                            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                final String string_json = response.body().string();
+                                if(response.isSuccessful()){
+                                    ResponseModelVM res = gson.fromJson(string_json, ResponseModelVM.class);
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if (res.ok) {
+                                                loading.hide();
+                                                lst_model = res.data;
+
+                                                ArrayList<String> arr_model = new ArrayList<>();
+                                                for (ModelVM item:lst_model) {
+                                                    arr_model.add(item.name);
+                                                }
+
+                                                ArrayAdapter<String> arrayAdapterService = new ArrayAdapter<>(view.getContext(), R.layout.design_drop_down_item, arr_model);
+
+                                                dropdown_model.setAdapter(arrayAdapterService);
+                                            } else {
+                                                loading.hide();
+                                                Message("Información", res.message);
+                                            }
+                                        }
+                                    });
+                                }else{
+                                    loading.hide();
+                                    Message("Error", response.message() + " - " + response.code());
+                                }
+                            }
+                        });
+
+                    }else{
+                        loading.hide();
+                        Message("Error", "Por favor ingresa la url del servidor e inicia sessión");
+                    }
+                    break;
+                }
+            }
+
+
         });
 
         dropdown_model.setOnItemClickListener((adapterView, view, i, l) -> {
-            String data = adapterView.getItemAtPosition(i).toString();
+            modelName = adapterView.getItemAtPosition(i).toString();
             modelID = 0;
             for (ModelVM item: lst_model) {
-                if(data.equals(item.Name)){
-                    modelID = item.Id;
+                if(modelName.equals(item.name)){
+                    modelID = item.id;
                     break;
                 }
             }
         });
 
-        dropdown_color.setOnItemClickListener((adapterView, view, i, l) -> colorName = adapterView.getItemAtPosition(i).toString());
+        dropdown_color.setOnItemClickListener((adapterView, view, i, l) -> {
+            colorName = adapterView.getItemAtPosition(i).toString();
+            colorID = 0;
+            for (ColorVM item: lst_color) {
+                if(colorName.equals(item.name)){
+                    colorID = item.id;
+                    break;
+                }
+            }
+        });
 
-        /*dropdown_hour.setOnItemClickListener((adapterView, view, i, l) -> {
-            String hour = adapterView.getItemAtPosition(i).toString();
-            for (QuoteDatesVM date_item: lst_dates) {
-                if(date_item.quoteDates.equals(edit_date.getText().toString())){
-                    for (QuoteHoursVM hour_item: date_item.quoteHours) {
-                        if(hour.equals(hour_item.quoteHour)){
-                            quoteHoursID = hour_item.quoteHoursID;
-                            break;
-                        }
+        dropdown_date.setOnItemClickListener((adapterView, view, i, l) -> {
+            dateName = adapterView.getItemAtPosition(i).toString();
+            dateID = 0;
+            dropdown_hour.clearListSelection();
+            dropdown_hour.setText("Hora de la cita");
+            for (QuoteDatesVM item: lst_dates) {
+                if(dateName.equals(item.name)){
+                    dateID = item.id;
+                    if(!URL.equals("") && !token.equals("")){
+                        Show();
+                        HoursRequestVM hoursRequestVM = new HoursRequestVM();
+                        hoursRequestVM.QuoteDatesID = dateID;
+                        RequestBody body = RequestBody.create(gson.toJson(hoursRequestVM), mediaType);
+                        Request request = new Request.Builder()
+                                .url(URL + "/Api/QuoteHour/GetShortByDate")
+                                .post(body)
+                                .addHeader("Authorization", "Bearer " + token)
+                                .addHeader("Content-Type", "application/json")
+                                .build();
+
+                        client.newCall(request).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                                loading.hide();
+                                Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                            }
+
+                            @Override
+                            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                final String string_json = response.body().string();
+                                if(response.isSuccessful()){
+                                    ResponseQuotesHoursVM res = gson.fromJson(string_json, ResponseQuotesHoursVM.class);
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if (res.ok) {
+                                                loading.hide();
+                                                lst_hours = res.data;
+
+                                                ArrayList<String> arr_hours = new ArrayList<>();
+                                                for (QuoteHoursVM item:lst_hours) {
+                                                    arr_hours.add(item.name);
+                                                }
+
+                                                ArrayAdapter<String> arrayAdapterService = new ArrayAdapter<>(view.getContext(), R.layout.design_drop_down_item, arr_hours);
+
+                                                dropdown_hour.setAdapter(arrayAdapterService);
+                                            } else {
+                                                loading.hide();
+                                                Message("Información", res.message);
+                                            }
+                                        }
+                                    });
+                                }else{
+                                    loading.hide();
+                                    Message("Error", response.message() + " - " + response.code());
+                                }
+                            }
+                        });
+
+                    }else{
+                        loading.hide();
+                        Message("Error", "Por favor ingresa la url del servidor e inicia sessión");
                     }
                     break;
                 }
             }
-        });*/
 
-        edit_date.setOnClickListener(view -> {
-            if(!token.equals("") || !token.equals("0000000000")){
 
-                Calendar c = Calendar.getInstance();
-                dia = c.get(Calendar.DAY_OF_MONTH);
-                mes = c.get(Calendar.MONTH);
-                ano = c.get(Calendar.YEAR);
+        });
 
-                DatePickerDialog dialog = new DatePickerDialog(view.getContext(), (datePicker, i, i1, i2) -> {
-                    String date = AddC(i) +"-"+AddC(i1+1)+"-"+AddC(i2);
-                    edit_date.setText(date);
-
-                    ArrayList<String> arr = new ArrayList<>();
-                    for (QuoteDatesVM item : lst_dates) {
-                        if(item.name.equals(date)){
-                            //for (QuoteHoursVM hour : item.quoteHours){
-                            //    arr.add(hour.quoteHour);
-                            //}
-                            break;
-                        }
-                    }
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(view.getContext(), R.layout.design_drop_down_item, arr);
-                    dropdown_hour.setAdapter(arrayAdapter);
-
-                }, ano, mes, dia);
-
-                dialog.show();
+        dropdown_hour.setOnItemClickListener((adapterView, view, i, l) -> {
+            hoursName = adapterView.getItemAtPosition(i).toString();
+            hoursID = 0;
+            for (QuoteHoursVM item: lst_hours) {
+                if (hoursName.equals(item.name)) {
+                    hoursID = item.id;
+                    break;
+                }
             }
         });
+
+
+
+
 
         if(token.equals("") || token.equals("0000000000")){
             card_view_alert.setVisibility(View.VISIBLE);
@@ -215,17 +401,17 @@ public class AppointmentFragment extends Fragment {
         dropdown_model_layout.setEnabled(sts);
         dropdown_color_layout.setEnabled(sts);
         dropdown_hour_layout.setEnabled(sts);
-        edit_date_layout.setEnabled(sts);
+        dropdown_date_layout.setEnabled(sts);
         btn_confirm.setEnabled(sts);
     }
     public void Confirm() {
         if(!URL.equals("")){
             QuotesRequestVM quotesRequestVM = new QuotesRequestVM();
             quotesRequestVM.quotesID = 0;
-            quotesRequestVM.quoteHoursID = quoteHoursID;
-            quotesRequestVM.quotesService = serviceName;
-            quotesRequestVM.quotesColor = colorName;
+            quotesRequestVM.servicePriceID = serviceID;
+            quotesRequestVM.colorID = colorID;
             quotesRequestVM.quotesSTS = "ACTIVO";
+            quotesRequestVM.quoteHoursID = hoursID;
             quotesRequestVM.accountID = 0;
             quotesRequestVM.vehicleModelID = modelID;
 
@@ -305,11 +491,14 @@ public class AppointmentFragment extends Fragment {
                                     lst_type = res.data.type;
 
 
-
-
+                                    ArrayList<String> arr_date = new ArrayList<>();
                                     ArrayList<String> arr_type = new ArrayList<>();
                                     ArrayList<String> arr_color = new ArrayList<>();
                                     ArrayList<String> arr_brand = new ArrayList<>();
+
+                                    for (QuoteDatesVM item:lst_dates) {
+                                        arr_date.add(item.name);
+                                    }
                                     for (TypeVM item:lst_type) {
                                         arr_type.add(item.name);
                                     }
@@ -322,9 +511,11 @@ public class AppointmentFragment extends Fragment {
                                         arr_brand.add(item.name);
                                     }
 
+                                    ArrayAdapter<String> arrayAdapterDate = new ArrayAdapter<>(view.getContext(), R.layout.design_drop_down_item, arr_date);
                                     ArrayAdapter<String> arrayAdapterType = new ArrayAdapter<>(view.getContext(), R.layout.design_drop_down_item, arr_type);
                                     ArrayAdapter<String> arrayAdapterColor = new ArrayAdapter<>(view.getContext(), R.layout.design_drop_down_item, arr_color);
                                     ArrayAdapter<String> arrayAdapterBrand = new ArrayAdapter<>(view.getContext(), R.layout.design_drop_down_item, arr_brand);
+                                    dropdown_date.setAdapter(arrayAdapterDate);
                                     dropdown_type.setAdapter(arrayAdapterType);
                                     dropdown_color.setAdapter(arrayAdapterColor);
                                     dropdown_brand.setAdapter(arrayAdapterBrand);
