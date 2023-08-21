@@ -1,7 +1,9 @@
 package com.esmeralda.ceramicpro.ui.home;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -26,11 +28,14 @@ import com.esmeralda.ceramicpro.MainActivity;
 import com.esmeralda.ceramicpro.R;
 import com.esmeralda.ceramicpro.model.AccountRequestVM;
 import com.esmeralda.ceramicpro.model.InterestedInOurServiceVM;
+import com.esmeralda.ceramicpro.model.JoinOurTeamRequestVM;
 import com.esmeralda.ceramicpro.model.PeopleRequestVM;
 import com.esmeralda.ceramicpro.model.ResponseVM;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -70,8 +75,10 @@ public class HomeFragment extends Fragment {
         List<SlideModel> imageList = new ArrayList<>(); // Create image list
         dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
         teamwork = view.findViewById(R.id.TeamWork);
+
         client = new OkHttpClient();
         gson = new Gson();
+
         img_inversion = view.findViewById(R.id.img_Inversion);
         img_new = view.findViewById(R.id.img_New);
         img_maintenance = view.findViewById(R.id.img_Maintenance);
@@ -137,9 +144,67 @@ public class HomeFragment extends Fragment {
         View view = getLayoutInflater().inflate(R.layout.request_dialog,null,false);
 
         Button btn_send = view.findViewById(R.id.Btn_Send);
+        TextInputEditText txt_NameFullRD = view.findViewById(R.id.txt_NameFull);
+        TextInputEditText txt_EmailRD = view.findViewById(R.id.txt_Email);
+        TextInputEditText txt_PhoneNumberRD = view.findViewById(R.id.txt_PhoneNumber);
 
         btn_send.setOnClickListener(view1 -> {
-            dialog.dismiss();
+            String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            if(!URL.equals("")){
+                Show();
+                JoinOurTeamRequestVM joinOurTeamRequestVM = new JoinOurTeamRequestVM();
+                joinOurTeamRequestVM.joinOurTeamID = 0;
+                joinOurTeamRequestVM.joinStatus = "ACTIVO";
+                joinOurTeamRequestVM.joinRDate = date;
+                joinOurTeamRequestVM.joinFullName = txt_NameFullRD.getText().toString();
+                joinOurTeamRequestVM.joinEmail = txt_EmailRD.getText().toString();
+                joinOurTeamRequestVM.joinPhoneNumber = txt_PhoneNumberRD.getText().toString();
+                joinOurTeamRequestVM.accountID = 0;
+
+                RequestBody body = RequestBody.create(gson.toJson(joinOurTeamRequestVM), mediaType);
+                Request request = new Request.Builder()
+                        .url(URL + "/Api/JoinOurTeam/Add")
+                        .post(body)
+                        .addHeader("Content-Type", "application/json")
+                        .build();
+
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                        loading.hide();
+                        Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                    }
+
+                    @Override
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                        final String string_json = response.body().string();
+                        if(response.isSuccessful()){
+                            ResponseVM res = gson.fromJson(string_json, ResponseVM.class);
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (res.ok) {
+                                        loading.hide();
+                                        Message("Correcto", res.message);
+                                        dialog.dismiss();
+                                    }else{
+                                        loading.hide();
+                                        Message("Información", res.message);
+                                    }
+                                }
+                            });
+                        }else{
+                            loading.hide();
+                            Message("Error", response.message() + " - " + response.code());
+                        }
+                    }
+                });
+
+            }else{
+                loading.hide();
+                Message("Error", "Por favor ingresa la url del servidor");
+            }
+
         });
 
         dialog.setContentView(view);
@@ -189,6 +254,7 @@ public class HomeFragment extends Fragment {
             });
 
         }else{
+            loading.hide();
             Message("Error", "Por favor ingresa la url del servidor");
         }
     }

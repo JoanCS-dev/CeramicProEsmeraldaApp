@@ -111,9 +111,16 @@ public class AppointmentFragment extends Fragment {
         cookies = view.getContext().getSharedPreferences("SHA_CST_DB", Context.MODE_PRIVATE);
         token = cookies.getString("strToken", "");
 
-
+        if(token.equals("") || token.equals("0000000000")){
+            card_view_alert.setVisibility(View.VISIBLE);
+            enable(false);
+        }else{
+            card_view_alert.setVisibility(View.GONE);
+            enable(true);
+            SearchData();
+        }
         gson = new Gson();
-        SearchData();
+
         //InitLst();
         btn_confirm.setOnClickListener(view -> {
             Show();
@@ -383,14 +390,7 @@ public class AppointmentFragment extends Fragment {
 
 
 
-        if(token.equals("") || token.equals("0000000000")){
-            card_view_alert.setVisibility(View.VISIBLE);
-            enable(false);
-        }else{
-            card_view_alert.setVisibility(View.GONE);
-            enable(true);
-            SearchDates();
-        }
+
 
         return view;
     }
@@ -432,7 +432,7 @@ public class AppointmentFragment extends Fragment {
 
                 @Override
                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                    loading.hide();
+
                     final String string_json = response.body().string();
                     if(response.isSuccessful()){
                         ResponseVM res = gson.fromJson(string_json, ResponseVM.class);
@@ -440,13 +440,16 @@ public class AppointmentFragment extends Fragment {
                             @Override
                             public void run() {
                                 if (res.ok) {
+                                    loading.hide();
                                     Message("Correcto", res.message);
                                 } else {
+                                    loading.hide();
                                     Message("Información", res.message);
                                 }
                             }
                         });
                     }else{
+                        loading.hide();
                         Message("Error", response.message() + " - " + response.code());
                     }
                 }
@@ -592,35 +595,7 @@ public class AppointmentFragment extends Fragment {
         }
         return n;
     }
-    private void InitLst(){
-        lst_type = new ArrayList<>();
-        lst_brand = new ArrayList<>();
-        lst_model = new ArrayList<>();
-        lst_color = new ArrayList<>();
 
-
-        ArrayList<String> arr_type = new ArrayList<>();
-        ArrayList<String> arr_color = new ArrayList<>();
-        ArrayList<String> arr_brand = new ArrayList<>();
-        for (TypeVM item:lst_type) {
-            arr_type.add(item.name);
-        }
-
-        for (ColorVM item:lst_color) {
-            arr_color.add(item.name);
-        }
-
-        for (BrandVM item:lst_brand) {
-            arr_brand.add(item.name);
-        }
-
-        ArrayAdapter<String> arrayAdapterType = new ArrayAdapter<>(view.getContext(), R.layout.design_drop_down_item, arr_type);
-        ArrayAdapter<String> arrayAdapterColor = new ArrayAdapter<>(view.getContext(), R.layout.design_drop_down_item, arr_color);
-        ArrayAdapter<String> arrayAdapterBrand = new ArrayAdapter<>(view.getContext(), R.layout.design_drop_down_item, arr_brand);
-        dropdown_type.setAdapter(arrayAdapterType);
-        dropdown_color.setAdapter(arrayAdapterColor);
-        dropdown_brand.setAdapter(arrayAdapterBrand);
-    }
     private void Show() {
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         builder.setCancelable(false);
