@@ -33,9 +33,8 @@
                 android:id="@+id/btn_back_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:paddingTop="15dp"
-                android:src="@drawable/ic_arrow_back_24" />
+                style="@style/BgStyle"
+                android:paddingTop="15dp"/>
 
             <TextView
                 android:id="@+id/loginlable"
@@ -43,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:text="Iniciar sesión"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                style="@style/TextBold"
                 android:textSize="35sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/montserrat"/>
@@ -87,12 +86,13 @@
 
     </LinearLayout>
 
+
     <Button
         android:id="@+id/Btn_Login"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_gravity="center"
-        android:backgroundTint="@color/black"
+        style="@style/ButtomAlternative"
         android:layout_marginEnd="25dp"
         android:layout_marginStart="25dp"
         android:layout_marginBottom="25dp"
@@ -104,5 +104,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:fontFamily="@font/montserrat"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

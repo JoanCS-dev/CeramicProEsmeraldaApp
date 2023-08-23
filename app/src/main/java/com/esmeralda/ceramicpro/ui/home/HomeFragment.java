@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
@@ -62,6 +63,10 @@ public class HomeFragment extends Fragment {
     private Gson gson;
     private Dialog loading;
     private MaterialCardView cw_inversion, cw_new, cw_maintenance;
+
+    private SharedPreferences cookies;
+    private TextView themename;
+    private String NameTheme;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +84,9 @@ public class HomeFragment extends Fragment {
         client = new OkHttpClient();
         gson = new Gson();
 
+        themename = view.findViewById(R.id.themeNameHome);
+        NameTheme = themename.getText().toString();
+
         img_inversion = view.findViewById(R.id.img_Inversion);
         img_new = view.findViewById(R.id.img_New);
         img_maintenance = view.findViewById(R.id.img_Maintenance);
@@ -90,9 +98,16 @@ public class HomeFragment extends Fragment {
         cw_inversion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                img_inversion.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_Inversion), android.graphics.PorterDuff.Mode.MULTIPLY);
-                img_new.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
-                img_maintenance.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
+                if(NameTheme.equals("White")){
+                    img_inversion.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_Inversion), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    img_new.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    img_maintenance.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
+                }else{
+                    img_inversion.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_Inversion), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    img_new.setColorFilter(ContextCompat.getColor(getContext(), R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    img_maintenance.setColorFilter(ContextCompat.getColor(getContext(), R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
+                }
+
                 Show();
                 SaveInterested("OPTION1");
             }
@@ -100,9 +115,16 @@ public class HomeFragment extends Fragment {
         cw_new.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                img_inversion.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
-                img_new.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_New), android.graphics.PorterDuff.Mode.MULTIPLY);
-                img_maintenance.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
+                if(NameTheme.equals("White")) {
+                    img_inversion.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    img_new.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_New), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    img_maintenance.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
+                }else{
+                    img_inversion.setColorFilter(ContextCompat.getColor(getContext(), R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    img_new.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_New), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    img_maintenance.setColorFilter(ContextCompat.getColor(getContext(), R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
+                }
+
                 Show();
                 SaveInterested("OPTION2");
             }
@@ -110,9 +132,16 @@ public class HomeFragment extends Fragment {
         cw_maintenance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                img_inversion.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
-                img_new.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
-                img_maintenance.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_Maintenance), android.graphics.PorterDuff.Mode.MULTIPLY);
+                if(NameTheme.equals("White")) {
+                    img_inversion.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    img_new.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    img_maintenance.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_Maintenance), android.graphics.PorterDuff.Mode.MULTIPLY);
+                }else{
+                    img_inversion.setColorFilter(ContextCompat.getColor(getContext(), R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    img_new.setColorFilter(ContextCompat.getColor(getContext(), R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
+                    img_maintenance.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_Maintenance), android.graphics.PorterDuff.Mode.MULTIPLY);
+                }
+
                 Show();
                 SaveInterested("OPTION3");
             }

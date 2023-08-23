@@ -27,8 +27,7 @@
                     android:id="@+id/Btn_Back_F"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:src="@drawable/ic_arrow_back_24"
+                    style="@style/BgStyle"
                     android:paddingTop="15dp"/>
                 <TextView
                     android:layout_width="match_parent"
@@ -36,7 +35,7 @@
                     android:text="Regístrate"
                     android:layout_marginBottom="30px"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    style="@style/TextBold"
                     android:textSize="35sp"
                     android:textStyle="bold"
                     android:fontFamily="@font/montserrat"/>
@@ -179,7 +178,7 @@
                 android:layout_marginTop="20dp"
                 android:textAllCaps="false"
                 android:text="Registrar"
-                android:backgroundTint="@color/black"
+                style="@style/ButtomAlternative"
                 android:textSize="20sp"
                 app:cornerRadius="12dp"
                 android:fontFamily="@font/montserrat"/>

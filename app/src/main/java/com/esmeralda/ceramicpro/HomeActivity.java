@@ -27,8 +27,6 @@ public class HomeActivity extends AppCompatActivity {
 
         cookies = getSharedPreferences("SHA_CST_DB", MODE_PRIVATE);
 
-
-
         LoginRedirect = findViewById(R.id.Btn_Act_Login);
         RegisterRedirect = findViewById(R.id.Btn_Act_Register);
         Invitado = findViewById(R.id.Btn_Invitado);

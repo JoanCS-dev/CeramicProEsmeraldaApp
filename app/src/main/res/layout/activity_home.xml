@@ -13,7 +13,7 @@
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:layout_marginTop="150dp"
-        android:src="@drawable/ic_ceramic_pro"/>
+        style="@style/ImageAppTheme"/>
 
     <Button
         android:id="@+id/Btn_Act_Register"
@@ -38,7 +38,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:backgroundTint="@color/black"
+        style="@style/ButtomAlternative"
         android:fontFamily="@font/montserrat"
         android:text="Iniciar sesión"
         android:textAllCaps="false"
@@ -56,7 +56,7 @@
         android:paddingTop="10dp"
         android:text="Continuar como invitado"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        style="@style/TextAlternative"
         android:textSize="20sp" />
     <FrameLayout
         android:layout_width="match_parent"

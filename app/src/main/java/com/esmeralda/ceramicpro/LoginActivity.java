@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.esmeralda.ceramicpro.model.AuthRequestVM;
@@ -45,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText txt_Email, txt_Pass;
     private String URL = "https://ceramicproesmeralda.azurewebsites.net";
     private SharedPreferences cookies;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
