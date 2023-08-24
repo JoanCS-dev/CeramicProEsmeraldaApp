@@ -109,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     loading.hide();
                     Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                    LogIn();
 
                 }
 
@@ -136,6 +137,7 @@ public class LoginActivity extends AppCompatActivity {
                     }else{
                         loading.hide();
                         Message("Error", response.message() + " - " + response.code());
+                        LogIn();
                     }
 
 
