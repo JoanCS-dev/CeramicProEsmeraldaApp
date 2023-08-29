@@ -55,14 +55,11 @@
     <style name="CVbgStyle">
         <item name="android:backgroundTint">#434343</item>
     </style>
-    <style name="AccountStyle">
-        <item name="android:src">@drawable/ic_account_24_white</item>
-    </style>
 
     <!-- Customize icon. -->
 
     <style name="BgStyle">
-        <item name="android:backgroundTint">@color/black</item>
+        <item name="android:backgroundTint">?android:attr/windowBackground</item>
         <item name="android:src">@drawable/ic_arrow_back_24_white</item>
     </style>
 
@@ -74,6 +71,12 @@
     </style>
     <style name="TimeStyle">
         <item name="android:src">@drawable/ic_access_time_48_white</item>
+    </style>
+    <style name="AccountStyle">
+        <item name="android:src">@drawable/ic_account_24_white</item>
+    </style>
+    <style name="QrStyle">
+        <item name="android:src">@drawable/ic_qr_code_white_24</item>
     </style>
 
     <!-- Customize theme variable. -->

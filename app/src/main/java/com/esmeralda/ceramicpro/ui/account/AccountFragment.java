@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.esmeralda.ceramicpro.HomeActivity;
 import com.esmeralda.ceramicpro.LoginActivity;
 import com.esmeralda.ceramicpro.MainActivity;
+import com.esmeralda.ceramicpro.QRActivity;
 import com.esmeralda.ceramicpro.R;
 import com.esmeralda.ceramicpro.model.AppointmentResponseVM;
 import com.esmeralda.ceramicpro.model.BrandVM;
@@ -67,6 +69,7 @@ public class AccountFragment extends Fragment {
     private CardView btn_logout, card_view_alert, card_view_name_account, cvLast_Date;
     private String strCode;
     private OkHttpClient client;
+    private ImageButton gotoqrcode;
     private Gson gson;
 
     @Override
@@ -83,6 +86,7 @@ public class AccountFragment extends Fragment {
         cvLast_Date = view.findViewById(R.id.Last_Date);
         txt_fullName = view.findViewById(R.id.txt_fullName);
         btn_logout = view.findViewById(R.id.btn_logout);
+        gotoqrcode = view.findViewById(R.id.btn_gotoqrcode);
         ivQrCodeA = view.findViewById(R.id.QR_contentA);
         ivaQrCodeA = view.findViewById(R.id.QR_content_AnimA);
 
@@ -98,6 +102,10 @@ public class AccountFragment extends Fragment {
         btn_logout.setOnClickListener(view -> {
             RegisterToken("0000000000", "0000000000", "0000000000");
             startActivity(new Intent(view.getContext(), HomeActivity.class));
+        });
+
+        gotoqrcode.setOnClickListener(view -> {
+            startActivity(new Intent(view.getContext(), QRActivity.class));
         });
         ShowFullName();
 
@@ -116,15 +124,6 @@ public class AccountFragment extends Fragment {
             card_view_alert.setVisibility(View.GONE);
             card_view_name_account.setVisibility(View.VISIBLE);
             try {
-                BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-                Bitmap bitmap = barcodeEncoder.encodeBitmap(
-                        strCode,
-                        BarcodeFormat.QR_CODE,
-                        1000,
-                        1000
-                );
-                ivQrCodeA.setImageBitmap(bitmap);
-                ivQrCodeA.setVisibility(View.VISIBLE);
                 cvLast_Date.setVisibility(View.VISIBLE);
                 SearchData();
             }catch (Exception e) {
@@ -132,7 +131,7 @@ public class AccountFragment extends Fragment {
             }
 
         }
-        txt_fullName.setText(fullName);
+        txt_fullName.setText(fullName.substring(0, 20) + "...");
     }
 
     public void RegisterToken(String strToken, String fullName, String strCode){

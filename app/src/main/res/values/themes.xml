@@ -58,7 +58,7 @@
     <!-- Customize icon. -->
 
     <style name="BgStyle">
-        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:backgroundTint">?android:attr/windowBackground</item>
         <item name="android:src">@drawable/ic_arrow_back_24</item>
     </style>
 
@@ -73,6 +73,9 @@
     </style>
     <style name="AccountStyle">
         <item name="android:src">@drawable/ic_account_24</item>
+    </style>
+    <style name="QrStyle">
+        <item name="android:src">@drawable/ic_qr_code_black_24</item>
     </style>
 
     <!-- Customize theme variable. -->
