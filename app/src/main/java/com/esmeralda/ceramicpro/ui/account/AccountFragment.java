@@ -125,6 +125,7 @@ public class AccountFragment extends Fragment {
             card_view_name_account.setVisibility(View.VISIBLE);
             try {
                 cvLast_Date.setVisibility(View.VISIBLE);
+
                 txt_fullName.setText(fullName.substring(0, 20) + "...");
                 SearchData();
             }catch (Exception e) {
