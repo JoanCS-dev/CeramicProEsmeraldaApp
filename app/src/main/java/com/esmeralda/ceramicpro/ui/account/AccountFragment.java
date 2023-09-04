@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.esmeralda.ceramicpro.AppointmentHistoryActivity;
 import com.esmeralda.ceramicpro.HomeActivity;
 import com.esmeralda.ceramicpro.LoginActivity;
 import com.esmeralda.ceramicpro.MainActivity;
@@ -102,6 +103,11 @@ public class AccountFragment extends Fragment {
         btn_logout.setOnClickListener(view -> {
             RegisterToken("0000000000", "0000000000", "0000000000");
             startActivity(new Intent(view.getContext(), HomeActivity.class));
+        });
+
+        cvLast_Date.setOnClickListener(view -> {
+            RegisterToken("0000000000", "0000000000", "0000000000");
+            startActivity(new Intent(view.getContext(), AppointmentHistoryActivity.class));
         });
 
         gotoqrcode.setOnClickListener(view -> {
