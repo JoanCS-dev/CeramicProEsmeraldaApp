@@ -62,12 +62,12 @@ public class AccountFragment extends Fragment {
     private SharedPreferences cookies;
     private Dialog loading;
     private View view;
-    private TextView txt_fullName, title_lastappointment, title_date, msgs;
+    private TextView txt_fullName;
     private ImageView ivQrCodeA;
     private LottieAnimationView ivaQrCodeA;
     private List<LastAppointmentVM> lst;
     private String token, URL = "https://ceramicproesmeralda.azurewebsites.net";
-    private CardView btn_logout, card_view_alert, card_view_name_account, cvLast_Date;
+    private CardView btn_logout, btn_history, card_view_alert, card_view_name_account;
     private String strCode;
     private OkHttpClient client;
     private ImageButton gotoqrcode;
@@ -84,16 +84,14 @@ public class AccountFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_account, container, false);
         card_view_alert = view.findViewById(R.id.card_view_alert);
         card_view_name_account = view.findViewById(R.id.card_view_name_account);
-        cvLast_Date = view.findViewById(R.id.Last_Date);
         txt_fullName = view.findViewById(R.id.txt_fullName);
         btn_logout = view.findViewById(R.id.btn_logout);
+        btn_history = view.findViewById(R.id.btn_history);
         gotoqrcode = view.findViewById(R.id.btn_gotoqrcode);
         ivQrCodeA = view.findViewById(R.id.QR_contentA);
         ivaQrCodeA = view.findViewById(R.id.QR_content_AnimA);
 
-        title_lastappointment = view.findViewById(R.id.title_last_appointment);
-        title_date = view.findViewById(R.id.title_datetime);
-        msgs = view.findViewById(R.id.msg);
+
 
         client = new OkHttpClient();
         gson = new Gson();
@@ -105,8 +103,7 @@ public class AccountFragment extends Fragment {
             startActivity(new Intent(view.getContext(), HomeActivity.class));
         });
 
-        cvLast_Date.setOnClickListener(view -> {
-            RegisterToken("0000000000", "0000000000", "0000000000");
+        btn_history.setOnClickListener(view -> {
             startActivity(new Intent(view.getContext(), AppointmentHistoryActivity.class));
         });
 
@@ -130,10 +127,9 @@ public class AccountFragment extends Fragment {
             card_view_alert.setVisibility(View.GONE);
             card_view_name_account.setVisibility(View.VISIBLE);
             try {
-                cvLast_Date.setVisibility(View.VISIBLE);
+                //cvLast_Date.setVisibility(View.VISIBLE);
 
                 txt_fullName.setText(fullName.substring(0, 20) + "...");
-                SearchData();
             }catch (Exception e) {
                 e.printStackTrace();
             }
@@ -151,70 +147,7 @@ public class AccountFragment extends Fragment {
         editor.apply();
     }
 
-    private void SearchData() {
-        if(!URL.equals("") && !token.equals("")){
-            Show();
-            LastAppointmentRequestVM lastAppointmentRequestVM = new LastAppointmentRequestVM();
-            lastAppointmentRequestVM.quotesID = 0;
-            lastAppointmentRequestVM.servicePriceID = 0;
-            lastAppointmentRequestVM.colorID = 0;
-            lastAppointmentRequestVM.serviceDesc = "";
-            lastAppointmentRequestVM.colorName = "";
-            lastAppointmentRequestVM.quotesSTS = "";
-            lastAppointmentRequestVM.quoteHoursID = 0;
-            lastAppointmentRequestVM.accountID = 0;
-            lastAppointmentRequestVM.vehicleModelID = 0;
-            RequestBody body = RequestBody.create(gson.toJson(lastAppointmentRequestVM), mediaType);
-            Request request = new Request.Builder()
-                    .url(URL + "/Api/Quotes/List")
-                    .post(body)
-                    .addHeader("Authorization", "Bearer " + token)
-                    .addHeader("Content-Type", "application/json")
-                    .build();
 
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                    loading.hide();
-                    Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
-                }
-
-                @Override
-                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                    final String string_json = response.body().string();
-                    if(response.isSuccessful()){
-                        LastAppointmentResponseVM res = gson.fromJson(string_json, LastAppointmentResponseVM.class);
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (res.ok) {
-                                    loading.hide();
-                                    lst = res.data;
-
-                                    for (LastAppointmentVM item:lst) {
-                                        title_lastappointment.setText(item.quotesSTS);
-                                        title_date.setText(item.quotesDate + "\n" + item.quotesHour);
-                                        msgs.setText("Servicio: " + item.serviceDesc + "\n" + "Vehiculo: " + item.vehicleBrandName + " - " + item.vehicleModelName);
-                                    }
-
-                                } else{
-                                    loading.hide();
-                                    Message("Información", res.message);
-                                }
-                            }
-                        });
-                    }else{
-                        loading.hide();
-                        Message("Error", response.message() + " - " + response.code());
-                    }
-                }
-            });
-
-        }else{
-            loading.hide();
-            Message("Error", "Por favor ingresa la url del servidor e inicia sessión");
-        }
-    }
 
     private void Show() {
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
