@@ -112,6 +112,7 @@ public class AccountFragment extends Fragment {
         strCode = cookies.getString("strCode", "0");
         if(fullName.equals("") || fullName.equals("0000000000")){
             card_view_name_account.setVisibility(View.GONE);
+            btn_history.setVisibility(View.GONE);
             card_view_alert.setVisibility(View.VISIBLE);
         }else{
             card_view_alert.setVisibility(View.GONE);

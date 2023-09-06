@@ -65,7 +65,7 @@ public class AppointmentHistoryActivity extends AppCompatActivity {
         swipeLayout = findViewById(R.id.swap);
         swipeLayout.setOnRefreshListener(() -> {
             swipeLayout.setRefreshing(false);
-            SearchData();
+            Clear();
         });
 
         lastAppointmentArray = new ArrayList<>();
@@ -78,6 +78,13 @@ public class AppointmentHistoryActivity extends AppCompatActivity {
         back.setOnClickListener(view -> {
             startActivity(new Intent(this, MainActivity.class));
         });
+    }
+
+    private void Clear(){
+        recycleAppointment.setAdapter(null);
+        lst.clear();
+        lastAppointmentArray.clear();
+        SearchData();
     }
 
     private void SearchData() {
@@ -165,6 +172,7 @@ public class AppointmentHistoryActivity extends AppCompatActivity {
         AppointmentAdapter appointmentAdapter = new AppointmentAdapter(this, lastAppointmentArray);
         recycleAppointment.setLayoutManager(new LinearLayoutManager(this));
         recycleAppointment.setAdapter(appointmentAdapter);
+
     }
 
     private void Show() {

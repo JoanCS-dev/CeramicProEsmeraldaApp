@@ -417,7 +417,10 @@ public class AppointmentFragment extends Fragment {
         dropdown_color_layout.setEnabled(sts);
         dropdown_hour_layout.setEnabled(sts);
         dropdown_date_layout.setEnabled(sts);
-        btn_confirm.setEnabled(sts);
+        if(!sts){
+            btn_confirm.setVisibility(view.GONE);
+        }
+
     }
     public void Confirm() {
         if(!URL.equals("")){

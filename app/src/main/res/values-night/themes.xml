@@ -78,6 +78,9 @@
     <style name="QrStyle">
         <item name="android:src">@drawable/ic_qr_code_white_24</item>
     </style>
+    <style name="ArrowStyle">
+        <item name="android:src">@drawable/ic_arrow_right_white_24</item>
+    </style>
 
     <!-- Customize theme variable. -->
     <style name="VariableTheme">
