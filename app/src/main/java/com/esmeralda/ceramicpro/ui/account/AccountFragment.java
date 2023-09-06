@@ -60,12 +60,8 @@ import okhttp3.Response;
 public class AccountFragment extends Fragment {
     private MediaType mediaType = MediaType.parse("application/json");
     private SharedPreferences cookies;
-    private Dialog loading;
     private View view;
     private TextView txt_fullName;
-    private ImageView ivQrCodeA;
-    private LottieAnimationView ivaQrCodeA;
-    private List<LastAppointmentVM> lst;
     private String token, URL = "https://ceramicproesmeralda.azurewebsites.net";
     private CardView btn_logout, btn_history, card_view_alert, card_view_name_account;
     private String strCode;
@@ -88,11 +84,6 @@ public class AccountFragment extends Fragment {
         btn_logout = view.findViewById(R.id.btn_logout);
         btn_history = view.findViewById(R.id.btn_history);
         gotoqrcode = view.findViewById(R.id.btn_gotoqrcode);
-        ivQrCodeA = view.findViewById(R.id.QR_contentA);
-        ivaQrCodeA = view.findViewById(R.id.QR_content_AnimA);
-
-
-
         client = new OkHttpClient();
         gson = new Gson();
         cookies = view.getContext().getSharedPreferences("SHA_CST_DB", Context.MODE_PRIVATE);
@@ -122,13 +113,10 @@ public class AccountFragment extends Fragment {
         if(fullName.equals("") || fullName.equals("0000000000")){
             card_view_name_account.setVisibility(View.GONE);
             card_view_alert.setVisibility(View.VISIBLE);
-            //ivaQrCodeA.setVisibility(View.VISIBLE);
         }else{
             card_view_alert.setVisibility(View.GONE);
             card_view_name_account.setVisibility(View.VISIBLE);
             try {
-                //cvLast_Date.setVisibility(View.VISIBLE);
-
                 txt_fullName.setText(fullName.substring(0, 20) + "...");
             }catch (Exception e) {
                 e.printStackTrace();
@@ -147,21 +135,5 @@ public class AccountFragment extends Fragment {
         editor.apply();
     }
 
-
-
-    private void Show() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-        builder.setCancelable(false);
-        builder.setView(R.layout.design_dialog_progress);
-        loading = builder.create();
-        loading.show();
-        loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-    }
-    private void Message(String Title, String Message) {
-        MaterialAlertDialogBuilder Builder = new MaterialAlertDialogBuilder(view.getContext());
-        Builder.setTitle(Title)
-                .setMessage(Message)
-                .setPositiveButton("Ok", null).show();
-    }
 
 }

@@ -98,7 +98,7 @@ public class HomeFragment extends Fragment {
         cw_inversion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(NameTheme.equals("White")){
+               /* if(NameTheme.equals("White")){
                     img_inversion.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_Inversion), android.graphics.PorterDuff.Mode.MULTIPLY);
                     img_new.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
                     img_maintenance.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
@@ -106,7 +106,7 @@ public class HomeFragment extends Fragment {
                     img_inversion.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_Inversion), android.graphics.PorterDuff.Mode.MULTIPLY);
                     img_new.setColorFilter(ContextCompat.getColor(getContext(), R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
                     img_maintenance.setColorFilter(ContextCompat.getColor(getContext(), R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
-                }
+                }*/
 
                 Show();
                 SaveInterested("OPTION1");
@@ -115,7 +115,7 @@ public class HomeFragment extends Fragment {
         cw_new.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(NameTheme.equals("White")) {
+                /*if(NameTheme.equals("White")) {
                     img_inversion.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
                     img_new.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_New), android.graphics.PorterDuff.Mode.MULTIPLY);
                     img_maintenance.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
@@ -123,7 +123,7 @@ public class HomeFragment extends Fragment {
                     img_inversion.setColorFilter(ContextCompat.getColor(getContext(), R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
                     img_new.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_New), android.graphics.PorterDuff.Mode.MULTIPLY);
                     img_maintenance.setColorFilter(ContextCompat.getColor(getContext(), R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
-                }
+                }*/
 
                 Show();
                 SaveInterested("OPTION2");
@@ -132,7 +132,7 @@ public class HomeFragment extends Fragment {
         cw_maintenance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(NameTheme.equals("White")) {
+                /*if(NameTheme.equals("White")) {
                     img_inversion.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
                     img_new.setColorFilter(ContextCompat.getColor(getContext(), R.color.black), android.graphics.PorterDuff.Mode.MULTIPLY);
                     img_maintenance.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_Maintenance), android.graphics.PorterDuff.Mode.MULTIPLY);
@@ -140,7 +140,7 @@ public class HomeFragment extends Fragment {
                     img_inversion.setColorFilter(ContextCompat.getColor(getContext(), R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
                     img_new.setColorFilter(ContextCompat.getColor(getContext(), R.color.white), android.graphics.PorterDuff.Mode.MULTIPLY);
                     img_maintenance.setColorFilter(ContextCompat.getColor(getContext(), R.color.color_Maintenance), android.graphics.PorterDuff.Mode.MULTIPLY);
-                }
+                }*/
 
                 Show();
                 SaveInterested("OPTION3");
@@ -200,8 +200,13 @@ public class HomeFragment extends Fragment {
                 client.newCall(request).enqueue(new Callback() {
                     @Override
                     public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                        loading.hide();
-                        Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                loading.hide();
+                                Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                            }
+                        });
                     }
 
                     @Override
@@ -259,9 +264,14 @@ public class HomeFragment extends Fragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                    loading.hide();
-                    Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
-                }
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loading.hide();
+                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                        }
+                    });
+                    }
 
                 @Override
                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
@@ -293,7 +303,6 @@ public class HomeFragment extends Fragment {
         builder.setView(R.layout.design_dialog_progress);
         loading = builder.create();
         loading.show();
-        loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
     private void Message(String Title, String Message) {
         MaterialAlertDialogBuilder Builder = new MaterialAlertDialogBuilder(view.getContext());

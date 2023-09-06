@@ -12,6 +12,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -20,6 +22,8 @@ import android.widget.Toast;
 
 import com.esmeralda.ceramicpro.model.AuthRequestVM;
 import com.esmeralda.ceramicpro.model.AuthResponseVM;
+import com.esmeralda.ceramicpro.model.LastAppointmentResponseVM;
+import com.esmeralda.ceramicpro.model.LastAppointmentVM;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
@@ -46,6 +50,9 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText txt_Email, txt_Pass;
     private String URL = "https://ceramicproesmeralda.azurewebsites.net";
     private SharedPreferences cookies;
+    private Handler mHandler;
+
+    private HandlerThread mHandlerThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,49 +110,49 @@ public class LoginActivity extends AppCompatActivity {
                     .post(body)
                     .addHeader("Content-Type", "application/json")
                     .build();
+
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
-
-                    loading.hide();
-                    Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
-                    LogIn();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loading.hide();
+                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                        }
+                    });
 
                 }
 
                 @Override
                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-
                     final String string_json = response.body().string();
                     if(response.isSuccessful()){
                         AuthResponseVM res = gson.fromJson(string_json, AuthResponseVM.class);
-                            LoginActivity.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (res.ok) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (res.ok) {
                                     RegisterToken(res.data.strToken, res.data.fullName, res.data.strCode);
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                    loading.hide();
                                     finish();
-                                }else{
+
+                                } else{
                                     loading.hide();
                                     Message("Información", res.message);
-                                    }
                                 }
-                            });
-
+                            }
+                        });
                     }else{
                         loading.hide();
                         Message("Error", response.message() + " - " + response.code());
-                        LogIn();
                     }
-
-
                 }
             });
 
         }else{
-            Message("Error", "Por favor ingresa la url del servidor");
+            loading.hide();
+            Message("Error", "Por favor ingresa la url del servidor e inicia sessión");
         }
     }
     private void Show() {
@@ -183,5 +190,10 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("fullName", fullName);
         editor.putString("strCode", strCode);
         editor.apply();
+    }
+    public void startHandlerThread(){
+        mHandlerThread = new HandlerThread("HandlerThread");
+        mHandlerThread.start();
+        mHandler = new Handler(mHandlerThread.getLooper());
     }
 }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -47,6 +48,7 @@ public class AppointmentHistoryActivity extends AppCompatActivity {
     private Gson gson;
     private OkHttpClient client;
     private String token, URL = "https://ceramicproesmeralda.azurewebsites.net";
+    private SwipeRefreshLayout swipeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,12 @@ public class AppointmentHistoryActivity extends AppCompatActivity {
         token = cookies.getString("strToken", "");
 
         back = findViewById(R.id.btn_back_home_activity);
+
+        swipeLayout = findViewById(R.id.swap);
+        swipeLayout.setOnRefreshListener(() -> {
+            swipeLayout.setRefreshing(false);
+            SearchData();
+        });
 
         lastAppointmentArray = new ArrayList<>();
         recycleAppointment = findViewById(R.id.RecycleAppointment);
@@ -96,8 +104,14 @@ public class AppointmentHistoryActivity extends AppCompatActivity {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                    loading.hide();
-                    Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                    AppointmentHistoryActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loading.hide();
+                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                        }
+                    });
+
                 }
 
                 @Override
@@ -159,7 +173,6 @@ public class AppointmentHistoryActivity extends AppCompatActivity {
         builder.setView(R.layout.design_dialog_progress);
         loading = builder.create();
         loading.show();
-        loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
     private void Message(String Title, String Message) {
         MaterialAlertDialogBuilder Builder = new MaterialAlertDialogBuilder(this);

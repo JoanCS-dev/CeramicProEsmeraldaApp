@@ -215,9 +215,15 @@ public class RegisterAccountOneFragment extends Fragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                    loading.hide();
-                    Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
-                    SaveAs();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loading.hide();
+                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+
+                        }
+                    });
+
                 }
 
                 @Override
@@ -247,7 +253,6 @@ public class RegisterAccountOneFragment extends Fragment {
 
         }else{
             Message("Error", "Por favor ingresa la url del servidor");
-            SaveAs();
         }
     }
 }

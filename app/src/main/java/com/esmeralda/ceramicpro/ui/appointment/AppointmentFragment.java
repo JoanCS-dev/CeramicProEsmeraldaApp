@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,7 +77,7 @@ public class AppointmentFragment extends Fragment {
     private SharedPreferences cookies;
     private OkHttpClient client;
     private Gson gson;
-
+    private SwipeRefreshLayout swipeLayout;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +90,11 @@ public class AppointmentFragment extends Fragment {
 
         card_view_alert = view.findViewById(R.id.card_view_alert);
 
+        swipeLayout = view.findViewById(R.id.swap);
+        swipeLayout.setOnRefreshListener(() -> {
+            swipeLayout.setRefreshing(false);
+            SearchData();
+        });
         dropdown_type_layout = view.findViewById(R.id.dropdown_type_layout);
         dropdown_service_layout = view.findViewById(R.id.dropdown_service_layout);
         dropdown_brand_layout = view.findViewById(R.id.dropdown_brand_layout);
@@ -151,8 +157,14 @@ public class AppointmentFragment extends Fragment {
                         client.newCall(request).enqueue(new Callback() {
                             @Override
                             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                                loading.hide();
-                                Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        loading.hide();
+                                        Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                                    }
+                                });
+
                             }
 
                             @Override
@@ -234,8 +246,13 @@ public class AppointmentFragment extends Fragment {
                         client.newCall(request).enqueue(new Callback() {
                             @Override
                             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                                loading.hide();
-                                Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        loading.hide();
+                                        Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                                    }
+                                });
                             }
 
                             @Override
@@ -327,8 +344,13 @@ public class AppointmentFragment extends Fragment {
                         client.newCall(request).enqueue(new Callback() {
                             @Override
                             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                                loading.hide();
-                                Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        loading.hide();
+                                        Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                                    }
+                                });
                             }
 
                             @Override
@@ -385,13 +407,6 @@ public class AppointmentFragment extends Fragment {
                 }
             }
         });
-
-
-
-
-
-
-
         return view;
     }
     private void enable(Boolean sts){
@@ -426,8 +441,13 @@ public class AppointmentFragment extends Fragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                    loading.hide();
-                    Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loading.hide();
+                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                        }
+                    });
                 }
 
                 @Override
@@ -474,8 +494,13 @@ public class AppointmentFragment extends Fragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                    //loading.hide();
-                    Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loading.hide();
+                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                        }
+                    });
                 }
 
                 @Override
@@ -529,53 +554,6 @@ public class AppointmentFragment extends Fragment {
                             }
                         });
                     }else{
-                        //loading.hide();
-                        Message("Error", response.message() + " - " + response.code());
-                    }
-                }
-            });
-
-        }else{
-            //loading.hide();
-            Message("Error", "Por favor ingresa la url del servidor e inicia sessión");
-        }
-    }
-    private void SearchDates() {
-        if(!URL.equals("") && !token.equals("")){
-            Show();
-            RequestBody body = RequestBody.create("", mediaType);
-            Request request = new Request.Builder()
-                    .url(URL + "/Api/Quotes/ListQuotes")
-                    .post(body)
-                    .addHeader("Authorization", "Bearer " + token)
-                    .addHeader("Content-Type", "application/json")
-                    .build();
-
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                    loading.hide();
-                    Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
-                }
-
-                @Override
-                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                    final String string_json = response.body().string();
-                    if(response.isSuccessful()){
-                        QuoteDatesResponseVM res = gson.fromJson(string_json, QuoteDatesResponseVM.class);
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (res.ok) {
-                                    loading.hide();
-                                    lst_dates = res.data;
-                                } else {
-                                    loading.hide();
-                                    Message("Información", res.message);
-                                }
-                            }
-                        });
-                    }else{
                         loading.hide();
                         Message("Error", response.message() + " - " + response.code());
                     }
@@ -583,17 +561,9 @@ public class AppointmentFragment extends Fragment {
             });
 
         }else{
+            loading.hide();
             Message("Error", "Por favor ingresa la url del servidor e inicia sessión");
         }
-    }
-    private String AddC(int No){
-        String n = "";
-        if(No < 10){
-            n = "0" + No;
-        }else{
-            n = "" + No;
-        }
-        return n;
     }
 
     private void Show() {

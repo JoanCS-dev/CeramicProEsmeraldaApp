@@ -86,27 +86,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-
-
-                <ImageView
-                    android:id="@+id/QR_contentA"
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:paddingTop="10dp"
-                    />
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/QR_content_AnimA"
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    app:lottie_rawRes="@raw/animation_lkixhxcn"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="false"/>
-
-
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/btn_history"
                 android:layout_width="match_parent"
