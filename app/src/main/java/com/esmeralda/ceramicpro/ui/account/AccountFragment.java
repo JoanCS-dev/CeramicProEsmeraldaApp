@@ -13,6 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +32,7 @@ import com.esmeralda.ceramicpro.HomeActivity;
 import com.esmeralda.ceramicpro.LoginActivity;
 import com.esmeralda.ceramicpro.MainActivity;
 import com.esmeralda.ceramicpro.QRActivity;
+import com.esmeralda.ceramicpro.QRFragment;
 import com.esmeralda.ceramicpro.R;
 import com.esmeralda.ceramicpro.model.AppointmentResponseVM;
 import com.esmeralda.ceramicpro.model.BrandVM;
@@ -95,11 +100,12 @@ public class AccountFragment extends Fragment {
         });
 
         btn_history.setOnClickListener(view -> {
-            startActivity(new Intent(view.getContext(), AppointmentHistoryActivity.class));
+            Navigation.findNavController(view).navigate(R.id.action_navigation_account_to_navigation_appointment_history);
         });
 
         gotoqrcode.setOnClickListener(view -> {
-            startActivity(new Intent(view.getContext(), QRActivity.class));
+            Navigation.findNavController(view).navigate(R.id.action_navigation_account_to_navigation_qr);
+            //startActivity(new Intent(view.getContext(), QRActivity.class));
         });
         ShowFullName();
 

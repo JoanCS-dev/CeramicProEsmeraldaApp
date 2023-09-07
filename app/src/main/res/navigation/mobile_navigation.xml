@@ -29,5 +29,32 @@
         android:id="@+id/navigation_account"
         android:name="com.esmeralda.ceramicpro.ui.account.AccountFragment"
         android:label="@string/title_account"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_navigation_account_to_navigation_qr"
+            app:destination="@id/navigation_qr" />
+        <action
+            android:id="@+id/action_navigation_account_to_navigation_appointment_history"
+            app:destination="@id/navigation_appointment_history" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_qr"
+        android:name="com.esmeralda.ceramicpro.QRFragment"
+        android:label="@string/title_qr"
+        tools:layout="@layout/fragment_q_r" >
+        <action
+            android:id="@+id/action_navigation_qr_to_navigation_account"
+            app:destination="@id/navigation_account" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_appointment_history"
+        android:name="com.esmeralda.ceramicpro.AppointmentHistoryFragment"
+        android:label="@string/title_AppointmentHistoryFragment"
+        tools:layout="@layout/fragment_appointment_history" >
+        <action
+            android:id="@+id/action_navigation_appointment_history_to_navigation_account"
+            app:destination="@id/navigation_account" />
+    </fragment>
 </navigation>

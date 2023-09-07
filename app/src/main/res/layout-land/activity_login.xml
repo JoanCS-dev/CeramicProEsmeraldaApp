@@ -32,7 +32,7 @@
                 android:layout_marginBottom="100px"
                 android:orientation="horizontal">
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/btn_back_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

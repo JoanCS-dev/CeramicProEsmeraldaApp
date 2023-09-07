@@ -20,30 +20,30 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="100px"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/btn_back_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/BgStyle"
-            android:paddingTop="15dp"/>
-
-        <TextView
-            android:id="@+id/loginlable"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Código QR"
-            android:textAlignment="center"
-            style="@style/TextBold"
-            android:textSize="35sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/montserrat"/>
-    </FrameLayout>
+            android:layout_height="match_parent"
+            android:layout_marginBottom="100px"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/btn_back_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BgStyle"
+                android:paddingTop="15dp"/>
+
+            <TextView
+                android:id="@+id/loginlable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Código QR"
+                android:textAlignment="center"
+                style="@style/TextBold"
+                android:textSize="35sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/montserrat"/>
+        </FrameLayout>
     </LinearLayout>
 
     <androidx.cardview.widget.CardView

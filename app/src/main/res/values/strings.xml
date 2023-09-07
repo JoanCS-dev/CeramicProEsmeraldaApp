@@ -6,6 +6,8 @@
     <string name="title_membership">Membresía</string>
     <string name="title_subscriptions">Paquetes</string>
     <string name="title_account">Cuenta</string>
+    <string name="title_qr">QR</string>
+    <string name="title_AppointmentHistoryFragment">AppointmentHistory</string>
     <string name="str_app_version">©2023 Ceramic Pro Esmeralda v1.03</string>
     <string name="themeAppStrDark">Dark</string>
     <string name="themeAppStrWhite">White</string>

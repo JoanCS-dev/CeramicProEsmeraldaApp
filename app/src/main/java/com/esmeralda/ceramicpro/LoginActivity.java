@@ -17,6 +17,7 @@ import android.os.HandlerThread;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     private OkHttpClient client;
     private Gson gson;
     private AlertDialog loading;
-    private ImageButton Back;
+    private ImageView Back;
     private Button Ingresar;
     private TextInputEditText txt_Email, txt_Pass;
     private String URL = "https://ceramicproesmeralda.azurewebsites.net";
@@ -161,7 +162,6 @@ public class LoginActivity extends AppCompatActivity {
         builder.setView(R.layout.design_dialog_progress);
         loading = builder.create();
         loading.show();
-        loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
     private void Message(String Title, String Message) {
         MaterialAlertDialogBuilder Builder = new MaterialAlertDialogBuilder(LoginActivity.this);
@@ -191,9 +191,5 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("strCode", strCode);
         editor.apply();
     }
-    public void startHandlerThread(){
-        mHandlerThread = new HandlerThread("HandlerThread");
-        mHandlerThread.start();
-        mHandler = new Handler(mHandlerThread.getLooper());
-    }
+
 }

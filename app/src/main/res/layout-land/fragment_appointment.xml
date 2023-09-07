@@ -7,7 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.appointment.AppointmentFragment">
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swap"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="270dp"
+        android:layout_height="wrap_content">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </RelativeLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -197,16 +207,6 @@
 
         </LinearLayout>
     </ScrollView>
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swap"
-        android:layout_width="match_parent"
-        android:layout_marginBottom="270dp"
-        android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </RelativeLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

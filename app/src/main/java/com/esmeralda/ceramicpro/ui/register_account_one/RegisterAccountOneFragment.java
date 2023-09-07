@@ -123,7 +123,7 @@ public class RegisterAccountOneFragment extends Fragment {
                     getParentFragmentManager().setFragmentResult("requestKey", result);
                     Fragment fragment = new RegisterAccountTwoFragment();
                     FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
-                    fm.replace(R.id.container, fragment).commit();*/
+                    fm.replace(R.id.containerR, fragment).commit();*/
                 }
             }
         });

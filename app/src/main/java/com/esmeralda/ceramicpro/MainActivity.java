@@ -3,6 +3,7 @@ package com.esmeralda.ceramicpro;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private SharedPreferences cookies;
     private String strToken, fullName, strCode;
     private ActivityMainBinding binding;
+    private View fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+        fragment = findViewById(R.id.nav_host_fragment_activity_main);
+
+        navView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+
+            }
+        });
 
         Init();
     }
@@ -48,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     private void Init(){
         ValidateSession();
     }
+
+
 
     private void ValidateSession(){
         cookies = getSharedPreferences("SHA_CST_DB", MODE_PRIVATE);

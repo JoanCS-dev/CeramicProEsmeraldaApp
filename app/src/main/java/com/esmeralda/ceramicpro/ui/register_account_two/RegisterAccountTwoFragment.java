@@ -129,7 +129,7 @@ public class RegisterAccountTwoFragment extends Fragment {
             validateBack();
             Fragment fragment = new RegisterAccountOneFragment();
             FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
-            fm.replace(R.id.container,fragment).commit();
+            fm.replace(R.id.containerR,fragment).commit();
         });
 
         B_Register_Full.setOnClickListener(view -> {

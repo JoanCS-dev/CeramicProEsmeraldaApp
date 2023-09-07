@@ -1,32 +1,32 @@
 package com.esmeralda.ceramicpro;
 
+import android.app.Dialog;
+import android.content.ClipData;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.esmeralda.ceramicpro.model.LastAppointmentRequestVM;
 import com.esmeralda.ceramicpro.model.LastAppointmentResponseVM;
 import com.esmeralda.ceramicpro.model.LastAppointmentVM;
 import com.esmeralda.ceramicpro.ui.account.AccountFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 
@@ -42,8 +42,10 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class AppointmentHistoryActivity extends AppCompatActivity {
+public class AppointmentHistoryFragment extends Fragment {
 
+    private View view;
+    BottomNavigationView bottomNavigationView;
     RecyclerView recycleAppointment;
     AppointmentAdapter rvAppointmentAdapter;
     ArrayList<LastAppointmentVM> lastAppointmentArray;
@@ -58,39 +60,41 @@ public class AppointmentHistoryActivity extends AppCompatActivity {
     private SwipeRefreshLayout swipeLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_appointment_history);
 
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_appointment_history, container, false);
         client = new OkHttpClient();
         gson = new Gson();
-        cookies = getSharedPreferences("SHA_CST_DB", Context.MODE_PRIVATE);
+        cookies = view.getContext().getSharedPreferences("SHA_CST_DB", Context.MODE_PRIVATE);
         token = cookies.getString("strToken", "");
+        back = view.findViewById(R.id.btn_back_home_activity);
 
-        back = findViewById(R.id.btn_back_home_activity);
-
-        swipeLayout = findViewById(R.id.swap);
+        swipeLayout = view.findViewById(R.id.swap);
         swipeLayout.setOnRefreshListener(() -> {
             swipeLayout.setRefreshing(false);
             Clear();
         });
 
         lastAppointmentArray = new ArrayList<>();
-        recycleAppointment = findViewById(R.id.RecycleAppointment);
-        recycleAppointment.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        rvAppointmentAdapter = new AppointmentAdapter(AppointmentHistoryActivity.this, lastAppointmentArray);
+        recycleAppointment = view.findViewById(R.id.RecycleAppointment);
+        recycleAppointment.setLayoutManager(new LinearLayoutManager(view.getContext().getApplicationContext()));
+        rvAppointmentAdapter = new AppointmentAdapter(view.getContext(), lastAppointmentArray);
         recycleAppointment.setAdapter(rvAppointmentAdapter);
         SearchData();
 
         back.setOnClickListener(view -> {
-            Fragment fragment = new AccountFragment();
-            FragmentTransaction fm = getSupportFragmentManager().beginTransaction();
-            fm.addToBackStack("AccountFragment");
-            fm.replace(R.id.container,fragment,"AccountFragment").commit();
+            Navigation.findNavController(view).navigate(R.id.action_navigation_appointment_history_to_navigation_account);
 
         });
+        return view;
     }
-
 
     private void Clear(){
         recycleAppointment.setAdapter(null);
@@ -123,7 +127,7 @@ public class AppointmentHistoryActivity extends AppCompatActivity {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                    AppointmentHistoryActivity.this.runOnUiThread(new Runnable() {
+                    getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             loading.hide();
@@ -138,7 +142,7 @@ public class AppointmentHistoryActivity extends AppCompatActivity {
                     final String string_json = response.body().string();
                     if(response.isSuccessful()){
                         LastAppointmentResponseVM res = gson.fromJson(string_json, LastAppointmentResponseVM.class);
-                        AppointmentHistoryActivity.this.runOnUiThread(new Runnable() {
+                        getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 if (res.ok) {
@@ -181,24 +185,24 @@ public class AppointmentHistoryActivity extends AppCompatActivity {
     }
 
     private void PutDataIntoRecyclerView(List<LastAppointmentVM> lastAppointmentArray){
-        AppointmentAdapter appointmentAdapter = new AppointmentAdapter(this, lastAppointmentArray);
-        recycleAppointment.setLayoutManager(new LinearLayoutManager(this));
+        AppointmentAdapter appointmentAdapter = new AppointmentAdapter(view.getContext(), lastAppointmentArray);
+        recycleAppointment.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recycleAppointment.setAdapter(appointmentAdapter);
 
     }
 
     private void Show() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         builder.setCancelable(false);
         builder.setView(R.layout.design_dialog_progress);
         loading = builder.create();
         loading.show();
+        loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
     private void Message(String Title, String Message) {
-        MaterialAlertDialogBuilder Builder = new MaterialAlertDialogBuilder(this);
+        MaterialAlertDialogBuilder Builder = new MaterialAlertDialogBuilder(view.getContext());
         Builder.setTitle(Title)
                 .setMessage(Message)
                 .setPositiveButton("Ok", null).show();
     }
-
 }
