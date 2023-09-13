@@ -49,7 +49,11 @@ public class QRFragment extends Fragment {
         strCode = cookies.getString("strCode", "0");
 
         back_home.setOnClickListener(view -> {
-            Navigation.findNavController(view).navigate(R.id.action_navigation_qr_to_navigation_account);
+            Fragment fragment = new AccountFragment();
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.nav_host_fragment_activity_main, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         });
 
         try {

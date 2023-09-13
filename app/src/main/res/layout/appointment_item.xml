@@ -13,7 +13,12 @@
     android:layout_marginTop="10dp"
     app:cardCornerRadius="20dp">
 
-
+    <TextView
+        android:id="@+id/Color_Theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/VariableTheme"
+        android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,9 +26,9 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/LastAppointment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/grayBlack"
                 android:orientation="vertical"
                 android:padding="10dp">
 
@@ -70,6 +75,7 @@
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/LY_Background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -169,6 +175,21 @@
                     android:textSize="16sp"
                     android:text="-----"
                     android:fontFamily="@font/montserrat"/>
+
+                <TextView
+                    android:id="@+id/id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+
+                <Button
+                    android:visibility="gone"
+                    android:id="@+id/Date_Cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancelar cita"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"/>
 
 
             </LinearLayout>

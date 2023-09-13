@@ -114,13 +114,9 @@
                             android:gravity="center"
                             android:textSize="15sp"
                             android:text="1 capa de vidrio en el parabrisas"
-                            android:fontFamily="@font/montserrat"/>
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Contratar"
-                            android:layout_gravity="center"
+                            android:fontFamily="@font/montserrat"
                             android:layout_marginBottom="10dp"/>
+
                     </LinearLayout>
                 </LinearLayout>
 
@@ -219,12 +215,7 @@
                             android:gravity="center"
                             android:textSize="15sp"
                             android:text="1 capa de vidrio en el parabrisas"
-                            android:fontFamily="@font/montserrat"/>
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Contratar"
-                            android:layout_gravity="center"
+                            android:fontFamily="@font/montserrat"
                             android:layout_marginBottom="10dp"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -317,13 +308,9 @@
                             android:gravity="center"
                             android:textSize="15sp"
                             android:text="1 capa de vidrio en el parabrisas"
-                            android:fontFamily="@font/montserrat"/>
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Contratar"
-                            android:layout_gravity="center"
+                            android:fontFamily="@font/montserrat"
                             android:layout_marginBottom="10dp"/>
+
                     </LinearLayout>
                 </LinearLayout>
 

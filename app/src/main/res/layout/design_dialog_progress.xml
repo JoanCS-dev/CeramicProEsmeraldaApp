@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="Cargando..."
             android:textStyle="bold"
-            android:textColor="@color/black"
+            style="@style/TextAlternative"
             android:layout_marginTop="8dp"
             android:layout_gravity="center"
             android:fontFamily="@font/montserrat"/>

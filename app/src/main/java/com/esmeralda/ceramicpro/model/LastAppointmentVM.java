@@ -28,6 +28,14 @@ public class LastAppointmentVM {
     public LastAppointmentVM() {
     }
 
+    public long getQuotesID() {
+        return quotesID;
+    }
+
+    public void setQuotesID(long quotesID) {
+        this.quotesID = quotesID;
+    }
+
     public String getQuotesDate() {
         return quotesDate;
     }

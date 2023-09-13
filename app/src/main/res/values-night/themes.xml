@@ -39,6 +39,9 @@
     <style name="TextAlternative2" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/white</item>
     </style>
+    <style name="TextAlternative3" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/black</item>
+    </style>
     <style name="ButtomAlternative">
         <item name="android:backgroundTint">#505050</item>
     </style>
@@ -51,6 +54,9 @@
     </style>
     <style name="ImageAppTheme">
         <item name="android:src">@drawable/ic_ceramic_pro_black</item>
+    </style>
+    <style name="ImageAppTheme2">
+        <item name="android:src">@drawable/ic_ceramic_pro_black_plus_ceramic</item>
     </style>
     <style name="CVbgStyle">
         <item name="android:backgroundTint">#434343</item>

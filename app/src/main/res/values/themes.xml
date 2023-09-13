@@ -51,6 +51,9 @@
     <style name="ImageAppTheme">
         <item name="android:src">@drawable/ic_ceramic_pro</item>
     </style>
+    <style name="ImageAppTheme2">
+        <item name="android:src">@drawable/ic_ceramic_pro_plus_ceramic</item>
+    </style>
     <style name="CVbgStyle">
         <item name="android:backgroundTint">@color/grayLight</item>
     </style>

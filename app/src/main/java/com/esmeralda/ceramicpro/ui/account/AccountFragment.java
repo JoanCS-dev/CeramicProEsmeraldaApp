@@ -2,6 +2,7 @@ package com.esmeralda.ceramicpro.ui.account;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.esmeralda.ceramicpro.AppointmentHistoryActivity;
+import com.esmeralda.ceramicpro.AppointmentHistoryFragment;
 import com.esmeralda.ceramicpro.HomeActivity;
 import com.esmeralda.ceramicpro.LoginActivity;
 import com.esmeralda.ceramicpro.MainActivity;
@@ -66,8 +68,8 @@ public class AccountFragment extends Fragment {
     private MediaType mediaType = MediaType.parse("application/json");
     private SharedPreferences cookies;
     private View view;
-    private TextView txt_fullName;
-    private String token, URL = "https://ceramicproesmeralda.azurewebsites.net";
+    private TextView txt_fullName, close_sesion;
+    private String token, URL = "https://ceramicproesmeralda.azurewebsites.net/Api/";
     private CardView btn_logout, btn_history, card_view_alert, card_view_name_account;
     private String strCode;
     private OkHttpClient client;
@@ -89,22 +91,46 @@ public class AccountFragment extends Fragment {
         btn_logout = view.findViewById(R.id.btn_logout);
         btn_history = view.findViewById(R.id.btn_history);
         gotoqrcode = view.findViewById(R.id.btn_gotoqrcode);
+        close_sesion = view.findViewById(R.id.close_session);
         client = new OkHttpClient();
         gson = new Gson();
         cookies = view.getContext().getSharedPreferences("SHA_CST_DB", Context.MODE_PRIVATE);
         token = cookies.getString("strToken", "");
 
         btn_logout.setOnClickListener(view -> {
-            RegisterToken("0000000000", "0000000000", "0000000000");
-            startActivity(new Intent(view.getContext(), HomeActivity.class));
+            if(token.equals("") || token.equals("0000000000")){
+                RegisterToken("0000000000", "0000000000", "0000000000");
+                startActivity(new Intent(view.getContext(), HomeActivity.class));
+            }else{
+                MaterialAlertDialogBuilder Builder = new MaterialAlertDialogBuilder(view.getContext());
+                Builder.setTitle("Cerrar Sesión")
+                        .setMessage("¿Seguro que desea cerrar sesión?")
+                        .setCancelable(false);
+
+                Builder.setPositiveButton("Ok", (dialog, which) -> {
+                    RegisterToken("0000000000", "0000000000", "0000000000");
+                    startActivity(new Intent(view.getContext(), HomeActivity.class));
+                });
+                Builder.setNegativeButton("Cancelar", null);
+                Builder.show();
+            }
+
         });
 
         btn_history.setOnClickListener(view -> {
-            Navigation.findNavController(view).navigate(R.id.action_navigation_account_to_navigation_appointment_history);
+            Fragment fragment = new AppointmentHistoryFragment();
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.nav_host_fragment_activity_main, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         });
 
         gotoqrcode.setOnClickListener(view -> {
-            Navigation.findNavController(view).navigate(R.id.action_navigation_account_to_navigation_qr);
+            Fragment fragment = new QRFragment();
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.nav_host_fragment_activity_main, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
             //startActivity(new Intent(view.getContext(), QRActivity.class));
         });
         ShowFullName();
@@ -120,6 +146,7 @@ public class AccountFragment extends Fragment {
             card_view_name_account.setVisibility(View.GONE);
             btn_history.setVisibility(View.GONE);
             card_view_alert.setVisibility(View.VISIBLE);
+            close_sesion.setText("Salir");
         }else{
             card_view_alert.setVisibility(View.GONE);
             card_view_name_account.setVisibility(View.VISIBLE);

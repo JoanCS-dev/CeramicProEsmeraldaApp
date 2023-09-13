@@ -46,6 +46,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -59,7 +61,7 @@ public class HomeFragment extends Fragment {
     private View view;
     private BottomSheetDialog dialog;
     private ImageView teamwork, img_inversion, img_new, img_maintenance;
-    private String URL = "https://ceramicproesmeralda.azurewebsites.net";
+    private String URL = "https://ceramicproesmeralda.azurewebsites.net/Api/";
     private MediaType mediaType = MediaType.parse("application/json");
     private OkHttpClient client;
     private Gson gson;
@@ -182,71 +184,88 @@ public class HomeFragment extends Fragment {
 
         btn_send.setOnClickListener(view1 -> {
             String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-            if(!URL.equals("")){
-                Show();
-                JoinOurTeamRequestVM joinOurTeamRequestVM = new JoinOurTeamRequestVM();
-                joinOurTeamRequestVM.joinOurTeamID = 0;
-                joinOurTeamRequestVM.joinStatus = "ACTIVO";
-                joinOurTeamRequestVM.joinRDate = date;
-                joinOurTeamRequestVM.joinFullName = txt_NameFullRD.getText().toString();
-                joinOurTeamRequestVM.joinEmail = txt_EmailRD.getText().toString();
-                joinOurTeamRequestVM.joinPhoneNumber = txt_PhoneNumberRD.getText().toString();
-                joinOurTeamRequestVM.accountID = 0;
+            if(txt_NameFullRD.getText().toString().equals("")){
+                Message("Información", "Por favor, ingresa el nombre completo");
+            } else if (txt_EmailRD.getText().toString().equals("")) {
+                Message("Información", "Por favor, ingresa el correo electrónico");
+            } else if (!ValidEmail(txt_EmailRD.getText().toString())) {
+                Message("Información", "Por favor escribe un correo electrónico valido");
+            } else if (txt_PhoneNumberRD.getText().toString().equals("")) {
+                Message("Información", "Por favor, ingresa el número teléfonico");
+            }else{
+                if(!URL.equals("")){
+                    Show();
+                    JoinOurTeamRequestVM joinOurTeamRequestVM = new JoinOurTeamRequestVM();
+                    joinOurTeamRequestVM.joinOurTeamID = 0;
+                    joinOurTeamRequestVM.joinStatus = "ACTIVO";
+                    joinOurTeamRequestVM.joinRDate = date;
+                    joinOurTeamRequestVM.joinFullName = txt_NameFullRD.getText().toString();
+                    joinOurTeamRequestVM.joinEmail = txt_EmailRD.getText().toString();
+                    joinOurTeamRequestVM.joinPhoneNumber = txt_PhoneNumberRD.getText().toString();
+                    joinOurTeamRequestVM.accountID = 0;
 
-                RequestBody body = RequestBody.create(gson.toJson(joinOurTeamRequestVM), mediaType);
-                Request request = new Request.Builder()
-                        .url(URL + "/Api/JoinOurTeam/Add")
-                        .post(body)
-                        .addHeader("Content-Type", "application/json")
-                        .build();
+                    RequestBody body = RequestBody.create(gson.toJson(joinOurTeamRequestVM), mediaType);
+                    Request request = new Request.Builder()
+                            .url(URL + "/AppJoinOurTeam/Add")
+                            .post(body)
+                            .addHeader("Content-Type", "application/json")
+                            .build();
 
-                client.newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                loading.hide();
-                                Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                        final String string_json = response.body().string();
-                        if(response.isSuccessful()){
-                            ResponseVM res = gson.fromJson(string_json, ResponseVM.class);
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(@NonNull Call call, @NonNull IOException e) {
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    if (res.ok) {
-                                        loading.hide();
-                                        Message("Correcto", res.message);
-                                        dialog.dismiss();
-                                    }else{
-                                        loading.hide();
-                                        Message("Información", res.message);
-                                    }
+                                    loading.hide();
+                                    Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
                                 }
                             });
-                        }else{
-                            loading.hide();
-                            Message("Error", response.message() + " - " + response.code());
                         }
-                    }
-                });
 
-            }else{
-                loading.hide();
-                Message("Error", "Por favor ingresa la url del servidor");
+                        @Override
+                        public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                            final String string_json = response.body().string();
+                            if(response.isSuccessful()){
+                                ResponseVM res = gson.fromJson(string_json, ResponseVM.class);
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (res.ok) {
+                                            loading.hide();
+                                            Message("Correcto", res.message);
+                                            dialog.dismiss();
+                                        }else{
+                                            loading.hide();
+                                            Message("Información", res.message);
+                                        }
+                                    }
+                                });
+                            }else{
+                                loading.hide();
+                                Message("Error", response.message() + " - " + response.code());
+                            }
+                        }
+                    });
+
+                }else{
+                    loading.hide();
+                    Message("Error", "Por favor ingresa la url del servidor");
+                }
             }
+
 
         });
 
         dialog.setContentView(view);
     }
-
+    private boolean ValidEmail(String email){
+        Pattern pattern = Pattern
+                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher mather = pattern.matcher(email);
+        return mather.find();
+    }
     public void SaveInterested(String Option) {
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         if(!URL.equals("")){
@@ -259,7 +278,7 @@ public class HomeFragment extends Fragment {
 
             RequestBody body = RequestBody.create(gson.toJson(interestedInOurServiceVM), mediaType);
             Request request = new Request.Builder()
-                    .url(URL + "/Api/InterestedInOurService/Add")
+                    .url(URL + "/AppInterestedInOurService/Add")
                     .post(body)
                     .addHeader("Content-Type", "application/json")
                     .build();

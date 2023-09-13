@@ -19,7 +19,7 @@ public class RegisterActivity extends AppCompatActivity {
         Fragment fragment = new RegisterAccountOneFragment();
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.container, fragment).commit();
+        fragmentTransaction.replace(R.id.containerR, fragment).commit();
     }
     @Override
     public void onBackPressed() {

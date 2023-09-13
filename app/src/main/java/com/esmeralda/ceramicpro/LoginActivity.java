@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     private ImageView Back;
     private Button Ingresar;
     private TextInputEditText txt_Email, txt_Pass;
-    private String URL = "https://ceramicproesmeralda.azurewebsites.net";
+    private String URL = "https://ceramicproesmeralda.azurewebsites.net/Api/";
     private SharedPreferences cookies;
     private Handler mHandler;
 
@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
             req.acPassword = txt_Pass.getText().toString();
             RequestBody body = RequestBody.create(gson.toJson(req), mediaType);
             Request request = new Request.Builder()
-                    .url(URL + "/Api/Account/Auth")
+                    .url(URL + "/AppAccount/Auth")
                     .post(body)
                     .addHeader("Content-Type", "application/json")
                     .build();

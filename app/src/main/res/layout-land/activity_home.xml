@@ -18,7 +18,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            style="@style/ImageAppTheme"/>
+            style="@style/ImageAppTheme2"/>
 
         <Button
             android:id="@+id/Btn_Act_Register"

@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.esmeralda.ceramicpro.R;
 import com.esmeralda.ceramicpro.model.AppointmentResponseVM;
@@ -64,7 +65,7 @@ public class AppointmentFragment extends Fragment {
     private AutoCompleteTextView dropdown_type, dropdown_service, dropdown_brand, dropdown_model, dropdown_color, dropdown_date, dropdown_hour;
 
     private Button btn_confirm;
-    private String typeName, serviceName, brandName, modelName, dateName, colorName, hoursName, token, URL = "https://ceramicproesmeralda.azurewebsites.net";
+    private String typeName, serviceName, brandName, modelName, dateName, colorName, hoursName, token, URL = "https://ceramicproesmeralda.azurewebsites.net/Api/";
     private List<ServiceVM> lst_service;
     private List<BrandVM> lst_brand;
     private List<ModelVM> lst_model;
@@ -116,15 +117,6 @@ public class AppointmentFragment extends Fragment {
 
         cookies = view.getContext().getSharedPreferences("SHA_CST_DB", Context.MODE_PRIVATE);
         token = cookies.getString("strToken", "");
-
-        if(token.equals("") || token.equals("0000000000")){
-            card_view_alert.setVisibility(View.VISIBLE);
-            enable(false);
-        }else{
-            card_view_alert.setVisibility(View.GONE);
-            enable(true);
-            SearchData();
-        }
         gson = new Gson();
 
         //InitLst();
@@ -148,7 +140,7 @@ public class AppointmentFragment extends Fragment {
                         serviceRequestVM.TypeServiceVehicleID = typeID;
                         RequestBody body = RequestBody.create(gson.toJson(serviceRequestVM), mediaType);
                         Request request = new Request.Builder()
-                                .url(URL + "/Api/Service/GetShortByType")
+                                .url(URL + "/AppService/GetShortByType")
                                 .post(body)
                                 .addHeader("Authorization", "Bearer " + token)
                                 .addHeader("Content-Type", "application/json")
@@ -237,7 +229,7 @@ public class AppointmentFragment extends Fragment {
                         modelRequestVM.vehicleBrandID = brandID;
                         RequestBody body = RequestBody.create(gson.toJson(modelRequestVM), mediaType);
                         Request request = new Request.Builder()
-                                .url(URL + "/Api/VehicleModel/DropList")
+                                .url(URL + "/AppVehicleModel/DropList")
                                 .post(body)
                                 .addHeader("Authorization", "Bearer " + token)
                                 .addHeader("Content-Type", "application/json")
@@ -335,7 +327,7 @@ public class AppointmentFragment extends Fragment {
                         hoursRequestVM.QuoteDatesID = dateID;
                         RequestBody body = RequestBody.create(gson.toJson(hoursRequestVM), mediaType);
                         Request request = new Request.Builder()
-                                .url(URL + "/Api/QuoteHour/GetShortByDate")
+                                .url(URL + "/AppQuoteHour/GetShortByDate")
                                 .post(body)
                                 .addHeader("Authorization", "Bearer " + token)
                                 .addHeader("Content-Type", "application/json")
@@ -407,7 +399,31 @@ public class AppointmentFragment extends Fragment {
                 }
             }
         });
+        validate();
         return view;
+    }
+
+
+    private void validate(){
+        if(token.equals("") || token.equals("0000000000")){
+            card_view_alert.setVisibility(View.VISIBLE);
+            enable(false);
+        }else{
+            card_view_alert.setVisibility(View.GONE);
+            enable(true);
+            SearchData();
+        }
+    }
+
+    private void delay(long milis)
+    {
+        try {
+            Thread.sleep(milis);
+            //Toast.makeText(getContext(), "Hola, soy un delay xd", Toast.LENGTH_SHORT).show();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
     private void enable(Boolean sts){
         dropdown_type_layout.setEnabled(sts);
@@ -435,7 +451,7 @@ public class AppointmentFragment extends Fragment {
 
             RequestBody body = RequestBody.create(gson.toJson(quotesRequestVM), mediaType);
             Request request = new Request.Builder()
-                    .url(URL + "/Api/Quotes/Add")
+                    .url(URL + "/AppQuotes/Add")
                     .post(body)
                     .addHeader("Authorization", "Bearer " + token)
                     .addHeader("Content-Type", "application/json")
@@ -488,7 +504,7 @@ public class AppointmentFragment extends Fragment {
             //Show();
             RequestBody body = RequestBody.create("", mediaType);
             Request request = new Request.Builder()
-                    .url(URL + "/Api/Quotes/ListDataQuote")
+                    .url(URL + "/AppQuotes/ListDataQuote")
                     .post(body)
                     .addHeader("Authorization", "Bearer " + token)
                     .addHeader("Content-Type", "application/json")

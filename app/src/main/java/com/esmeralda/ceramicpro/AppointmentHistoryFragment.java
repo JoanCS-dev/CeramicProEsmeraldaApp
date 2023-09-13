@@ -45,7 +45,6 @@ import okhttp3.Response;
 public class AppointmentHistoryFragment extends Fragment {
 
     private View view;
-    BottomNavigationView bottomNavigationView;
     RecyclerView recycleAppointment;
     AppointmentAdapter rvAppointmentAdapter;
     ArrayList<LastAppointmentVM> lastAppointmentArray;
@@ -56,7 +55,7 @@ public class AppointmentHistoryFragment extends Fragment {
     private Dialog loading;
     private Gson gson;
     private OkHttpClient client;
-    private String token, URL = "https://ceramicproesmeralda.azurewebsites.net";
+    private String token, URL = "https://ceramicproesmeralda.azurewebsites.net/Api/";
     private SwipeRefreshLayout swipeLayout;
 
     @Override
@@ -90,7 +89,11 @@ public class AppointmentHistoryFragment extends Fragment {
         SearchData();
 
         back.setOnClickListener(view -> {
-            Navigation.findNavController(view).navigate(R.id.action_navigation_appointment_history_to_navigation_account);
+            Fragment fragment = new AccountFragment();
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.nav_host_fragment_activity_main, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
 
         });
         return view;
@@ -118,7 +121,7 @@ public class AppointmentHistoryFragment extends Fragment {
             lastAppointmentRequestVM.vehicleModelID = 0;
             RequestBody body = RequestBody.create(gson.toJson(lastAppointmentRequestVM), mediaType);
             Request request = new Request.Builder()
-                    .url(URL + "/Api/Quotes/List")
+                    .url(URL + "/AppQuotes/List")
                     .post(body)
                     .addHeader("Authorization", "Bearer " + token)
                     .addHeader("Content-Type", "application/json")
@@ -184,11 +187,12 @@ public class AppointmentHistoryFragment extends Fragment {
         }
     }
 
+
+
     private void PutDataIntoRecyclerView(List<LastAppointmentVM> lastAppointmentArray){
         AppointmentAdapter appointmentAdapter = new AppointmentAdapter(view.getContext(), lastAppointmentArray);
         recycleAppointment.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recycleAppointment.setAdapter(appointmentAdapter);
-
     }
 
     private void Show() {
@@ -197,7 +201,6 @@ public class AppointmentHistoryFragment extends Fragment {
         builder.setView(R.layout.design_dialog_progress);
         loading = builder.create();
         loading.show();
-        loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
     private void Message(String Title, String Message) {
         MaterialAlertDialogBuilder Builder = new MaterialAlertDialogBuilder(view.getContext());

@@ -53,7 +53,7 @@ public class RegisterAccountOneFragment extends Fragment {
     private Gson gson;
     private OkHttpClient client;
     private MediaType mediaType = MediaType.parse("application/json");
-    private String URL = "https://ceramicproesmeralda.azurewebsites.net";
+    private String URL = "https://ceramicproesmeralda.azurewebsites.net/Api/";
     private ImageButton Back;
     private TextInputEditText txt_Name, txt_Lastname, txt_Phone, txt_Email, txt_Pass, txt_Confirm_Pass, txt_CodigoPostal;
     private String txt_NameParse, txt_LastnameParse, txt_PhoneParse, txt_EmailParse, txt_PassParse;
@@ -207,7 +207,7 @@ public class RegisterAccountOneFragment extends Fragment {
 
             RequestBody body = RequestBody.create(gson.toJson(acc), mediaType);
             Request request = new Request.Builder()
-                    .url(URL + "/Api/Account/Add")
+                    .url(URL + "/AppAccount/Add")
                     .post(body)
                     .addHeader("Content-Type", "application/json")
                     .build();

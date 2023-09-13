@@ -188,7 +188,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="65dp"
                     android:id="@+id/btn_confirm"
-                    android:layout_marginTop="20dp"
                     android:textAllCaps="false"
                     android:text="Confirmar Cita"
                     android:textSize="20sp"
