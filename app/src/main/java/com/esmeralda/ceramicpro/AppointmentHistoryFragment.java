@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.esmeralda.ceramicpro.model.LastAppointmentRequestVM;
 import com.esmeralda.ceramicpro.model.LastAppointmentResponseVM;
@@ -42,8 +43,9 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class AppointmentHistoryFragment extends Fragment {
+public class AppointmentHistoryFragment extends Fragment implements AppointmentAdapter.buttonClickListener{
 
+    private int Ok = 0;
     private View view;
     RecyclerView recycleAppointment;
     AppointmentAdapter rvAppointmentAdapter;
@@ -80,11 +82,10 @@ public class AppointmentHistoryFragment extends Fragment {
             swipeLayout.setRefreshing(false);
             Clear();
         });
-
         lastAppointmentArray = new ArrayList<>();
         recycleAppointment = view.findViewById(R.id.RecycleAppointment);
-        recycleAppointment.setLayoutManager(new LinearLayoutManager(view.getContext().getApplicationContext()));
-        rvAppointmentAdapter = new AppointmentAdapter(view.getContext(), lastAppointmentArray);
+        recycleAppointment.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        rvAppointmentAdapter = new AppointmentAdapter(view.getContext(), lastAppointmentArray, this);
         recycleAppointment.setAdapter(rvAppointmentAdapter);
         SearchData();
 
@@ -99,6 +100,8 @@ public class AppointmentHistoryFragment extends Fragment {
         return view;
     }
 
+
+
     private void Clear(){
         recycleAppointment.setAdapter(null);
         lst.clear();
@@ -106,6 +109,46 @@ public class AppointmentHistoryFragment extends Fragment {
         SearchData();
     }
 
+    private void DeleteAppointment(long Id) {
+        if(!URL.equals("") && !token.equals("")){
+            LastAppointmentRequestVM lastAppointmentRequestVM = new LastAppointmentRequestVM();
+            lastAppointmentRequestVM.quotesID = Id;
+            lastAppointmentRequestVM.servicePriceID = 0;
+            lastAppointmentRequestVM.colorID = 0;
+            lastAppointmentRequestVM.serviceDesc = "";
+            lastAppointmentRequestVM.colorName = "";
+            lastAppointmentRequestVM.quotesSTS = "";
+            lastAppointmentRequestVM.quoteHoursID = 0;
+            lastAppointmentRequestVM.accountID = 0;
+            lastAppointmentRequestVM.vehicleModelID = 0;
+            RequestBody body = RequestBody.create(gson.toJson(lastAppointmentRequestVM), mediaType);
+            Request request = new Request.Builder()
+                    .url(URL + "/AppQuotes/Cancel")
+                    .post(body)
+                    .addHeader("Authorization", "Bearer " + token)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+
+            try{
+                Response response = client.newCall(request).execute();
+
+                if(response.isSuccessful()){
+                    Ok = 1;
+
+                    //Message("Información", "La cita ha sido cancelada correctamente.");
+                    //Toast.makeText(view.getContext(), "La cita ha sido cancelada correctamente.", Toast.LENGTH_SHORT).show();
+                }else{
+                    Ok = 0;
+                    //Toast.makeText(view.getContext(), "Ocurrio un error.", Toast.LENGTH_SHORT).show();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+        }else{
+            Ok = 0;
+        }
+    }
     private void SearchData() {
         if(!URL.equals("") && !token.equals("")){
             Show();
@@ -154,6 +197,7 @@ public class AppointmentHistoryFragment extends Fragment {
 
                                     for (LastAppointmentVM item:lst) {
                                         LastAppointmentVM model = new LastAppointmentVM();
+                                        model.setQuotesID(item.quotesID);
                                         model.setQuotesDate(item.quotesDate);
                                         model.setQuotesHour(item.quotesHour);
                                         model.setServiceDesc(item.serviceDesc);
@@ -190,7 +234,7 @@ public class AppointmentHistoryFragment extends Fragment {
 
 
     private void PutDataIntoRecyclerView(List<LastAppointmentVM> lastAppointmentArray){
-        AppointmentAdapter appointmentAdapter = new AppointmentAdapter(view.getContext(), lastAppointmentArray);
+        AppointmentAdapter appointmentAdapter = new AppointmentAdapter(view.getContext(), lastAppointmentArray, this);
         recycleAppointment.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recycleAppointment.setAdapter(appointmentAdapter);
     }
@@ -207,5 +251,36 @@ public class AppointmentHistoryFragment extends Fragment {
         Builder.setTitle(Title)
                 .setMessage(Message)
                 .setPositiveButton("Ok", null).show();
+    }
+
+
+
+    @Override
+    public void onButtonClick(int position) {
+
+        for (int i=0;i<lastAppointmentArray.size(); i++){
+            if(i == position){
+                long Id = lastAppointmentArray.get(position).getQuotesID();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        DeleteAppointment(Id);
+                        //Clear();
+                    }
+                }).start();
+
+
+                //Toast.makeText(view.getContext(), "Position: " + position + " y su Id es: " + Id, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if(Ok == 0){
+            Clear();
+            Message("Información", "Cita cancelada con exito");
+        }else{
+            Clear();
+            Message("Información", "Cita cancelada con exito");
+        }
+
     }
 }
