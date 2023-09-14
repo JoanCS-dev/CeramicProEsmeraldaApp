@@ -274,13 +274,8 @@ public class AppointmentHistoryFragment extends Fragment implements AppointmentA
             }
         }
 
-        if(Ok == 0){
-            Clear();
-            Message("Información", "Cita cancelada con exito");
-        }else{
-            Clear();
-            Message("Información", "Cita cancelada con exito");
-        }
+        Clear();
+        Message("Información", "Cita cancelada con exito");
 
     }
 }
