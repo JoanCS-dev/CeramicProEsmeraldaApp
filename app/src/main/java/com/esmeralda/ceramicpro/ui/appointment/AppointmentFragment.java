@@ -121,8 +121,31 @@ public class AppointmentFragment extends Fragment {
 
         //InitLst();
         btn_confirm.setOnClickListener(view -> {
-            Show();
-            Confirm();
+            if(dropdown_type.getText().toString().equals("Tipo de Vehiculo") || dropdown_type.getText().toString().equals("")){
+                Message("Información", "Por favor seleccione un tipo de vehiculo");
+
+            }else if(dropdown_service.getText().toString().equals("Servicio") || dropdown_service.getText().toString().equals("")){
+                Message("Información", "Por favor seleccione un tipo de servicio");
+
+            }else if(dropdown_brand.getText().toString().equals("Marca del vehiculo") || dropdown_brand.getText().toString().equals("")){
+                Message("Información", "Por favor seleccione la marca del vehiculo");
+
+            }else if(dropdown_model.getText().toString().equals("Modelo del vehiculo") || dropdown_model.getText().toString().equals("")){
+                Message("Información", "Por favor seleccione el modelo del vehiculo");
+
+            }else if(dropdown_color.getText().toString().equals("Color del vehiculo") || dropdown_color.getText().toString().equals("")){
+                Message("Información", "Por favor seleccione un color");
+
+            }else if(dropdown_date.getText().toString().equals("Fecha de la cita") || dropdown_date.getText().toString().equals("")){
+                Message("Información", "Por favor seleccione una fecha para su cita");
+
+            }else if(dropdown_hour.getText().toString().equals("Hora de la cita") || dropdown_hour.getText().toString().equals("")){
+                Message("Información", "Por favor seleccione una hora para su cita");
+            }else{
+                Show();
+                Confirm();
+            }
+
         });
 
 
