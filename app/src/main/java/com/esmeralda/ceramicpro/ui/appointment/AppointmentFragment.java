@@ -415,15 +415,23 @@ public class AppointmentFragment extends Fragment {
         }
     }
 
-    private void delay(long milis)
+    private void cleanall()
     {
-        try {
-            Thread.sleep(milis);
-            //Toast.makeText(getContext(), "Hola, soy un delay xd", Toast.LENGTH_SHORT).show();
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        dropdown_type.clearListSelection();
+        dropdown_type.setText("Tipo de Vehiculo");
+        dropdown_service.clearListSelection();
+        dropdown_service.setText("Servicio");
+        dropdown_brand.clearListSelection();
+        dropdown_brand.setText("Marca del vehiculo");
+        dropdown_model.clearListSelection();
+        dropdown_model.setText("Modelo del vehiculo");
+        dropdown_color.clearListSelection();
+        dropdown_color.setText("Color del vehiculo");
+        dropdown_date.clearListSelection();
+        dropdown_date.setText("Fecha de la cita");
+        dropdown_hour.clearListSelection();
+        dropdown_hour.setText("Hora de la cita");
+        SearchData();
     }
     private void enable(Boolean sts){
         dropdown_type_layout.setEnabled(sts);
@@ -481,6 +489,7 @@ public class AppointmentFragment extends Fragment {
                                 if (res.ok) {
                                     loading.hide();
                                     Message("Correcto", res.message);
+                                    cleanall();
                                 } else {
                                     loading.hide();
                                     Message("Información", res.message);

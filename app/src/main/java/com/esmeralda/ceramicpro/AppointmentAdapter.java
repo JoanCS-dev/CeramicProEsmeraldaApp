@@ -68,6 +68,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             holder.date_Cancel.setVisibility(View.VISIBLE);
         }else if(data.get(position).getQuotesSTS().equals("CANCELADA")){
             holder.title_sts.setTextColor(0xFFD30E00);
+            holder.date_Cancel.setVisibility(View.GONE);
         }
         holder.txv_id.setText("" + data.get(position).getQuotesID());
     }

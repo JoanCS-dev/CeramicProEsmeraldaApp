@@ -172,7 +172,6 @@ public class RegisterAccountOneFragment extends Fragment {
         builder.setView(R.layout.design_dialog_progress);
         loading = builder.create();
         loading.show();
-        loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
     public void SaveAs() {
