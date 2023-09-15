@@ -591,7 +591,6 @@ public class AppointmentFragment extends Fragment {
         builder.setView(R.layout.design_dialog_progress);
         loading = builder.create();
         loading.show();
-        loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
     private void Message(String Title, String Message) {
         MaterialAlertDialogBuilder Builder = new MaterialAlertDialogBuilder(view.getContext());
