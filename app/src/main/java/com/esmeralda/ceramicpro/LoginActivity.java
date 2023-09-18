@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     private ImageView Back;
     private Button Ingresar;
     private TextInputEditText txt_Email, txt_Pass;
-    private String URL = "https://ceramicproesmeralda.azurewebsites.net/Api/";
+    private String URL = "https://ceramicproesmeraldaapi.azurewebsites.net/Api/";
     private SharedPreferences cookies;
     private Handler mHandler;
 

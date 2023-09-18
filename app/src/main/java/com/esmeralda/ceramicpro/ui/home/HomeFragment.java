@@ -61,7 +61,7 @@ public class HomeFragment extends Fragment {
     private View view;
     private BottomSheetDialog dialog;
     private ImageView teamwork, img_inversion, img_new, img_maintenance;
-    private String URL = "https://ceramicproesmeralda.azurewebsites.net/Api/";
+    private String URL = "https://ceramicproesmeraldaapi.azurewebsites.net/Api/";
     private MediaType mediaType = MediaType.parse("application/json");
     private OkHttpClient client;
     private Gson gson;
@@ -178,9 +178,14 @@ public class HomeFragment extends Fragment {
         View view = getLayoutInflater().inflate(R.layout.request_dialog,null,false);
 
         Button btn_send = view.findViewById(R.id.Btn_Send);
+        Button btn_no = view.findViewById(R.id.Btn_No);
         TextInputEditText txt_NameFullRD = view.findViewById(R.id.txt_NameFull);
         TextInputEditText txt_EmailRD = view.findViewById(R.id.txt_Email);
         TextInputEditText txt_PhoneNumberRD = view.findViewById(R.id.txt_PhoneNumber);
+
+        btn_no.setOnClickListener(view1 -> {
+            dialog.dismiss();
+        });
 
         btn_send.setOnClickListener(view1 -> {
             String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());

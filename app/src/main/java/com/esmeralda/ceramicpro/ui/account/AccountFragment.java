@@ -30,7 +30,7 @@ public class AccountFragment extends Fragment {
     private SharedPreferences cookies;
     private View view;
     private TextView txt_fullName, close_sesion;
-    private String token, URL = "https://ceramicproesmeralda.azurewebsites.net/Api/";
+    private String token, URL = "https://ceramicproesmeraldaapi.azurewebsites.net/Api/";
     private CardView btn_logout, btn_history, card_view_alert, card_view_name_account;
     private String strCode;
     private OkHttpClient client;

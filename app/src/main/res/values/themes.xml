@@ -55,7 +55,14 @@
         <item name="android:src">@drawable/ic_ceramic_pro_plus_ceramic</item>
     </style>
     <style name="CVbgStyle">
-        <item name="android:backgroundTint">@color/grayLight</item>
+        <item name="android:backgroundTint">#E5E5E5</item>
+    </style>
+
+    <style name="CVbgStyleTop">
+        <item name="android:background">@color/black</item>
+    </style>
+    <style name="CVbgStyleBottom">
+        <item name="android:background">@color/white</item>
     </style>
 
     <!-- Customize icon. -->

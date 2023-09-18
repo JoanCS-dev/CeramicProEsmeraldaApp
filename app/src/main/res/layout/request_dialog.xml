@@ -102,6 +102,18 @@
         app:cornerRadius="12dp"
         android:fontFamily="@font/montserrat"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:id="@+id/Btn_No"
+        android:textAllCaps="false"
+        android:text="Cancelar"
+        style="@style/ButtomAlternative"
+        android:layout_gravity="bottom"
+        android:textSize="20sp"
+        app:cornerRadius="12dp"
+        android:fontFamily="@font/montserrat"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

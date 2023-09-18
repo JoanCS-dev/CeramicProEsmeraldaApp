@@ -44,9 +44,9 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         LastAppointmentVM appointmentVM = data.get(position);
         if(position == 0){
             if (holder.color_theme.getText().equals("White")){
-                holder.ly_background.setBackgroundColor(0xFFE1E1E1);
+                holder.ly_background.setBackgroundColor(0xFFE5E5E5);
             }else{
-                holder.ly_background.setBackgroundColor(0xFF3A3A3A);
+                holder.ly_background.setBackgroundColor(0xFF525252);
             }
             holder.lastAppointment.setBackgroundColor(0xFF3A3A3A);
         }else{

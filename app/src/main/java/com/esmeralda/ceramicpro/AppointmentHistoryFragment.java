@@ -57,7 +57,7 @@ public class AppointmentHistoryFragment extends Fragment implements AppointmentA
     private Dialog loading;
     private Gson gson;
     private OkHttpClient client;
-    private String token, URL = "https://ceramicproesmeralda.azurewebsites.net/Api/";
+    private String token, URL = "https://ceramicproesmeraldaapi.azurewebsites.net/Api/";
     private SwipeRefreshLayout swipeLayout;
 
     @Override

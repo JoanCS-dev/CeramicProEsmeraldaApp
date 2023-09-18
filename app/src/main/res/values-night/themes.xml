@@ -43,7 +43,7 @@
         <item name="android:textColor">@color/black</item>
     </style>
     <style name="ButtomAlternative">
-        <item name="android:backgroundTint">#505050</item>
+        <item name="android:backgroundTint">#525252</item>
     </style>
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:backgroundTint">@color/black</item>
@@ -59,7 +59,14 @@
         <item name="android:src">@drawable/ic_ceramic_pro_black_plus_ceramic</item>
     </style>
     <style name="CVbgStyle">
-        <item name="android:backgroundTint">#434343</item>
+        <item name="android:backgroundTint">#525252</item>
+    </style>
+
+    <style name="CVbgStyleTop">
+        <item name="android:background">#525252</item>
+    </style>
+    <style name="CVbgStyleBottom">
+        <item name="android:background">@color/black</item>
     </style>
 
     <!-- Customize icon. -->

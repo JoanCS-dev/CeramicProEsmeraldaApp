@@ -65,7 +65,7 @@ public class AppointmentFragment extends Fragment {
     private AutoCompleteTextView dropdown_type, dropdown_service, dropdown_brand, dropdown_model, dropdown_color, dropdown_date, dropdown_hour;
 
     private Button btn_confirm;
-    private String typeName, serviceName, brandName, modelName, dateName, colorName, hoursName, token, URL = "https://ceramicproesmeralda.azurewebsites.net/Api/";
+    private String typeName, serviceName, brandName, modelName, dateName, colorName, hoursName, token, URL = "https://ceramicproesmeraldaapi.azurewebsites.net/Api/";
     private List<ServiceVM> lst_service;
     private List<BrandVM> lst_brand;
     private List<ModelVM> lst_model;

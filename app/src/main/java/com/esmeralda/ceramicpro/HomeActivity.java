@@ -31,7 +31,6 @@ public class HomeActivity extends AppCompatActivity {
         RegisterRedirect = findViewById(R.id.Btn_Act_Register);
         Invitado = findViewById(R.id.Btn_Invitado);
         dialog = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
-        btn_copyright = findViewById(R.id.btn_copyright);
 
         createDialog();
 
@@ -45,7 +44,6 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(new Intent(HomeActivity.this, RegisterActivity.class));
         });
 
-        btn_copyright.setOnClickListener(view -> ShowModalEditText());
     }
 
     private void createDialog() {
