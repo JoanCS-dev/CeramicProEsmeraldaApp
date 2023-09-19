@@ -17,7 +17,7 @@
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             style="@style/ImageAppTheme2"/>
 
         <Button
@@ -45,7 +45,7 @@
             android:layout_marginEnd="200dp"
             style="@style/ButtomAlternative"
             android:fontFamily="@font/montserrat"
-            android:text="Iniciar sesión"
+            android:text="Iniciar Sesión"
             android:textAllCaps="false"
             android:textSize="35sp"
             app:cornerRadius="12dp" />

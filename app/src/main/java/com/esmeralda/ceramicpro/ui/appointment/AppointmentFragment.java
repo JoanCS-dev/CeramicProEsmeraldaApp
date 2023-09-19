@@ -121,26 +121,26 @@ public class AppointmentFragment extends Fragment {
 
         //InitLst();
         btn_confirm.setOnClickListener(view -> {
-            if(dropdown_type.getText().toString().equals("Tipo de Vehiculo") || dropdown_type.getText().toString().equals("")){
-                Message("Información", "Por favor seleccione un tipo de vehiculo");
+            if(dropdown_type.getText().toString().equals("Tipo de Vehículo") || dropdown_type.getText().toString().equals("")){
+                Message("Información", "Por favor selecciona que tipo de vehículo tienes");
 
             }else if(dropdown_service.getText().toString().equals("Servicio") || dropdown_service.getText().toString().equals("")){
-                Message("Información", "Por favor seleccione un tipo de servicio");
+                Message("Información", "Por favor selecciona el servicio a agendar");
 
-            }else if(dropdown_brand.getText().toString().equals("Marca del vehiculo") || dropdown_brand.getText().toString().equals("")){
-                Message("Información", "Por favor seleccione la marca del vehiculo");
+            }else if(dropdown_brand.getText().toString().equals("Marca del vehículo") || dropdown_brand.getText().toString().equals("")){
+                Message("Información", "Por favor selecciona la marca de tu vehículo");
 
-            }else if(dropdown_model.getText().toString().equals("Modelo del vehiculo") || dropdown_model.getText().toString().equals("")){
-                Message("Información", "Por favor seleccione el modelo del vehiculo");
+            }else if(dropdown_model.getText().toString().equals("Modelo del vehículo") || dropdown_model.getText().toString().equals("")){
+                Message("Información", "Por favor selecciona el modelo de tu vehículo");
 
-            }else if(dropdown_color.getText().toString().equals("Color del vehiculo") || dropdown_color.getText().toString().equals("")){
-                Message("Información", "Por favor seleccione un color");
+            }else if(dropdown_color.getText().toString().equals("Color del vehículo") || dropdown_color.getText().toString().equals("")){
+                Message("Información", "Por favor selecciona el color de tu vehículo");
 
             }else if(dropdown_date.getText().toString().equals("Fecha de la cita") || dropdown_date.getText().toString().equals("")){
-                Message("Información", "Por favor seleccione una fecha para su cita");
+                Message("Información", "Por favor selecciona la fecha para tu cita");
 
             }else if(dropdown_hour.getText().toString().equals("Hora de la cita") || dropdown_hour.getText().toString().equals("")){
-                Message("Información", "Por favor seleccione una hora para su cita");
+                Message("Información", "Por favor selecciona la hora para tu cita");
             }else{
                 Show();
                 Confirm();
@@ -242,7 +242,7 @@ public class AppointmentFragment extends Fragment {
             brandName = adapterView.getItemAtPosition(i).toString();
             brandID = 0;
             dropdown_model.clearListSelection();
-            dropdown_model.setText("Modelo del vehiculo");
+            dropdown_model.setText("Modelo del vehículo");
             for (BrandVM item: lst_brand) {
                 if(brandName.equals(item.name)){
                     brandID = item.id;
@@ -441,15 +441,15 @@ public class AppointmentFragment extends Fragment {
     private void cleanall()
     {
         dropdown_type.clearListSelection();
-        dropdown_type.setText("Tipo de Vehiculo");
+        dropdown_type.setText("Tipo de Vehículo");
         dropdown_service.clearListSelection();
         dropdown_service.setText("Servicio");
         dropdown_brand.clearListSelection();
-        dropdown_brand.setText("Marca del vehiculo");
+        dropdown_brand.setText("Marca del vehículo");
         dropdown_model.clearListSelection();
-        dropdown_model.setText("Modelo del vehiculo");
+        dropdown_model.setText("Modelo del vehículo");
         dropdown_color.clearListSelection();
-        dropdown_color.setText("Color del vehiculo");
+        dropdown_color.setText("Color del vehículo");
         dropdown_date.clearListSelection();
         dropdown_date.setText("Fecha de la cita");
         dropdown_hour.clearListSelection();

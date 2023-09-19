@@ -93,7 +93,7 @@
         android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Tu código QR es privado. Si lo compartes con la agencia CeramicPro Esmeralda, ellos podrán identificarte como un cliente."
+        android:text="Tu código QR es privado. Si lo compartes con la agencia Ceramic Pro Esmeralda, ellos podrán identificarte como un cliente."
         android:textSize="15sp"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 

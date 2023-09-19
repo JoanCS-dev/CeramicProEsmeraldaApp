@@ -88,11 +88,11 @@ public class LoginActivity extends AppCompatActivity {
             String _pass_ = txt_Pass.getText().toString();
             if(_email_.equals("") || _pass_.equals("")){
                 if(_email_.equals("")){
-                    Message("Información", "Por favor escribe el correo electrónico");
+                    Message("Información", "Por favor escribe tu correo electrónico");
                 }else if(!ValidEmail(_email_)){
                     Message("Información", "Por favor escribe un correo electrónico valido");
                 }else if(_pass_.equals("")){
-                    Message("Información", "Por favor escribe la contraseña");
+                    Message("Información", "Por favor escribe tu contraseña");
                 }
             }else{
                 Show();

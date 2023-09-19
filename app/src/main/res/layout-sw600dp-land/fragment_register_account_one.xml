@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30px"
-                android:text="Utilizaremos esta información para validar tu registro."
+                android:text="Utilizaremos esta información para validar tu registro"
                 android:textAlignment="center"
                 android:textColor="@color/simple_text"
                 android:fontFamily="@font/montserrat"/>
@@ -173,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="200dp"
                 android:layout_marginEnd="200dp"
-                android:hint="Confirmar contraseña"
+                android:hint="Confirma tu contraseña"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:fontFamily="@font/montserrat">
 

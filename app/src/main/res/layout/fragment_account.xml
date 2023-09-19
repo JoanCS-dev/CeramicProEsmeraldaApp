@@ -43,7 +43,7 @@
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/montserrat"
                         android:textColor="@color/white"
-                        android:text="Por favor crea una cuenta e inicia sesión, para utilizar este apartado."/>
+                        android:text="Por favor crea una cuenta o inicia sesión, para utilizar este apartado."/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

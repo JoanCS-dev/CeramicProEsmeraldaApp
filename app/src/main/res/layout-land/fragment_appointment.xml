@@ -36,7 +36,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Agendar cita"
+                android:text="Agendar Cita"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:textAlignment="center"
@@ -70,7 +70,7 @@
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/montserrat"
                         android:textColor="@color/white"
-                        android:text="Por favor crea una cuenta e inicia sesión, para utilizar este apartado."/>
+                        android:text="Por favor crea una cuenta o inicia sesión, para utilizar este apartado."/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -199,7 +199,7 @@
                 android:id="@+id/btn_confirm"
                 android:layout_marginTop="20dp"
                 android:textAllCaps="false"
-                android:text="Confirmar Cita"
+                android:text="Agendar Cita"
                 android:textSize="20sp"
                 app:cornerRadius="12dp"
                 style="@style/ButtomAlternative"

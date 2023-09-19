@@ -43,7 +43,7 @@
                     android:id="@+id/loginlable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Iniciar sesión"
+                    android:text="Iniciar Sesión"
                     android:textAlignment="center"
                     style="@style/TextBold"
                     android:textSize="35sp"

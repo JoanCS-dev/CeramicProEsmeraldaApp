@@ -90,23 +90,26 @@ public class RegisterAccountOneFragment extends Fragment {
         B_Continuar.setOnClickListener(view -> {
             String __txt_Name = txt_Name.getText().toString();
             String __txt_Lastname = txt_Lastname.getText().toString();
+            String __txt_CodigoP = txt_CodigoPostal.getText().toString();
             String __txt_Phone = txt_Phone.getText().toString();
             String __txt_Email = txt_Email.getText().toString();
             String __txt_Pass = txt_Pass.getText().toString();
             String __txt_Confirm_Pass = txt_Confirm_Pass.getText().toString();
             if(__txt_Name.equals("") || __txt_Lastname.equals("") || __txt_Phone.equals("") || __txt_Email.equals("") || __txt_Pass.equals("") || __txt_Confirm_Pass.equals("")){
                 if(__txt_Name.equals("")){
-                    Message("Información", "Por favor escribe tu(s) nombre(s)");
+                    Message("Información", "Por favor escribe tus nombres");
                 }else if(__txt_Lastname.equals("")){
-                    Message("Información", "Por favor escribe tu(s) apellido(s)");
+                    Message("Información", "Por favor escribe tus apellidos");
+                }else if(__txt_CodigoP.equals("")){
+                    Message("Información", "Por favor escribe tu código postal");
                 }else if(__txt_Phone.equals("")){
-                    Message("Información", "Por favor escribe tu télefono");
+                    Message("Información", "Por favor escribe tu número de celular");
                 }else if(__txt_Email.equals("")){
                     Message("Información", "Por favor escribe el correo electrónico");
                 }else if(!ValidEmail(txt_Email.getText().toString())){
                     Message("Información", "Por favor escribe un correo electrónico valido");
                 }else if(__txt_Pass.equals("")){
-                    Message("Información", "Por favor escribe la contraseña");
+                    Message("Información", "Por favor escribe tu contraseña");
                 }
             }else {
                 if(!__txt_Pass.equals(__txt_Confirm_Pass)){
