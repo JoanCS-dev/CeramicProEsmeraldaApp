@@ -1,5 +1,6 @@
 package com.esmeralda.ceramicpro;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,21 +12,34 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.esmeralda.ceramicpro.model.AuthRequestVM;
+import com.esmeralda.ceramicpro.model.AuthResponseVM;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.gson.Gson;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class HomeActivity extends AppCompatActivity {
     private Button LoginRedirect, RegisterRedirect;
-    private TextView Invitado, btn_copyright;
+    private TextView Invitado;
     private BottomSheetDialog dialog;
-    private SharedPreferences cookies;
-    private String URL;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        cookies = getSharedPreferences("SHA_CST_DB", MODE_PRIVATE);
 
         LoginRedirect = findViewById(R.id.Btn_Act_Login);
         RegisterRedirect = findViewById(R.id.Btn_Act_Register);
@@ -43,8 +57,8 @@ public class HomeActivity extends AppCompatActivity {
         RegisterRedirect.setOnClickListener(view -> {
             startActivity(new Intent(HomeActivity.this, RegisterActivity.class));
         });
-
     }
+
 
     private void createDialog() {
         View view = getLayoutInflater().inflate(R.layout.design_bottom_dialog,null,false);
@@ -54,7 +68,7 @@ public class HomeActivity extends AppCompatActivity {
 
         btn_si.setOnClickListener(view1 -> {
             dialog.dismiss();
-            RegisterToken("0000000000", "0000000000", "0000000000");
+            RegisterTokenHome("0000000000", "0000000000", "0000000000", "0000000000", "0000000000");
             startActivity(new Intent(HomeActivity.this, MainActivity.class));
         });
 
@@ -74,7 +88,7 @@ public class HomeActivity extends AppCompatActivity {
     public void ShowModalEditText(){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-        URL = cookies.getString("url", "https://");
+        //URL = cookies.getString("url", "https://");
 
 
         final EditText input = new EditText(this);
@@ -82,7 +96,7 @@ public class HomeActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
         input.setLayoutParams(lp);
-        input.setText(URL);
+        input.setText("");
         alert.setView(input);
         alert.setPositiveButton("Guardar",
                 (dialog, which) -> {
@@ -98,12 +112,15 @@ public class HomeActivity extends AppCompatActivity {
         alert.show();
     }
 
-    public void RegisterToken(String strToken, String fullName, String strCode){
+    private void RegisterTokenHome(String strToken, String fullName, String strCode, String user, String pass){
         SharedPreferences sharedPreferences = getSharedPreferences("SHA_CST_DB", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("strToken", strToken);
         editor.putString("fullName", fullName);
         editor.putString("strCode", strCode);
+        editor.putString("user", user);
+        editor.putString("pass", pass);
         editor.apply();
     }
+
 }

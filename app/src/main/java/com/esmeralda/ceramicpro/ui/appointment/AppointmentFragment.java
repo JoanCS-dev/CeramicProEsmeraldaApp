@@ -93,8 +93,13 @@ public class AppointmentFragment extends Fragment {
 
         swipeLayout = view.findViewById(R.id.swap);
         swipeLayout.setOnRefreshListener(() -> {
-            swipeLayout.setRefreshing(false);
-            SearchData();
+            if(token.equals("") || token.equals("0000000000")){
+                swipeLayout.setRefreshing(false);
+            }else{
+                swipeLayout.setRefreshing(false);
+                SearchData();
+            }
+
         });
         dropdown_type_layout = view.findViewById(R.id.dropdown_type_layout);
         dropdown_service_layout = view.findViewById(R.id.dropdown_service_layout);

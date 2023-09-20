@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
         txt_Pass = findViewById(R.id.txt_Pass);
 
         Back.setOnClickListener(view -> {
-            RegisterToken("0000000000", "0000000000", "0000000000");
+            RegisterToken("0000000000", "0000000000", "0000000000", "0000000000", "0000000000");
             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             finish();
         });
@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    public void LogIn() {
+    private void LogIn() {
         if(!URL.equals("")){
             AuthRequestVM req = new AuthRequestVM();
             req.acUser = txt_Email.getText().toString();
@@ -134,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 if (res.ok) {
-                                    RegisterToken(res.data.strToken, res.data.fullName, res.data.strCode);
+                                    RegisterToken(res.data.strToken, res.data.fullName, res.data.strCode, txt_Email.getText().toString(), txt_Pass.getText().toString());
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                     finish();
 
@@ -183,12 +183,14 @@ public class LoginActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
-    public void RegisterToken(String strToken, String fullName, String strCode){
+    private void RegisterToken(String strToken, String fullName, String strCode, String user, String pass){
         SharedPreferences sharedPreferences = getSharedPreferences("SHA_CST_DB", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("strToken", strToken);
         editor.putString("fullName", fullName);
         editor.putString("strCode", strCode);
+        editor.putString("user", user);
+        editor.putString("pass", pass);
         editor.apply();
     }
 

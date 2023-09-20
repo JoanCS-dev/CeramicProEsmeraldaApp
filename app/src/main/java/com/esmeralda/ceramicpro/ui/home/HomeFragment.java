@@ -190,13 +190,13 @@ public class HomeFragment extends Fragment {
         btn_send.setOnClickListener(view1 -> {
             String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             if(txt_NameFullRD.getText().toString().equals("")){
-                Message("Información", "Por favor, ingresa el nombre completo");
+                Message("Información", "Por favor escribe tu nombre completo");
             } else if (txt_EmailRD.getText().toString().equals("")) {
-                Message("Información", "Por favor, ingresa el correo electrónico");
+                Message("Información", "Por favor escribe tu correo electrónico");
             } else if (!ValidEmail(txt_EmailRD.getText().toString())) {
                 Message("Información", "Por favor escribe un correo electrónico valido");
             } else if (txt_PhoneNumberRD.getText().toString().equals("")) {
-                Message("Información", "Por favor, ingresa el número teléfonico");
+                Message("Información", "Por favor escribe tu número teléfonico");
             }else{
                 if(!URL.equals("")){
                     Show();

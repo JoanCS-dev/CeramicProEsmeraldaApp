@@ -60,7 +60,7 @@ public class AccountFragment extends Fragment {
 
         btn_logout.setOnClickListener(view -> {
             if(token.equals("") || token.equals("0000000000")){
-                RegisterToken("0000000000", "0000000000", "0000000000");
+                RegisterToken("0000000000", "0000000000", "0000000000","0000000000", "0000000000");
                 startActivity(new Intent(view.getContext(), HomeActivity.class));
             }else{
                 MaterialAlertDialogBuilder Builder = new MaterialAlertDialogBuilder(view.getContext());
@@ -69,7 +69,7 @@ public class AccountFragment extends Fragment {
                         .setCancelable(false);
 
                 Builder.setPositiveButton("Ok", (dialog, which) -> {
-                    RegisterToken("0000000000", "0000000000", "0000000000");
+                    RegisterToken("0000000000", "0000000000", "0000000000","0000000000", "0000000000");
                     startActivity(new Intent(view.getContext(), HomeActivity.class));
                 });
                 Builder.setNegativeButton("Cancelar", null);
@@ -121,12 +121,14 @@ public class AccountFragment extends Fragment {
 
     }
 
-    public void RegisterToken(String strToken, String fullName, String strCode){
+    private void RegisterToken(String strToken, String fullName, String strCode, String user, String pass){
         SharedPreferences sharedPreferences = view.getContext().getSharedPreferences("SHA_CST_DB", getContext().MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("strToken", strToken);
         editor.putString("fullName", fullName);
         editor.putString("strCode", strCode);
+        editor.putString("user", user);
+        editor.putString("pass", pass);
         editor.apply();
     }
 
