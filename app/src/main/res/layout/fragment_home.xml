@@ -146,16 +146,14 @@
                 android:textSize="16sp"
                 android:gravity="center"
                 android:fontFamily="@font/montserrat"/>
-
             <com.denzcoskun.imageslider.ImageSlider
                 android:id="@+id/image_slider"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_width="wrap_content"
+                android:layout_height="250dp"
                 app:iss_auto_cycle="true"
-                app:iss_period="4000"
-                app:iss_delay="4000"
+                app:iss_period="2000"
+                app:iss_delay="2000"
                 app:iss_text_align="CENTER"/>
-
 
             <TextView
                 android:layout_width="match_parent"

@@ -22,9 +22,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/*
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
+*/
+
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.esmeralda.ceramicpro.HomeActivity;
 import com.esmeralda.ceramicpro.LoginActivity;
 import com.esmeralda.ceramicpro.MainActivity;
@@ -71,6 +77,7 @@ public class HomeFragment extends Fragment {
     private SharedPreferences cookies;
     private TextView themename;
     private String NameTheme;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,9 +88,26 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view  = inflater.inflate(R.layout.fragment_home, container, false);
-        List<SlideModel> imageList = new ArrayList<>(); // Create image list
         dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
         teamwork = view.findViewById(R.id.TeamWork);
+
+        ArrayList<SlideModel> imageList = new ArrayList<SlideModel>(); // Create image list
+
+
+        imageList.add(new SlideModel(R.drawable.img_1, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.img_2, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.img_3, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.img_4, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.img_5, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.img_6, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.img_7, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.img_8, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.img_9, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.img_10, ScaleTypes.FIT));
+
+        ImageSlider imageSlider = view.findViewById(R.id.image_slider);
+        imageSlider.setImageList(imageList);
+
 
         client = new OkHttpClient();
         gson = new Gson();
@@ -161,7 +185,7 @@ public class HomeFragment extends Fragment {
         imageList.add(new SlideModel(R.drawable.img_skyline_r34, ScaleTypes.FIT));
 
         */
-
+        /*
         imageList.add(new SlideModel(R.drawable.img_1, ScaleTypes.FIT));
         imageList.add(new SlideModel(R.drawable.img_2, ScaleTypes.FIT));
         imageList.add(new SlideModel(R.drawable.img_3, ScaleTypes.FIT));
@@ -175,6 +199,7 @@ public class HomeFragment extends Fragment {
 
         ImageSlider imageSlider = view.findViewById(R.id.image_slider);
         imageSlider.setImageList(imageList);
+        */
 
         createDialog();
 
@@ -187,6 +212,7 @@ public class HomeFragment extends Fragment {
         return view;
 
     }
+
 
     private void createDialog() {
         View view = getLayoutInflater().inflate(R.layout.request_dialog,null,false);
