@@ -151,6 +151,7 @@ public class HomeFragment extends Fragment {
                 SaveInterested("OPTION3");
             }
         });
+        /*
 
         imageList.add(new SlideModel(R.drawable.img_porsche_suv, ScaleTypes.FIT));
         imageList.add(new SlideModel(R.drawable.img_ford_focus_rs, ScaleTypes.FIT));
@@ -158,6 +159,19 @@ public class HomeFragment extends Fragment {
         imageList.add(new SlideModel(R.drawable.img_lamborghini_huracan, ScaleTypes.FIT));
         imageList.add(new SlideModel(R.drawable.img_nissan_gtr, ScaleTypes.FIT));
         imageList.add(new SlideModel(R.drawable.img_skyline_r34, ScaleTypes.FIT));
+
+        */
+
+        imageList.add(new SlideModel(R.drawable.img_1, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.img_2, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.img_3, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.img_4, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.img_5, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.img_6, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.img_7, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.img_8, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.img_9, ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.img_10, ScaleTypes.FIT));
 
         ImageSlider imageSlider = view.findViewById(R.id.image_slider);
         imageSlider.setImageList(imageList);
