@@ -18,14 +18,12 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:paddingBottom="100dp">
-
             <TextView
                 android:id="@+id/themeNameHome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 style="@style/VariableTheme"/>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,8 +64,8 @@
                             android:layout_height="wrap_content"
                             android:text="Buena Inversión"
                             android:gravity="center"
-                            style="@style/TextAlternative2"
                             android:textStyle="bold"
+                            style="@style/TextAlternative2"
                             android:fontFamily="@font/montserrat"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -98,8 +96,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat"
                             android:gravity="center"
-                            style="@style/TextAlternative2"
                             android:text="Siempre Nuevo"
+                            style="@style/TextAlternative2"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -130,8 +128,8 @@
                             android:layout_height="wrap_content"
                             android:text="Menos Mantenimiento"
                             android:gravity="center"
-                            style="@style/TextAlternative2"
                             android:textStyle="bold"
+                            style="@style/TextAlternative2"
                             android:fontFamily="@font/montserrat"/>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -148,11 +146,10 @@
                 android:textSize="16sp"
                 android:gravity="center"
                 android:fontFamily="@font/montserrat"/>
-
             <com.denzcoskun.imageslider.ImageSlider
                 android:id="@+id/image_slider"
                 android:layout_width="wrap_content"
-                android:layout_height="350dp"
+                android:layout_height="600dp"
                 app:iss_auto_cycle="true"
                 app:iss_period="2000"
                 app:iss_delay="2000"
@@ -177,7 +174,7 @@
                     <ImageView
                         android:id="@+id/TeamWork"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="600dp"
                         android:layout_marginTop="10dp"
                         android:src="@drawable/img_part_of_team"
                         />

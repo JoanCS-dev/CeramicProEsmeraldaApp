@@ -77,7 +77,9 @@ public class SplashScreenActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                            //Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                            startActivity(new Intent(SplashScreenActivity.this, HomeActivity.class));
+                            finish();
                         }
                     });
 
