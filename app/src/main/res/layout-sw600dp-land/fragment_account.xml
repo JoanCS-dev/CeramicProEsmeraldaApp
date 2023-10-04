@@ -43,7 +43,7 @@
                         android:layout_marginStart="5dp"
                         android:fontFamily="@font/montserrat"
                         android:textColor="@color/white"
-                        android:text="Por favor crea una cuenta o inicia sesión, para utilizar este apartado."/>
+                        android:text="@string/Crea_cuenta"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -74,7 +74,7 @@
                             android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp"
-                            android:text="Cargando..."
+                            android:text="@string/Loading"
                             android:layout_weight="1"
                             android:fontFamily="@font/montserrat_semibold"
                             android:textSize="16sp"/>
@@ -111,7 +111,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:text="Lista de citas"
+                        android:text="@string/lista_de_citas"
                         style="@style/TextAlternative2"
                         android:fontFamily="@font/montserrat_semibold"
                         android:layout_weight="1"
@@ -148,7 +148,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:text="Cerrar Sesión"
+                        android:text="@string/cerrar_sesion"
                         style="@style/TextAlternative2"
                         android:fontFamily="@font/montserrat_semibold"
                         android:layout_weight="1"

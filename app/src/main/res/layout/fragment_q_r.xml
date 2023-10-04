@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".QRActivity">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -37,7 +36,7 @@
                 android:id="@+id/loginlable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Código QR"
+                android:text="@string/title_QR"
                 android:textAlignment="center"
                 style="@style/TextBold"
                 android:textSize="35sp"
@@ -68,7 +67,7 @@
                 android:id="@+id/NameQR"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name"
+                android:text=""
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:fontFamily="@font/montserrat_semibold"
@@ -93,7 +92,7 @@
         android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Tu código QR es privado. Si lo compartes con la agencia Ceramic Pro Esmeralda, ellos podrán identificarte como un cliente."
+        android:text="@string/QR_Text_Description"
         android:textSize="15sp"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 

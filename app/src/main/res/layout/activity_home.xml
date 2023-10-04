@@ -25,7 +25,7 @@
         android:layout_marginEnd="10dp"
         android:backgroundTint="@color/appColor"
         android:fontFamily="@font/montserrat"
-        android:text="Regístrate"
+        android:text="@string/ButtonRegister"
         android:textAllCaps="false"
         android:textSize="20sp"
         app:cornerRadius="12dp" />
@@ -40,7 +40,7 @@
         android:layout_marginEnd="10dp"
         style="@style/ButtomAlternative"
         android:fontFamily="@font/montserrat"
-        android:text="Iniciar Sesión"
+        android:text="@string/ButtonLogin"
         android:textAllCaps="false"
         android:textSize="20sp"
         app:cornerRadius="12dp" />
@@ -54,7 +54,7 @@
         android:clickable="true"
         android:fontFamily="@font/montserrat"
         android:paddingTop="10dp"
-        android:text="Continuar como invitado"
+        android:text="@string/Invited"
         android:textAlignment="center"
         style="@style/TextAlternative"
         android:textSize="20sp" />

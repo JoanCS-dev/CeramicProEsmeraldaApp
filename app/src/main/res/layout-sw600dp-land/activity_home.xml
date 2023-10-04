@@ -10,12 +10,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="380dp"
-            android:layout_height="380dp"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             style="@style/ImageAppTheme2"/>
@@ -30,7 +30,7 @@
             android:layout_marginEnd="200dp"
             android:backgroundTint="@color/appColor"
             android:fontFamily="@font/montserrat"
-            android:text="Regístrate"
+            android:text="@string/ButtonRegister"
             android:textAllCaps="false"
             android:textSize="20sp"
             app:cornerRadius="12dp" />
@@ -45,7 +45,7 @@
             android:layout_marginEnd="200dp"
             style="@style/ButtomAlternative"
             android:fontFamily="@font/montserrat"
-            android:text="Iniciar Sesión"
+            android:text="@string/ButtonLogin"
             android:textAllCaps="false"
             android:textSize="20sp"
             app:cornerRadius="12dp" />
@@ -59,7 +59,7 @@
             android:clickable="true"
             android:fontFamily="@font/montserrat"
             android:paddingTop="10dp"
-            android:text="Continuar como invitado"
+            android:text="@string/Invited"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="23sp" />

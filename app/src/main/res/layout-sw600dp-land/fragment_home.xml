@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="¿Por qué ceramic pro esmeralda en tu vehículo?"
+                android:text="@string/Porque_ceramic_pro"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="20dp"
                 style="@style/TextAlternative"
@@ -64,7 +64,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Buena Inversión"
+                            android:text="@string/buena_inversion"
                             android:gravity="center"
                             style="@style/TextAlternative2"
                             android:textStyle="bold"
@@ -99,7 +99,7 @@
                             android:fontFamily="@font/montserrat"
                             android:gravity="center"
                             style="@style/TextAlternative2"
-                            android:text="Siempre Nuevo"
+                            android:text="@string/siempre_nuevo"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -128,7 +128,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Menos Mantenimiento"
+                            android:text="@string/menos_mantenimiento"
                             android:gravity="center"
                             style="@style/TextAlternative2"
                             android:textStyle="bold"
@@ -141,7 +141,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Somos el líder mundial en revestimientos y películas nano cerámicas en todo el mundo"
+                android:text="@string/LiderMundial"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="40dp"
                 style="@style/TextAlternative"
@@ -163,7 +163,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Forma parte de nuestro equipo"
+                android:text="@string/Forma_Parte"
                 android:layout_marginTop="40dp"
                 style="@style/TextAlternative"
                 android:textSize="16sp"

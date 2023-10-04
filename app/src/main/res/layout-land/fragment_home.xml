@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,21 +22,21 @@
 
             <TextView
                 android:id="@+id/themeNameHome"
+                style="@style/VariableTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                style="@style/VariableTheme"/>
+                android:visibility="gone" />
 
             <TextView
+                style="@style/TextAlternative"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="¿Por qué ceramic pro esmeralda en tu vehículo?"
-                android:layout_marginBottom="20dp"
                 android:layout_marginTop="20dp"
-                style="@style/TextAlternative"
-                android:textSize="16sp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/montserrat"
                 android:gravity="center"
-                android:fontFamily="@font/montserrat"/>
+                android:text="@string/Porque_ceramic_pro"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,75 +45,81 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/Inversion"
+                    style="@style/CVbgStyle"
                     android:layout_width="match_parent"
                     android:layout_height="110dp"
-                    app:cardCornerRadius="20dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    style="@style/CVbgStyle">
+                    app:cardCornerRadius="20dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="3dp"
                         android:orientation="vertical">
+
                         <ImageView
                             android:id="@+id/img_Inversion"
+                            style="@style/MoneyStyle"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            style="@style/MoneyStyle"/>
+                            android:layout_height="wrap_content" />
+
                         <TextView
+                            style="@style/TextAlternative2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Buena Inversión"
+                            android:fontFamily="@font/montserrat"
                             android:gravity="center"
-                            style="@style/TextAlternative2"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/montserrat"/>
+                            android:text="@string/buena_inversion"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/New"
+                    style="@style/CVbgStyle"
                     android:layout_width="match_parent"
                     android:layout_height="110dp"
-                    app:cardCornerRadius="20dp"
-                    android:layout_marginEnd="5dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    style="@style/CVbgStyle">
+                    app:cardCornerRadius="20dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="3dp"
                         android:orientation="vertical">
+
                         <ImageView
                             android:id="@+id/img_New"
+                            style="@style/ThumbStyle"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            style="@style/ThumbStyle"/>
+                            android:layout_height="wrap_content" />
 
                         <TextView
+                            style="@style/TextAlternative2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat"
                             android:gravity="center"
-                            style="@style/TextAlternative2"
-                            android:text="Siempre Nuevo"
+                            android:text="@string/siempre_nuevo"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/Maintenance"
+                    style="@style/CVbgStyle"
                     android:layout_width="match_parent"
                     android:layout_height="110dp"
-                    app:cardCornerRadius="10dp"
-                    android:layout_marginEnd="5dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    style="@style/CVbgStyle">
+                    app:cardCornerRadius="10dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -120,69 +127,68 @@
                         android:layout_margin="3dp"
                         android:gravity="center"
                         android:orientation="vertical">
+
                         <ImageView
                             android:id="@+id/img_Maintenance"
+                            style="@style/TimeStyle"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            style="@style/TimeStyle"/>
+                            android:layout_height="wrap_content" />
+
                         <TextView
+                            style="@style/TextAlternative2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Menos Mantenimiento"
+                            android:fontFamily="@font/montserrat"
                             android:gravity="center"
-                            style="@style/TextAlternative2"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/montserrat"/>
+                            android:text="@string/menos_mantenimiento"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
 
             <TextView
+                style="@style/TextAlternative"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Somos el líder mundial en revestimientos y películas nano cerámicas en todo el mundo"
-                android:layout_marginBottom="10dp"
                 android:layout_marginTop="40dp"
-                style="@style/TextAlternative"
-                android:textSize="16sp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/montserrat"
                 android:gravity="center"
-                android:fontFamily="@font/montserrat"/>
+                android:text="@string/LiderMundial"
+                android:textSize="16sp" />
 
             <com.denzcoskun.imageslider.ImageSlider
                 android:id="@+id/image_slider"
                 android:layout_width="wrap_content"
                 android:layout_height="350dp"
                 app:iss_auto_cycle="true"
-                app:iss_period="2000"
                 app:iss_delay="2000"
-                app:iss_text_align="CENTER"/>
+                app:iss_period="2000"
+                app:iss_text_align="CENTER" />
 
             <TextView
+                style="@style/TextAlternative"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Forma parte de nuestro equipo"
                 android:layout_marginTop="40dp"
-                style="@style/TextAlternative"
-                android:textSize="16sp"
+                android:fontFamily="@font/montserrat"
                 android:gravity="center"
-                android:fontFamily="@font/montserrat"/>
+                android:text="@string/Forma_Parte"
+                android:textSize="16sp" />
 
-            <androidx.cardview.widget.CardView
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <LinearLayout
+
+                <ImageView
+                    android:id="@+id/TeamWork"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:id="@+id/TeamWork"
-                        android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:layout_marginTop="10dp"
-                        android:src="@drawable/img_part_of_team"
-                        />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                    android:layout_height="280dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/img_part_of_team" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

@@ -26,7 +26,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Agendar Cita"
+                    android:text="@string/agendar_cita"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="20dp"
                     android:textAlignment="center"
@@ -60,7 +60,7 @@
                             android:layout_marginStart="5dp"
                             android:fontFamily="@font/montserrat"
                             android:textColor="@color/white"
-                            android:text="Por favor crea una cuenta o inicia sesión, para utilizar este apartado."/>
+                            android:text="@string/Crea_cuenta"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -69,7 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:hint="Tipo de vehículo"
+                    android:hint="@string/tipo_de_vehiculo"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:fontFamily="@font/montserrat">
                     <AutoCompleteTextView
@@ -86,7 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:hint="Servicio"
+                    android:hint="@string/servicio"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:fontFamily="@font/montserrat">
                     <AutoCompleteTextView
@@ -103,7 +103,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:hint="Marca del vehículo"
+                    android:hint="@string/marca_del_vehiculo"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:fontFamily="@font/montserrat">
                     <AutoCompleteTextView
@@ -120,7 +120,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:hint="Modelo del vehículo"
+                    android:hint="@string/modelo_del_vehiculo"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:fontFamily="@font/montserrat">
                     <AutoCompleteTextView
@@ -137,7 +137,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:hint="Color del vehículo"
+                    android:hint="@string/color_del_vehiculo"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:fontFamily="@font/montserrat">
                     <AutoCompleteTextView
@@ -154,7 +154,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:hint="Fecha de la cita"
+                    android:hint="@string/fecha_de_la_cita"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:fontFamily="@font/montserrat">
                     <AutoCompleteTextView
@@ -171,7 +171,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:hint="Hora de la cita"
+                    android:hint="@string/hora_de_la_cita"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:fontFamily="@font/montserrat">
                     <AutoCompleteTextView
@@ -188,7 +188,7 @@
                     android:layout_height="65dp"
                     android:id="@+id/btn_confirm"
                     android:textAllCaps="false"
-                    android:text="Agendar Cita"
+                    android:text="@string/agendar_cita"
                     android:textSize="20sp"
                     app:cornerRadius="12dp"
                     style="@style/ButtomAlternative"

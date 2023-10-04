@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -43,7 +43,7 @@
                     android:id="@+id/loginlable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Iniciar Sesión"
+                    android:text="@string/Iniciar_sesion"
                     android:textAlignment="center"
                     style="@style/TextBold"
                     android:textSize="35sp"
@@ -59,7 +59,7 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginStart="200dp"
                 android:layout_marginEnd="200dp"
-                android:hint="Correo electrónico"
+                android:hint="@string/Email_Text"
                 android:fontFamily="@font/montserrat">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -78,7 +78,7 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginStart="200dp"
                 android:layout_marginEnd="200dp"
-                android:hint="Contraseña"
+                android:hint="@string/Password_Text"
                 app:passwordToggleEnabled="true"
                 android:fontFamily="@font/montserrat">
 
@@ -103,7 +103,7 @@
             android:layout_marginBottom="25dp"
             style="@style/ButtomAlternative"
             android:fontFamily="@font/montserrat"
-            android:text="Ingresar"
+            android:text="@string/ButtonIngresar"
             android:textAllCaps="false"
             android:textSize="20sp"
             app:cornerRadius="12dp"

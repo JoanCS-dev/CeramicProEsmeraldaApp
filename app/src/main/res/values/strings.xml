@@ -11,4 +11,46 @@
     <string name="str_app_version">©Ceramic Pro Esmeralda v1.05</string>
     <string name="themeAppStrDark">Dark</string>
     <string name="themeAppStrWhite">White</string>
+
+
+    <string name="ButtonRegister">Regístrate</string>
+    <string name="ButtonLogin">Iniciar Sesión</string>
+    <string name="Invited">Continuar como invitado</string>
+    <string name="Iniciar_sesion">Iniciar Sesión</string>
+    <string name="Email_Text">Correo electrónico</string>
+    <string name="Password_Text">Contraseña</string>
+    <string name="ButtonIngresar">Ingresar</string>
+    <string name="title_QR">Código QR</string>
+    <string name="QR_Text_Description">Tu código QR es privado. Si lo compartes con la agencia CeramicPro Esmeralda, ellos podrán identificarte como un cliente.</string>
+    <string name="Servicio_agendado">Servicio agendado</string>
+    <string name="Marca_Vehiculo">Marca del vehículo</string>
+    <string name="Modelo_Vehiculo">Modelo del vehículo</string>
+    <string name="Color_Vehiculo">Color del vehículo</string>
+    <string name="Status">Validación de agencia</string>
+    <string name="CancelButton">Cancelar</string>
+    <string name="Mayor">¿Eres mayor de edad?</string>
+    <string name="Mayor_Desc">Para poder utilizar esta aplicación debes verificar que cumples con la mayoría de edad.</string>
+    <string name="ButtonYesMayor">Soy mayor de edad</string>
+    <string name="ButtonNotMayor">No soy mayor de edad</string>
+    <string name="dieciocho_o_mas">Al usar Ceramic Pro estás confirmando que tienes 18 años o más.</string>
+    <string name="Loading">Cargando...</string>
+    <string name="lista_de_citas">Lista de citas</string>
+    <string name="cerrar_sesion">Cerrar Sesión</string>
+    <string name="Crea_cuenta">Por favor crea una cuenta o inicia sesión, para utilizar este apartado.</string>
+    <string name="agendar_cita">Agendar Cita</string>
+    <string name="tipo_de_vehiculo">Tipo de vehículo</string>
+    <string name="servicio">Servicio</string>
+    <string name="marca_del_vehiculo">Marca del vehículo</string>
+    <string name="modelo_del_vehiculo">Modelo del vehículo</string>
+    <string name="color_del_vehiculo">Color del vehículo</string>
+    <string name="fecha_de_la_cita">Fecha de la cita</string>
+    <string name="hora_de_la_cita">Hora de la cita</string>
+    <string name="Forma_Parte">Forma parte de nuestro equipo</string>
+    <string name="LiderMundial">Somos el líder mundial en revestimientos y películas nano cerámicas en todo el mundo</string>
+    <string name="menos_mantenimiento">Menos Mantenimiento</string>
+    <string name="siempre_nuevo">Siempre Nuevo</string>
+    <string name="buena_inversion">Buena Inversión</string>
+    <string name="Porque_ceramic_pro">¿Por qué ceramic pro esmeralda en tu vehículo?</string>
+
+
 </resources>
