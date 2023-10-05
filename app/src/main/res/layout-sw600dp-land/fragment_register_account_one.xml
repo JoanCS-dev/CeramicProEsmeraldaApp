@@ -32,8 +32,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Regístrate"
-                    android:layout_marginBottom="30px"
+                    android:text="@string/ButtonRegister"
+                    android:layout_marginBottom="10dp"
                     android:textAlignment="center"
                     style="@style/TextBold"
                     android:textSize="35sp"
@@ -44,8 +44,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30px"
-                android:text="Utilizaremos esta información para validar tu registro"
+                android:layout_marginBottom="10dp"
+                android:text="@string/info_valid"
                 android:textAlignment="center"
                 android:textColor="@color/simple_text"
                 android:fontFamily="@font/montserrat"/>
@@ -53,10 +53,10 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30px"
+                android:layout_marginBottom="10dp"
                 android:layout_marginStart="200dp"
                 android:layout_marginEnd="200dp"
-                android:hint="Nombre(s)"
+                android:hint="@string/nombres"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:fontFamily="@font/montserrat">
 
@@ -72,10 +72,10 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30px"
+                android:layout_marginBottom="10dp"
                 android:layout_marginStart="200dp"
                 android:layout_marginEnd="200dp"
-                android:hint="Apellido(s)"
+                android:hint="@string/apellidos"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:fontFamily="@font/montserrat">
 
@@ -90,10 +90,10 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30px"
+                android:layout_marginBottom="10dp"
                 android:layout_marginStart="200dp"
                 android:layout_marginEnd="200dp"
-                android:hint="Código Postal"
+                android:hint="@string/codigo_postal"
                 android:layout_weight="1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:fontFamily="@font/montserrat">
@@ -111,10 +111,10 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30px"
+                android:layout_marginBottom="10dp"
                 android:layout_marginStart="200dp"
                 android:layout_marginEnd="200dp"
-                android:hint="Celular"
+                android:hint="@string/celular"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:fontFamily="@font/montserrat">
 
@@ -132,10 +132,10 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30px"
+                android:layout_marginBottom="10dp"
                 android:layout_marginStart="200dp"
                 android:layout_marginEnd="200dp"
-                android:hint="Correo electrónico"
+                android:hint="@string/Email_Text"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:fontFamily="@font/montserrat">
 
@@ -151,10 +151,10 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30px"
+                android:layout_marginBottom="10dp"
                 android:layout_marginStart="200dp"
                 android:layout_marginEnd="200dp"
-                android:hint="Contraseña"
+                android:hint="@string/Password_Text"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:fontFamily="@font/montserrat">
 
@@ -173,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="200dp"
                 android:layout_marginEnd="200dp"
-                android:hint="Confirma tu contraseña"
+                android:hint="@string/Confirm_Password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:fontFamily="@font/montserrat">
 
@@ -195,7 +195,7 @@
                 android:layout_marginEnd="200dp"
                 android:layout_marginTop="20dp"
                 android:textAllCaps="false"
-                android:text="Registrar"
+                android:text="@string/ButtonRegister_two"
                 style="@style/ButtomAlternative"
                 android:textSize="20sp"
                 app:cornerRadius="12dp"

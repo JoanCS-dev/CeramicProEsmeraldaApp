@@ -51,6 +51,38 @@
     <string name="siempre_nuevo">Siempre Nuevo</string>
     <string name="buena_inversion">Buena Inversión</string>
     <string name="Porque_ceramic_pro">¿Por qué ceramic pro esmeralda en tu vehículo?</string>
+    <string name="info_valid">Utilizaremos esta información para validar tu registro</string>
+    <string name="nombres">Nombre(s)</string>
+    <string name="apellidos">Apellido(s)</string>
+    <string name="codigo_postal">Código postal</string>
+    <string name="celular">Número teléfonico</string>
+    <string name="Confirm_Password">Confirma tu contraseña</string>
+    <string name="ButtonRegister_two">Registrar</string>
+    <string name="paquete_oro">PAQUETE ORO</string>
+    <string name="garantia_por_vida">Garantía de por vida</string>
+    <string name="pack_oro_desc">El paquete oro consta de 4 capas de Ceramic Pro 9H aplicadas a la pintura del vehículo, brindando protección permanente con garantía de por vida. Se agrega una capa adicional de protección a las áreas expuestas, incluidos el parabrisas y las ruedas.</string>
+    <string name="incluye">INCLUYE</string>
+    <string name="cuatro_capas_de_9h">4 capas de 9H</string>
+    <string name="una_capa_de_capa_superior">1 capa de capa superior</string>
+    <string name="una_capa_de_9h_sobre_pl_sticos">1 Capa de 9H sobre plásticos</string>
+    <string name="una_capa_de_rueda_y_calibre_en_las_caras_de_las_ruedas">1 capa de rueda y calibre en las caras de las ruedas</string>
+    <string name="una_capa_de_vidrio_en_el_parabrisas">1 capa de vidrio en el parabrisas</string>
+    <string name="_1_capa_de_capa_superior">1 capa de capa superior</string>
+    <string name="_1_capa_de_top_coat">1 Capa de Top Coat sobre plásticos y llantas</string>
+    <string name="_1_capa_de_top_coat_sobre_plasticos">1 Capa de Top Coat sobre plásticos</string>
+    <string name="PackBronce_Desc">El Paquete Bronce consta de 1 capa de Ceramic Pro Top Coat aplicada sobre la pintura del vehículo. Este recubrimiento protege contra rayones leves y proporciona un hermoso acabado brillante con una garantía de 2 años. Se agrega una capa protectora adicional a otras áreas, incluidos el parabrisas y las ruedas.</string>
+    <string name="garantia_2_años">Garantía de 2 años</string>
+    <string name="paquete_bronce">PAQUETE BRONCE</string>
+    <string name="_1_capa_de_9h">1 capa de 9H</string>
+    <string name="PackPlata_Desc">El Paquete Plata incluye 1 capa de Ceramic Pro 9H aplicada sobre la pintura del vehículo, brindando protección contra los elementos y una garantía de 5 años. Se agrega una capa protectora adicional a otras áreas, incluidos el parabrisas y las ruedas.</string>
+    <string name="garant_de_5_años">Garantía de 5 años</string>
+    <string name="paquete_plata">PAQUETE PLATA</string>
+    <string name="Formar_Parte_De_Equipo">¿Quieres formar parte de nuestro equipo?</string>
+    <string name="Send_Information">Ingresa tu información y te estaremos contactando.</string>
+    <string name="nombre_completo">Nombre completo</string>
+    <string name="ButtonSend">Enviar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="send_desc">Al enviar tu información estás de acuerdo en que te contactaremos de Ceramic Pro Esmeralda.</string>
 
 
 </resources>

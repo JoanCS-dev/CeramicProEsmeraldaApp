@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="¿Quieres formar parte de nuestro equipo?"
+        android:text="@string/Formar_Parte_De_Equipo"
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="25sp"
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Ingresa tu información y te estaremos contactando."
+        android:text="@string/Send_Information"
         android:gravity="center"
         android:textSize="20sp"
         style="@style/TextDescription"
@@ -40,8 +40,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30px"
-        android:hint="Nombre completo"
+        android:layout_marginTop="10dp"
+        android:hint="@string/nombre_completo"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:fontFamily="@font/montserrat">
 
@@ -57,8 +57,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30px"
-        android:hint="Correo electrónico"
+        android:layout_marginTop="10dp"
+        android:hint="@string/Email_Text"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:fontFamily="@font/montserrat">
 
@@ -74,8 +74,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30px"
-        android:hint="Número teléfonico"
+        android:layout_marginTop="10dp"
+        android:hint="@string/celular"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:fontFamily="@font/montserrat">
 
@@ -95,7 +95,7 @@
         android:id="@+id/Btn_Send"
         android:layout_marginTop="20dp"
         android:textAllCaps="false"
-        android:text="Enviar"
+        android:text="@string/ButtonSend"
         android:backgroundTint="@color/appColor"
         android:layout_gravity="bottom"
         android:textSize="20sp"
@@ -107,7 +107,7 @@
         android:layout_height="65dp"
         android:id="@+id/Btn_No"
         android:textAllCaps="false"
-        android:text="Cancelar"
+        android:text="@string/cancelar"
         style="@style/ButtomAlternative"
         android:layout_gravity="bottom"
         android:textSize="20sp"
@@ -118,7 +118,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Al enviar tu información estás de acuerdo en que te contactaremos de Ceramic Pro Esmeralda."
+        android:text="@string/send_desc"
         android:gravity="center"
         android:textSize="15sp"
         style="@style/TextDescription"

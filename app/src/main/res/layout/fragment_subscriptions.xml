@@ -45,7 +45,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="25sp"
-                            android:text="PAQUETE ORO"
+                            android:text="@string/paquete_oro"
                             android:textStyle="bold"
                             android:textColor="@color/white"
                             android:fontFamily="@font/montserrat"/>
@@ -54,7 +54,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="16sp"
-                            android:text="Garantía de por vida"
+                            android:text="@string/garantia_por_vida"
                             android:textStyle="bold"
                             android:textColor="@color/white"
                             android:fontFamily="@font/montserrat"/>
@@ -70,12 +70,12 @@
                             android:gravity="center"
                             android:textSize="15sp"
                             android:layout_margin="10dp"
-                            android:text="El paquete oro consta de 4 capas de Ceramic Pro 9H aplicadas a la pintura del vehículo, brindando protección permanente con garantía de por vida. Se agrega una capa adicional de protección a las áreas expuestas, incluidos el parabrisas y las ruedas."
+                            android:text="@string/pack_oro_desc"
                             android:fontFamily="@font/montserrat"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="INCLUYE"
+                            android:text="@string/incluye"
                             android:textStyle="bold"
                             style="@style/TextAlternative"
                             android:gravity="center"
@@ -86,35 +86,35 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:text="4 capas de 9H"
+                            android:text="@string/cuatro_capas_de_9h"
                             android:fontFamily="@font/montserrat"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:text="1 capa de capa superior"
+                            android:text="@string/una_capa_de_capa_superior"
                             android:fontFamily="@font/montserrat"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:text="1 Capa de 9H sobre plásticos"
+                            android:text="@string/una_capa_de_9h_sobre_pl_sticos"
                             android:fontFamily="@font/montserrat"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:text="1 capa de rueda y calibre en las caras de las ruedas"
+                            android:text="@string/una_capa_de_rueda_y_calibre_en_las_caras_de_las_ruedas"
                             android:fontFamily="@font/montserrat"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:text="1 capa de vidrio en el parabrisas"
+                            android:text="@string/una_capa_de_vidrio_en_el_parabrisas"
                             android:fontFamily="@font/montserrat"
                             android:layout_marginBottom="10dp"/>
 
@@ -147,7 +147,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="25sp"
-                            android:text="PAQUETE PLATA"
+                            android:text="@string/paquete_plata"
                             android:textStyle="bold"
                             android:textColor="@color/white"
                             android:fontFamily="@font/montserrat"/>
@@ -156,7 +156,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="16sp"
-                            android:text="Garantía de 5 años"
+                            android:text="@string/garant_de_5_años"
                             android:textStyle="bold"
                             android:textColor="@color/white"
                             android:fontFamily="@font/montserrat"/>
@@ -172,12 +172,12 @@
                             android:gravity="center"
                             android:textSize="15sp"
                             android:layout_margin="10dp"
-                            android:text="El Paquete Plata incluye 1 capa de Ceramic Pro 9H aplicada sobre la pintura del vehículo, brindando protección contra los elementos y una garantía de 5 años. Se agrega una capa protectora adicional a otras áreas, incluidos el parabrisas y las ruedas."
+                            android:text="@string/PackPlata_Desc"
                             android:fontFamily="@font/montserrat"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="INCLUYE"
+                            android:text="@string/incluye"
                             android:textStyle="bold"
                             style="@style/TextAlternative"
                             android:gravity="center"
@@ -188,35 +188,35 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:text="1 capa de 9H"
+                            android:text="@string/_1_capa_de_9h"
                             android:fontFamily="@font/montserrat"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:text="1 capa de capa superior"
+                            android:text="@string/una_capa_de_capa_superior"
                             android:fontFamily="@font/montserrat"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:text="1 Capa de 9H sobre plásticos"
+                            android:text="@string/una_capa_de_9h_sobre_pl_sticos"
                             android:fontFamily="@font/montserrat"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:text="1 capa de rueda y calibre en las caras de las ruedas"
+                            android:text="@string/una_capa_de_rueda_y_calibre_en_las_caras_de_las_ruedas"
                             android:fontFamily="@font/montserrat"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:text="1 capa de vidrio en el parabrisas"
+                            android:text="@string/una_capa_de_vidrio_en_el_parabrisas"
                             android:fontFamily="@font/montserrat"
                             android:layout_marginBottom="10dp"/>
                     </LinearLayout>
@@ -248,7 +248,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="25sp"
-                            android:text="PAQUETE BRONCE"
+                            android:text="@string/paquete_bronce"
                             android:textStyle="bold"
                             android:textColor="@color/white"
                             android:fontFamily="@font/montserrat"/>
@@ -257,7 +257,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="16sp"
-                            android:text="Garantía de 2 años"
+                            android:text="@string/garantia_2_años"
                             android:textStyle="bold"
                             android:textColor="@color/white"
                             android:fontFamily="@font/montserrat"/>
@@ -272,12 +272,12 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:text="El Paquete Bronce consta de 1 capa de Ceramic Pro Top Coat aplicada sobre la pintura del vehículo. Este recubrimiento protege contra rayones leves y proporciona un hermoso acabado brillante con una garantía de 2 años. Se agrega una capa protectora adicional a otras áreas, incluidos el parabrisas y las ruedas."
+                            android:text="@string/PackBronce_Desc"
                             android:fontFamily="@font/montserrat"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="INCLUYE"
+                            android:text="@string/incluye"
                             android:textStyle="bold"
                             style="@style/TextAlternative"
                             android:gravity="center"
@@ -289,28 +289,28 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:text="1 capa de capa superior"
+                            android:text="@string/_1_capa_de_capa_superior"
                             android:fontFamily="@font/montserrat"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:text="1 Capa de Top Coat sobre plásticos y llantas"
+                            android:text="@string/_1_capa_de_top_coat"
                             android:fontFamily="@font/montserrat"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:text="1 Capa de Top Coat sobre plásticos"
+                            android:text="@string/_1_capa_de_top_coat_sobre_plasticos"
                             android:fontFamily="@font/montserrat"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:textSize="15sp"
-                            android:text="1 capa de vidrio en el parabrisas"
+                            android:text="@string/una_capa_de_vidrio_en_el_parabrisas"
                             android:fontFamily="@font/montserrat"
                             android:layout_marginBottom="10dp"/>
 

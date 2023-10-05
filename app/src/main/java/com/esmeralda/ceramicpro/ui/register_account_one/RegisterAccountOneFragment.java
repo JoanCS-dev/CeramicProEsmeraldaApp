@@ -103,7 +103,7 @@ public class RegisterAccountOneFragment extends Fragment {
                 }else if(__txt_CodigoP.equals("")){
                     Message("Información", "Por favor escribe tu código postal");
                 }else if(__txt_Phone.equals("")){
-                    Message("Información", "Por favor escribe tu número de celular");
+                    Message("Información", "Por favor escribe tu número teléfonico");
                 }else if(__txt_Email.equals("")){
                     Message("Información", "Por favor escribe el correo electrónico");
                 }else if(!ValidEmail(txt_Email.getText().toString())){
