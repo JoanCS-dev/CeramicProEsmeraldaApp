@@ -15,6 +15,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -38,7 +39,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         cookies = getSharedPreferences("SHA_CST_DB", MODE_PRIVATE);
         User = cookies.getString("user", "");
         Pass = cookies.getString("pass", "");
-        client = new OkHttpClient();
         gson = new Gson();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -70,7 +70,11 @@ public class SplashScreenActivity extends AppCompatActivity {
                     .post(body)
                     .addHeader("Content-Type", "application/json")
                     .build();
-
+            client = new OkHttpClient.Builder()
+                    .connectTimeout(10, TimeUnit.SECONDS)
+                    .writeTimeout(10, TimeUnit.SECONDS)
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .build();
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -90,6 +94,9 @@ public class SplashScreenActivity extends AppCompatActivity {
                     final String string_json = response.body().string();
                     if(response.isSuccessful()){
                         AuthResponseVM res = gson.fromJson(string_json, AuthResponseVM.class);
+                        if(getApplicationContext() == null){
+                            return;
+                        }
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

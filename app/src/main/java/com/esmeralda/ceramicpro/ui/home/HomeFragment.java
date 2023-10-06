@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -72,6 +74,7 @@ public class HomeFragment extends Fragment {
     private OkHttpClient client;
     private Gson gson;
     private Dialog loading;
+    private Integer x = 0;
     private MaterialCardView cw_inversion, cw_new, cw_maintenance;
 
     private SharedPreferences cookies;
@@ -81,6 +84,16 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if(x == 1){
+            x=0;
+            loading.hide();
+        }
+
     }
 
     @Override
@@ -108,8 +121,6 @@ public class HomeFragment extends Fragment {
         ImageSlider imageSlider = view.findViewById(R.id.image_slider);
         imageSlider.setImageList(imageList);
 
-
-        client = new OkHttpClient();
         gson = new Gson();
 
         themename = view.findViewById(R.id.themeNameHome);
@@ -139,6 +150,7 @@ public class HomeFragment extends Fragment {
 
                 Show();
                 SaveInterested("OPTION1");
+
             }
         });
         cw_new.setOnClickListener(new View.OnClickListener() {
@@ -255,6 +267,11 @@ public class HomeFragment extends Fragment {
                             .post(body)
                             .addHeader("Content-Type", "application/json")
                             .build();
+                    client = new OkHttpClient.Builder()
+                            .connectTimeout(10, TimeUnit.SECONDS)
+                            .writeTimeout(10, TimeUnit.SECONDS)
+                            .readTimeout(30, TimeUnit.SECONDS)
+                            .build();
 
                     client.newCall(request).enqueue(new Callback() {
                         @Override
@@ -262,6 +279,7 @@ public class HomeFragment extends Fragment {
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    x=0;
                                     loading.hide();
                                     Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
                                 }
@@ -273,20 +291,26 @@ public class HomeFragment extends Fragment {
                             final String string_json = response.body().string();
                             if(response.isSuccessful()){
                                 ResponseVM res = gson.fromJson(string_json, ResponseVM.class);
+                                if(getActivity() == null){
+                                    return;
+                                }
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         if (res.ok) {
+                                            x=0;
                                             loading.hide();
                                             Message("Correcto", res.message);
                                             dialog.dismiss();
                                         }else{
+                                            x=0;
                                             loading.hide();
                                             Message("Información", res.message);
                                         }
                                     }
                                 });
                             }else{
+                                x=0;
                                 loading.hide();
                                 Message("Error", response.message() + " - " + response.code());
                             }
@@ -294,6 +318,7 @@ public class HomeFragment extends Fragment {
                     });
 
                 }else{
+                    x=0;
                     loading.hide();
                     Message("Error", "Por favor ingresa la url del servidor");
                 }
@@ -328,12 +353,19 @@ public class HomeFragment extends Fragment {
                     .addHeader("Content-Type", "application/json")
                     .build();
 
+            client = new OkHttpClient.Builder()
+                    .connectTimeout(10, TimeUnit.SECONDS)
+                    .writeTimeout(10, TimeUnit.SECONDS)
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .build();
+
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            x=0;
                             loading.hide();
                             Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
                         }
@@ -344,16 +376,18 @@ public class HomeFragment extends Fragment {
                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                     final String string_json = response.body().string();
                     if(response.isSuccessful()){
+
                         ResponseVM res = gson.fromJson(string_json, ResponseVM.class);
+                        if(getActivity() == null){
+                            return;
+                        }
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                loading.hide();
                                 Message("Información", res.message);
                             }
                         });
                     }else{
-                        loading.hide();
                         Message("Error", response.message() + " - " + response.code());
                     }
                 }
@@ -361,10 +395,12 @@ public class HomeFragment extends Fragment {
 
         }else{
             loading.hide();
+            x=0;
             Message("Error", "Por favor ingresa la url del servidor");
         }
     }
     private void Show() {
+        x = 1;
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         builder.setCancelable(false);
         builder.setView(R.layout.design_dialog_progress);

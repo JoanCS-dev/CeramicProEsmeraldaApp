@@ -46,6 +46,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -59,6 +60,7 @@ public class AppointmentFragment extends Fragment {
 
     private MediaType mediaType = MediaType.parse("application/json");
     private View view;
+    private Integer x = 0;
     private Dialog loading;
     private CardView card_view_alert;
     private TextInputLayout dropdown_type_layout, dropdown_service_layout, dropdown_brand_layout, dropdown_model_layout, dropdown_color_layout, dropdown_date_layout, dropdown_hour_layout;
@@ -79,6 +81,16 @@ public class AppointmentFragment extends Fragment {
     private OkHttpClient client;
     private Gson gson;
     private SwipeRefreshLayout swipeLayout;
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if(x == 1){
+            x=0;
+            loading.hide();
+        }
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +110,7 @@ public class AppointmentFragment extends Fragment {
             }else{
                 swipeLayout.setRefreshing(false);
                 SearchData();
+                Show();
             }
 
         });
@@ -118,7 +131,6 @@ public class AppointmentFragment extends Fragment {
         dropdown_hour = view.findViewById(R.id.dropdown_hour);
         btn_confirm = view.findViewById(R.id.btn_confirm);
 
-        client = new OkHttpClient();
 
         cookies = view.getContext().getSharedPreferences("SHA_CST_DB", Context.MODE_PRIVATE);
         token = cookies.getString("strToken", "");
@@ -174,12 +186,19 @@ public class AppointmentFragment extends Fragment {
                                 .addHeader("Content-Type", "application/json")
                                 .build();
 
+                        client = new OkHttpClient.Builder()
+                                .connectTimeout(10, TimeUnit.SECONDS)
+                                .writeTimeout(10, TimeUnit.SECONDS)
+                                .readTimeout(30, TimeUnit.SECONDS)
+                                .build();
+
                         client.newCall(request).enqueue(new Callback() {
                             @Override
                             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        x=0;
                                         loading.hide();
                                         Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
                                     }
@@ -196,6 +215,7 @@ public class AppointmentFragment extends Fragment {
                                         @Override
                                         public void run() {
                                             if (res.ok) {
+                                                x=0;
                                                 loading.hide();
                                                 lst_service = res.data;
 
@@ -208,12 +228,14 @@ public class AppointmentFragment extends Fragment {
 
                                                 dropdown_service.setAdapter(arrayAdapterService);
                                             } else {
+                                                x=0;
                                                 loading.hide();
                                                 Message("Información", res.message);
                                             }
                                         }
                                     });
                                 }else{
+                                    x=0;
                                     loading.hide();
                                     Message("Error", response.message() + " - " + response.code());
                                 }
@@ -221,6 +243,7 @@ public class AppointmentFragment extends Fragment {
                         });
 
                     }else{
+                        x=0;
                         loading.hide();
                         Message("Error", "Por favor ingresa la url del servidor e inicia sessión");
                     }
@@ -263,12 +286,18 @@ public class AppointmentFragment extends Fragment {
                                 .addHeader("Content-Type", "application/json")
                                 .build();
 
+                        client = new OkHttpClient.Builder()
+                                .connectTimeout(10, TimeUnit.SECONDS)
+                                .writeTimeout(10, TimeUnit.SECONDS)
+                                .readTimeout(30, TimeUnit.SECONDS)
+                                .build();
                         client.newCall(request).enqueue(new Callback() {
                             @Override
                             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        x=0;
                                         loading.hide();
                                         Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
                                     }
@@ -284,6 +313,7 @@ public class AppointmentFragment extends Fragment {
                                         @Override
                                         public void run() {
                                             if (res.ok) {
+                                                x=0;
                                                 loading.hide();
                                                 lst_model = res.data;
 
@@ -296,12 +326,14 @@ public class AppointmentFragment extends Fragment {
 
                                                 dropdown_model.setAdapter(arrayAdapterService);
                                             } else {
+                                                x=0;
                                                 loading.hide();
                                                 Message("Información", res.message);
                                             }
                                         }
                                     });
                                 }else{
+                                    x=0;
                                     loading.hide();
                                     Message("Error", response.message() + " - " + response.code());
                                 }
@@ -309,6 +341,7 @@ public class AppointmentFragment extends Fragment {
                         });
 
                     }else{
+                        x=0;
                         loading.hide();
                         Message("Error", "Por favor ingresa la url del servidor e inicia sessión");
                     }
@@ -361,12 +394,18 @@ public class AppointmentFragment extends Fragment {
                                 .addHeader("Content-Type", "application/json")
                                 .build();
 
+                        client = new OkHttpClient.Builder()
+                                .connectTimeout(10, TimeUnit.SECONDS)
+                                .writeTimeout(10, TimeUnit.SECONDS)
+                                .readTimeout(30, TimeUnit.SECONDS)
+                                .build();
                         client.newCall(request).enqueue(new Callback() {
                             @Override
                             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        x=0;
                                         loading.hide();
                                         Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
                                     }
@@ -382,6 +421,7 @@ public class AppointmentFragment extends Fragment {
                                         @Override
                                         public void run() {
                                             if (res.ok) {
+                                                x=0;
                                                 loading.hide();
                                                 lst_hours = res.data;
 
@@ -394,12 +434,14 @@ public class AppointmentFragment extends Fragment {
 
                                                 dropdown_hour.setAdapter(arrayAdapterService);
                                             } else {
+                                                x=0;
                                                 loading.hide();
                                                 Message("Información", res.message);
                                             }
                                         }
                                     });
                                 }else{
+                                    x=0;
                                     loading.hide();
                                     Message("Error", response.message() + " - " + response.code());
                                 }
@@ -407,6 +449,7 @@ public class AppointmentFragment extends Fragment {
                         });
 
                     }else{
+                        x=0;
                         loading.hide();
                         Message("Error", "Por favor ingresa la url del servidor e inicia sessión");
                     }
@@ -440,6 +483,7 @@ public class AppointmentFragment extends Fragment {
             card_view_alert.setVisibility(View.GONE);
             enable(true);
             SearchData();
+            Show();
         }
     }
 
@@ -460,6 +504,7 @@ public class AppointmentFragment extends Fragment {
         dropdown_hour.clearListSelection();
         dropdown_hour.setText("Hora de la cita");
         SearchData();
+        Show();
     }
     private void enable(Boolean sts){
         dropdown_type_layout.setEnabled(sts);
@@ -493,12 +538,18 @@ public class AppointmentFragment extends Fragment {
                     .addHeader("Content-Type", "application/json")
                     .build();
 
+            client = new OkHttpClient.Builder()
+                    .connectTimeout(10, TimeUnit.SECONDS)
+                    .writeTimeout(10, TimeUnit.SECONDS)
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .build();
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            x=0;
                             loading.hide();
                             Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
                         }
@@ -515,16 +566,19 @@ public class AppointmentFragment extends Fragment {
                             @Override
                             public void run() {
                                 if (res.ok) {
+                                    x=0;
                                     loading.hide();
                                     Message("Correcto", res.message);
                                     cleanall();
                                 } else {
+                                    x=0;
                                     loading.hide();
                                     Message("Información", res.message);
                                 }
                             }
                         });
                     }else{
+                        x=0;
                         loading.hide();
                         Message("Error", response.message() + " - " + response.code());
                     }
@@ -547,12 +601,18 @@ public class AppointmentFragment extends Fragment {
                     .addHeader("Content-Type", "application/json")
                     .build();
 
+            client = new OkHttpClient.Builder()
+                    .connectTimeout(10, TimeUnit.SECONDS)
+                    .writeTimeout(10, TimeUnit.SECONDS)
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .build();
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            x=0;
                             loading.hide();
                             Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
                         }
@@ -564,11 +624,15 @@ public class AppointmentFragment extends Fragment {
                     final String string_json = response.body().string();
                     if(response.isSuccessful()){
                         AppointmentResponseVM res = gson.fromJson(string_json, AppointmentResponseVM.class);
+                        if(getActivity() == null){
+                            return;
+                        }
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 if (res.ok) {
-                                    //loading.hide();
+                                    x=0;
+                                    loading.hide();
                                     lst_dates = res.data.quotes;
                                     lst_color = res.data.color;
                                     lst_brand = res.data.brand;
@@ -604,12 +668,14 @@ public class AppointmentFragment extends Fragment {
                                     dropdown_color.setAdapter(arrayAdapterColor);
                                     dropdown_brand.setAdapter(arrayAdapterBrand);
                                 } else {
-                                    //loading.hide();
+                                    x=0;
+                                    loading.hide();
                                     Message("Información", res.message);
                                 }
                             }
                         });
                     }else{
+                        x=0;
                         loading.hide();
                         Message("Error", response.message() + " - " + response.code());
                     }
@@ -617,12 +683,14 @@ public class AppointmentFragment extends Fragment {
             });
 
         }else{
+            x=0;
             loading.hide();
             Message("Error", "Por favor ingresa la url del servidor e inicia sessión");
         }
     }
 
     private void Show() {
+        x=1;
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         builder.setCancelable(false);
         builder.setView(R.layout.design_dialog_progress);

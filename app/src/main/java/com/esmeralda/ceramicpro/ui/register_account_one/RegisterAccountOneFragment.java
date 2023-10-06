@@ -35,6 +35,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -84,7 +85,7 @@ public class RegisterAccountOneFragment extends Fragment {
                 startActivity(new Intent(getActivity(), HomeActivity.class));
             }
         });
-        client = new OkHttpClient();
+
         gson = new Gson();
 
         B_Continuar.setOnClickListener(view -> {
@@ -104,6 +105,8 @@ public class RegisterAccountOneFragment extends Fragment {
                     Message("Información", "Por favor escribe tu código postal");
                 }else if(__txt_Phone.equals("")){
                     Message("Información", "Por favor escribe tu número teléfonico");
+                }else if(__txt_Phone.length() <= 9){
+                    Message("Información", "Por favor escribe un número teléfonico valido");
                 }else if(__txt_Email.equals("")){
                     Message("Información", "Por favor escribe el correo electrónico");
                 }else if(!ValidEmail(txt_Email.getText().toString())){
@@ -140,11 +143,10 @@ public class RegisterAccountOneFragment extends Fragment {
                 .setPositiveButton("Ok", null).show();
     }
     private boolean ValidEmail(String email){
-        Pattern pattern = Pattern
-                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-        Matcher mather = pattern.matcher(email);
-        return mather.find();
+        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Matcher m = p.matcher(email);
+        return m.matches();
     }
 
     private void validateBack() {
@@ -214,6 +216,11 @@ public class RegisterAccountOneFragment extends Fragment {
                     .addHeader("Content-Type", "application/json")
                     .build();
 
+            client = new OkHttpClient.Builder()
+                    .connectTimeout(10, TimeUnit.SECONDS)
+                    .writeTimeout(10, TimeUnit.SECONDS)
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .build();
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -234,6 +241,9 @@ public class RegisterAccountOneFragment extends Fragment {
                     final String string_json = response.body().string();
                     if(response.isSuccessful()){
                         ResponseVM res = gson.fromJson(string_json, ResponseVM.class);
+                        if(getActivity() == null){
+                            return;
+                        }
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

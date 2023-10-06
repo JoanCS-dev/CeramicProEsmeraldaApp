@@ -30,6 +30,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -69,7 +70,6 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Por favor ingresa la url del servidor", Toast.LENGTH_SHORT).show();
         }
 
-        client = new OkHttpClient();
         gson = new Gson();
 
         Back = findViewById(R.id.btn_back_login);
@@ -112,6 +112,11 @@ public class LoginActivity extends AppCompatActivity {
                     .addHeader("Content-Type", "application/json")
                     .build();
 
+            client = new OkHttpClient.Builder()
+                    .connectTimeout(10, TimeUnit.SECONDS)
+                    .writeTimeout(10, TimeUnit.SECONDS)
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .build();
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -130,6 +135,9 @@ public class LoginActivity extends AppCompatActivity {
                     final String string_json = response.body().string();
                     if(response.isSuccessful()){
                         AuthResponseVM res = gson.fromJson(string_json, AuthResponseVM.class);
+                        if(getApplicationContext() == null){
+                            return;
+                        }
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -170,11 +178,10 @@ public class LoginActivity extends AppCompatActivity {
                 .setPositiveButton("Ok", null).show();
     }
     private boolean ValidEmail(String email){
-        Pattern pattern = Pattern
-                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-        Matcher mather = pattern.matcher(email);
-        return mather.find();
+        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Matcher m = p.matcher(email);
+        return m.matches();
     }
     @Override
     public void onBackPressed() {

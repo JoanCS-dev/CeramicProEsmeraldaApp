@@ -34,6 +34,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -71,7 +72,6 @@ public class AppointmentHistoryFragment extends Fragment implements AppointmentA
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_appointment_history, container, false);
-        client = new OkHttpClient();
         gson = new Gson();
         cookies = view.getContext().getSharedPreferences("SHA_CST_DB", Context.MODE_PRIVATE);
         token = cookies.getString("strToken", "");
@@ -129,6 +129,12 @@ public class AppointmentHistoryFragment extends Fragment implements AppointmentA
                     .addHeader("Content-Type", "application/json")
                     .build();
 
+            client = new OkHttpClient.Builder()
+                    .connectTimeout(10, TimeUnit.SECONDS)
+                    .writeTimeout(10, TimeUnit.SECONDS)
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .build();
+
             try{
                 Response response = client.newCall(request).execute();
 
@@ -170,6 +176,12 @@ public class AppointmentHistoryFragment extends Fragment implements AppointmentA
                     .addHeader("Content-Type", "application/json")
                     .build();
 
+            client = new OkHttpClient.Builder()
+                    .connectTimeout(10, TimeUnit.SECONDS)
+                    .writeTimeout(10, TimeUnit.SECONDS)
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .build();
+
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -188,6 +200,9 @@ public class AppointmentHistoryFragment extends Fragment implements AppointmentA
                     final String string_json = response.body().string();
                     if(response.isSuccessful()){
                         LastAppointmentResponseVM res = gson.fromJson(string_json, LastAppointmentResponseVM.class);
+                        if(getActivity() == null){
+                            return;
+                        }
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
