@@ -384,10 +384,12 @@ public class HomeFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                loading.hide();
                                 Message("Información", res.message);
                             }
                         });
                     }else{
+                        loading.hide();
                         Message("Error", response.message() + " - " + response.code());
                     }
                 }
