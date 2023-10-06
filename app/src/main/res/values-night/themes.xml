@@ -89,6 +89,7 @@
         <item name="android:src">@drawable/ic_account_24_white</item>
     </style>
     <style name="QrStyle">
+        <item name="android:backgroundTint">#525252</item>
         <item name="android:src">@drawable/ic_qr_code_white_24</item>
     </style>
     <style name="ArrowStyle">

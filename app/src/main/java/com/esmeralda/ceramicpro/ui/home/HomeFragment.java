@@ -249,6 +249,8 @@ public class HomeFragment extends Fragment {
                 Message("Información", "Por favor escribe un correo electrónico valido");
             } else if (txt_PhoneNumberRD.getText().toString().equals("")) {
                 Message("Información", "Por favor escribe tu número teléfonico");
+            }else if(txt_PhoneNumberRD.getText().toString().length() <= 9){
+                Message("Información", "Por favor escribe un número teléfonico valido");
             }else{
                 if(!URL.equals("")){
                     Show();
@@ -330,11 +332,10 @@ public class HomeFragment extends Fragment {
         dialog.setContentView(view);
     }
     private boolean ValidEmail(String email){
-        Pattern pattern = Pattern
-                .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-        Matcher mather = pattern.matcher(email);
-        return mather.find();
+        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Matcher m = p.matcher(email);
+        return m.matches();
     }
     public void SaveInterested(String Option) {
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
