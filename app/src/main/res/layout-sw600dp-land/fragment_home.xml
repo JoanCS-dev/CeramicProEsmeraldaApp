@@ -181,7 +181,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="600dp"
                         android:layout_marginTop="10dp"
-                        android:src="@drawable/img_part_of_team"
+                        android:src="@drawable/unete_al_equipo"
                         />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
