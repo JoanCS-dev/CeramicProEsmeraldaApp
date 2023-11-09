@@ -187,7 +187,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="280dp"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/unete_al_equipo" />
+                    android:src="@drawable/placeholder" />
             </LinearLayout>
 
         </LinearLayout>

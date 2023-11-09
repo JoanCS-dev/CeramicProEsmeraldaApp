@@ -1,21 +1,13 @@
 package com.esmeralda.ceramicpro.ui.home;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,21 +24,17 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
-import com.esmeralda.ceramicpro.HomeActivity;
-import com.esmeralda.ceramicpro.LoginActivity;
-import com.esmeralda.ceramicpro.MainActivity;
 import com.esmeralda.ceramicpro.R;
-import com.esmeralda.ceramicpro.model.AccountRequestVM;
+import com.esmeralda.ceramicpro.model.ImageResponseVM;
 import com.esmeralda.ceramicpro.model.InterestedInOurServiceVM;
 import com.esmeralda.ceramicpro.model.JoinOurTeamRequestVM;
-import com.esmeralda.ceramicpro.model.PeopleRequestVM;
 import com.esmeralda.ceramicpro.model.ResponseVM;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -54,8 +42,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -80,6 +66,7 @@ public class HomeFragment extends Fragment {
     private SharedPreferences cookies;
     private TextView themename;
     private String NameTheme;
+    private List<String> lst_image;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,7 +91,7 @@ public class HomeFragment extends Fragment {
         dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
         teamwork = view.findViewById(R.id.TeamWork);
 
-        ArrayList<SlideModel> imageList = new ArrayList<SlideModel>(); // Create image list
+        /*ArrayList<SlideModel> imageList = new ArrayList<SlideModel>(); // Create image list
 
 
         imageList.add(new SlideModel(R.drawable.img_1, ScaleTypes.FIT));
@@ -119,7 +106,7 @@ public class HomeFragment extends Fragment {
         imageList.add(new SlideModel(R.drawable.img_10, ScaleTypes.FIT));
 
         ImageSlider imageSlider = view.findViewById(R.id.image_slider);
-        imageSlider.setImageList(imageList);
+        imageSlider.setImageList(imageList);*/
 
         gson = new Gson();
 
@@ -133,7 +120,6 @@ public class HomeFragment extends Fragment {
         cw_inversion = view.findViewById(R.id.Inversion);
         cw_new = view.findViewById(R.id.New);
         cw_maintenance = view.findViewById(R.id.Maintenance);
-
 
         cw_inversion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,7 +200,7 @@ public class HomeFragment extends Fragment {
         */
 
         createDialog();
-
+        ShowImage();
         teamwork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -223,6 +209,83 @@ public class HomeFragment extends Fragment {
         });
         return view;
 
+    }
+
+    private void ShowImage() {
+        if(!URL.equals("")){
+            //Show();
+            RequestBody body = RequestBody.create("", mediaType);
+            Request request = new Request.Builder()
+                    .url(URL + "AppContent/Images")
+                    .post(body)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+            client = new OkHttpClient.Builder()
+                    .connectTimeout(10, TimeUnit.SECONDS)
+                    .writeTimeout(10, TimeUnit.SECONDS)
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //loading.hide();
+                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                        }
+                    });
+                }
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                    final String string_json = response.body().string();
+                    if(response.isSuccessful()){
+                        ImageResponseVM res = gson.fromJson(string_json, ImageResponseVM.class);
+                        if(getActivity() == null){
+                            return;
+                        }
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (res.ok) {
+                                    //loading.hide();
+
+                                    lst_image = res.data.slider;
+                                    String team = res.data.team;
+                                    ArrayList<SlideModel> imageList = new ArrayList<SlideModel>(); // Create image list
+
+                                    for (String url : lst_image) {
+                                        imageList.add(new SlideModel(url, ScaleTypes.FIT));
+                                    }
+
+                                    ImageSlider imageSlider = view.findViewById(R.id.image_slider);
+                                    imageSlider.setImageList(imageList);
+
+                                    Picasso.get()
+                                            .load(team)
+                                            .placeholder(R.drawable.placeholder)
+                                            .error(R.drawable.placeholder)
+                                            .into(teamwork);
+
+
+                                } else {
+                                    //loading.hide();
+                                    Message("Información", res.message);
+                                }
+                            }
+                        });
+                    }else{
+                        //loading.hide();
+                        Message("Error", response.message() + " - " + response.code());
+                    }
+                }
+            });
+
+        }else{
+            //loading.hide();
+            Message("Error", "Por favor ingresa la url del servidor e inicia sessión");
+        }
     }
 
 
