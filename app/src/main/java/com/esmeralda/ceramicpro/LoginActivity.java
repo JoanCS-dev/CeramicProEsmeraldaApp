@@ -107,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
             req.acPassword = txt_Pass.getText().toString();
             RequestBody body = RequestBody.create(gson.toJson(req), mediaType);
             Request request = new Request.Builder()
-                    .url(URL + "/AppAccount/Auth")
+                    .url(URL + "AppAccount/Auth")
                     .post(body)
                     .addHeader("Content-Type", "application/json")
                     .build();

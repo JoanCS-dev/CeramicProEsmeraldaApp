@@ -211,7 +211,7 @@ public class RegisterAccountOneFragment extends Fragment {
 
             RequestBody body = RequestBody.create(gson.toJson(acc), mediaType);
             Request request = new Request.Builder()
-                    .url(URL + "/AppAccount/Add")
+                    .url(URL + "AppAccount/Add")
                     .post(body)
                     .addHeader("Content-Type", "application/json")
                     .build();

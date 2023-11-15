@@ -123,7 +123,7 @@ public class AppointmentHistoryFragment extends Fragment implements AppointmentA
             lastAppointmentRequestVM.vehicleModelID = 0;
             RequestBody body = RequestBody.create(gson.toJson(lastAppointmentRequestVM), mediaType);
             Request request = new Request.Builder()
-                    .url(URL + "/AppQuotes/Cancel")
+                    .url(URL + "AppQuotes/Cancel")
                     .post(body)
                     .addHeader("Authorization", "Bearer " + token)
                     .addHeader("Content-Type", "application/json")
@@ -170,7 +170,7 @@ public class AppointmentHistoryFragment extends Fragment implements AppointmentA
             lastAppointmentRequestVM.vehicleModelID = 0;
             RequestBody body = RequestBody.create(gson.toJson(lastAppointmentRequestVM), mediaType);
             Request request = new Request.Builder()
-                    .url(URL + "/AppQuotes/List")
+                    .url(URL + "AppQuotes/List")
                     .post(body)
                     .addHeader("Authorization", "Bearer " + token)
                     .addHeader("Content-Type", "application/json")

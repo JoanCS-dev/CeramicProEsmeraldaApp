@@ -328,7 +328,7 @@ public class HomeFragment extends Fragment {
 
                     RequestBody body = RequestBody.create(gson.toJson(joinOurTeamRequestVM), mediaType);
                     Request request = new Request.Builder()
-                            .url(URL + "/AppJoinOurTeam/Add")
+                            .url(URL + "AppJoinOurTeam/Add")
                             .post(body)
                             .addHeader("Content-Type", "application/json")
                             .build();
@@ -412,7 +412,7 @@ public class HomeFragment extends Fragment {
 
             RequestBody body = RequestBody.create(gson.toJson(interestedInOurServiceVM), mediaType);
             Request request = new Request.Builder()
-                    .url(URL + "/AppInterestedInOurService/Add")
+                    .url(URL + "AppInterestedInOurService/Add")
                     .post(body)
                     .addHeader("Content-Type", "application/json")
                     .build();

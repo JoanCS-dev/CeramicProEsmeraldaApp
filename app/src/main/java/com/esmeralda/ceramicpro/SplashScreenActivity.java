@@ -66,7 +66,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             req.acPassword = Pass;
             RequestBody body = RequestBody.create(gson.toJson(req), mediaType);
             Request request = new Request.Builder()
-                    .url(URL + "/AppAccount/Auth")
+                    .url(URL + "AppAccount/Auth")
                     .post(body)
                     .addHeader("Content-Type", "application/json")
                     .build();

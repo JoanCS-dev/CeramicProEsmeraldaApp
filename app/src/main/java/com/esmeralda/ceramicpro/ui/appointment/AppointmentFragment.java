@@ -180,7 +180,7 @@ public class AppointmentFragment extends Fragment {
                         serviceRequestVM.TypeServiceVehicleID = typeID;
                         RequestBody body = RequestBody.create(gson.toJson(serviceRequestVM), mediaType);
                         Request request = new Request.Builder()
-                                .url(URL + "/AppService/GetShortByType")
+                                .url(URL + "AppService/GetShortByType")
                                 .post(body)
                                 .addHeader("Authorization", "Bearer " + token)
                                 .addHeader("Content-Type", "application/json")
@@ -280,7 +280,7 @@ public class AppointmentFragment extends Fragment {
                         modelRequestVM.vehicleBrandID = brandID;
                         RequestBody body = RequestBody.create(gson.toJson(modelRequestVM), mediaType);
                         Request request = new Request.Builder()
-                                .url(URL + "/AppVehicleModel/DropList")
+                                .url(URL + "AppVehicleModel/DropList")
                                 .post(body)
                                 .addHeader("Authorization", "Bearer " + token)
                                 .addHeader("Content-Type", "application/json")
@@ -388,7 +388,7 @@ public class AppointmentFragment extends Fragment {
                         hoursRequestVM.QuoteDatesID = dateID;
                         RequestBody body = RequestBody.create(gson.toJson(hoursRequestVM), mediaType);
                         Request request = new Request.Builder()
-                                .url(URL + "/AppQuoteHour/GetShortByDate")
+                                .url(URL + "AppQuoteHour/GetShortByDate")
                                 .post(body)
                                 .addHeader("Authorization", "Bearer " + token)
                                 .addHeader("Content-Type", "application/json")
@@ -532,7 +532,7 @@ public class AppointmentFragment extends Fragment {
 
             RequestBody body = RequestBody.create(gson.toJson(quotesRequestVM), mediaType);
             Request request = new Request.Builder()
-                    .url(URL + "/AppQuotes/Add")
+                    .url(URL + "AppQuotes/Add")
                     .post(body)
                     .addHeader("Authorization", "Bearer " + token)
                     .addHeader("Content-Type", "application/json")
@@ -595,7 +595,7 @@ public class AppointmentFragment extends Fragment {
             //Show();
             RequestBody body = RequestBody.create("", mediaType);
             Request request = new Request.Builder()
-                    .url(URL + "/AppQuotes/ListDataQuote")
+                    .url(URL + "AppQuotes/ListDataQuote")
                     .post(body)
                     .addHeader("Authorization", "Bearer " + token)
                     .addHeader("Content-Type", "application/json")

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ItemSubscription"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/grayBlack"
+    app:cardElevation="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginTop="10dp"
+    app:cardCornerRadius="10dp">
+
+    <TextView
+        android:id="@+id/Color_Theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/VariableTheme"
+        android:visibility="gone"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/LastAppointment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/CVbgStyleTop"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/textPack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:text=""
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/montserrat"/>
+
+                <TextView
+                    android:id="@+id/textGarantia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:text=""
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/montserrat"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:id="@+id/txt_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:text=""
+                    android:fontFamily="@font/montserrat"/>
+
+                <TextView
+                    android:id="@+id/txt_incluye"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textStyle="bold"
+                    style="@style/TextAlternative"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/montserrat"/>
+
+                <TextView
+                    android:id="@+id/txt_elements"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:text=""
+                    android:fontFamily="@font/montserrat"/>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
