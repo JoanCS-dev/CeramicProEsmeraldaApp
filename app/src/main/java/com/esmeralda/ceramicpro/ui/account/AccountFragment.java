@@ -16,7 +16,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.esmeralda.ceramicpro.AppointmentHistoryFragment;
+import com.esmeralda.ceramicpro.DeleteAccountFragment;
 import com.esmeralda.ceramicpro.HomeActivity;
+import com.esmeralda.ceramicpro.PasswordFragment;
 import com.esmeralda.ceramicpro.QRFragment;
 import com.esmeralda.ceramicpro.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -31,7 +33,7 @@ public class AccountFragment extends Fragment {
     private View view;
     private TextView txt_fullName, close_sesion;
     private String token, URL = "https://ceramicproesmeraldaapi.azurewebsites.net/Api/";
-    private CardView btn_logout, btn_history, card_view_alert, card_view_name_account;
+    private CardView btn_logout, btn_history, btn_changepass, btn_deleteaccount, card_view_alert, card_view_name_account;
     private String strCode;
     private OkHttpClient client;
     private ImageButton gotoqrcode;
@@ -51,6 +53,8 @@ public class AccountFragment extends Fragment {
         txt_fullName = view.findViewById(R.id.txt_fullName);
         btn_logout = view.findViewById(R.id.btn_logout);
         btn_history = view.findViewById(R.id.btn_history);
+        btn_changepass = view.findViewById(R.id.btn_change_pass);
+        btn_deleteaccount = view.findViewById(R.id.btn_delete_account);
         gotoqrcode = view.findViewById(R.id.btn_gotoqrcode);
         close_sesion = view.findViewById(R.id.close_session);
         client = new OkHttpClient();
@@ -86,6 +90,22 @@ public class AccountFragment extends Fragment {
             transaction.commit();
         });
 
+        btn_changepass.setOnClickListener(view -> {
+            Fragment fragment = new PasswordFragment();
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.nav_host_fragment_activity_main, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        });
+
+        btn_deleteaccount.setOnClickListener(view -> {
+            Fragment fragment = new DeleteAccountFragment();
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.nav_host_fragment_activity_main, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        });
+
         gotoqrcode.setOnClickListener(view -> {
             Fragment fragment = new QRFragment();
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
@@ -112,7 +132,12 @@ public class AccountFragment extends Fragment {
             card_view_alert.setVisibility(View.GONE);
             card_view_name_account.setVisibility(View.VISIBLE);
             try {
-                txt_fullName.setText(fullName.substring(0, 20) + "...");
+                if(fullName.length() < 20){
+                    txt_fullName.setText(fullName);
+                }else{
+                    txt_fullName.setText(fullName.substring(0, 20) + "...");
+                }
+
             }catch (Exception e) {
                 e.printStackTrace();
             }
