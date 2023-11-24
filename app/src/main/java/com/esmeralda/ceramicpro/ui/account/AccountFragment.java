@@ -126,6 +126,8 @@ public class AccountFragment extends Fragment {
         if(fullName.equals("") || fullName.equals("0000000000")){
             card_view_name_account.setVisibility(View.GONE);
             btn_history.setVisibility(View.GONE);
+            btn_changepass.setVisibility(View.GONE);
+            btn_deleteaccount.setVisibility(View.GONE);
             card_view_alert.setVisibility(View.VISIBLE);
             close_sesion.setText("Salir");
         }else{
