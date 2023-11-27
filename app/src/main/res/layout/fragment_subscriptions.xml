@@ -25,7 +25,7 @@
                 android:text="@string/lista_de_paquetes"
                 android:textAlignment="center"
                 style="@style/TextBold"
-                android:textSize="35sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/montserrat"/>
         </FrameLayout>

@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/BgStyle"
-                android:paddingTop="15dp"/>
+                android:paddingTop="3dp"/>
 
             <TextView
                 android:id="@+id/loginlable"
@@ -39,7 +39,7 @@
                 android:text="@string/title_QR"
                 android:textAlignment="center"
                 style="@style/TextBold"
-                android:textSize="35sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/montserrat"/>
         </FrameLayout>
