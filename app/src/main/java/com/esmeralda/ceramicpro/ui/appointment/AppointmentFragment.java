@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.esmeralda.ceramicpro.R;
@@ -65,8 +66,7 @@ public class AppointmentFragment extends Fragment {
     private CardView card_view_alert;
     private TextInputLayout dropdown_type_layout, dropdown_service_layout, dropdown_brand_layout, dropdown_model_layout, dropdown_color_layout, dropdown_date_layout, dropdown_hour_layout;
     private AutoCompleteTextView dropdown_type, dropdown_service, dropdown_brand, dropdown_model, dropdown_color, dropdown_date, dropdown_hour;
-
-    private Button btn_confirm;
+    private Button btn_confirm, refreshbtn;
     private String typeName, serviceName, brandName, modelName, dateName, colorName, hoursName, token, URL = "https://ceramicproesmeraldaapi.azurewebsites.net/Api/";
     private List<ServiceVM> lst_service;
     private List<BrandVM> lst_brand;
@@ -81,6 +81,7 @@ public class AppointmentFragment extends Fragment {
     private OkHttpClient client;
     private Gson gson;
     private SwipeRefreshLayout swipeLayout;
+    private ScrollView svvis;
 
     @Override
     public void onDestroyView() {
@@ -102,7 +103,13 @@ public class AppointmentFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_appointment, container, false);
 
         card_view_alert = view.findViewById(R.id.card_view_alert);
-
+        svvis = view.findViewById(R.id.scrollView);
+        refreshbtn = view.findViewById(R.id.RefreshButton);
+        refreshbtn.setOnClickListener(view -> {
+            refreshbtn.setVisibility(View.GONE);
+            svvis.setVisibility(View.VISIBLE);
+            SearchData();
+        });
         swipeLayout = view.findViewById(R.id.swap);
         swipeLayout.setOnRefreshListener(() -> {
             if(token.equals("") || token.equals("0000000000")){
@@ -112,7 +119,6 @@ public class AppointmentFragment extends Fragment {
                 SearchData();
                 Show();
             }
-
         });
         dropdown_type_layout = view.findViewById(R.id.dropdown_type_layout);
         dropdown_service_layout = view.findViewById(R.id.dropdown_service_layout);
@@ -614,7 +620,9 @@ public class AppointmentFragment extends Fragment {
                         public void run() {
                             x=0;
                             loading.hide();
-                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                            //Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                            svvis.setVisibility(View.GONE);
+                            refreshbtn.setVisibility(View.VISIBLE);
                         }
                     });
                 }

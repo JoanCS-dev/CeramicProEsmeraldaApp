@@ -198,5 +198,22 @@
             </LinearLayout>
         </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="275dp">
+        <Button
+            android:id="@+id/RefreshButton"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            style="@style/ButtomAlternative2"
+            android:text="Reintentar"
+            android:drawableLeft= "@drawable/ic_refresh"
+            android:textAllCaps="false"
+            android:textColor="@color/appColor"/>
+    </LinearLayout>
 </RelativeLayout>

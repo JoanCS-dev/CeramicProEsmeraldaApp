@@ -20,7 +20,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.esmeralda.ceramicpro.model.LastAppointmentRequestVM;
@@ -60,6 +64,10 @@ public class AppointmentHistoryFragment extends Fragment implements AppointmentA
     private OkHttpClient client;
     private String token, URL = "https://ceramicproesmeraldaapi.azurewebsites.net/Api/";
     private SwipeRefreshLayout swipeLayout;
+    private RelativeLayout rlvisible;
+    private TextView title;
+    private Button refreshbtn;
+    private ScrollView svvis;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,6 +84,19 @@ public class AppointmentHistoryFragment extends Fragment implements AppointmentA
         cookies = view.getContext().getSharedPreferences("SHA_CST_DB", Context.MODE_PRIVATE);
         token = cookies.getString("strToken", "");
         back = view.findViewById(R.id.btn_back_home_activity);
+
+        svvis = view.findViewById(R.id.scrollView);
+        rlvisible = view.findViewById(R.id.rlvis);
+        title = view.findViewById(R.id.header_title);
+        refreshbtn = view.findViewById(R.id.RefreshButton);
+        refreshbtn.setOnClickListener(view -> {
+            refreshbtn.setVisibility(View.GONE);
+            rlvisible.setVisibility(View.VISIBLE);
+            swipeLayout.setVisibility(View.VISIBLE);
+            title.setVisibility(View.VISIBLE);
+            svvis.setVisibility(View.VISIBLE);
+            SearchData();
+        });
 
         swipeLayout = view.findViewById(R.id.swap);
         swipeLayout.setOnRefreshListener(() -> {
@@ -189,7 +210,12 @@ public class AppointmentHistoryFragment extends Fragment implements AppointmentA
                         @Override
                         public void run() {
                             loading.hide();
-                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                            //Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                            refreshbtn.setVisibility(View.VISIBLE);
+                            rlvisible.setVisibility(View.GONE);
+                            swipeLayout.setVisibility(View.GONE);
+                            title.setVisibility(View.GONE);
+                            svvis.setVisibility(View.GONE);
                         }
                     });
 

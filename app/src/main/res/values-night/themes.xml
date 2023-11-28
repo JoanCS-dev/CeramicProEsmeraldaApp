@@ -45,6 +45,9 @@
     <style name="ButtomAlternative">
         <item name="android:backgroundTint">#525252</item>
     </style>
+    <style name="ButtomAlternative2">
+        <item name="android:backgroundTint">#525252</item>
+    </style>
     <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:backgroundTint">@color/black</item>
     </style>

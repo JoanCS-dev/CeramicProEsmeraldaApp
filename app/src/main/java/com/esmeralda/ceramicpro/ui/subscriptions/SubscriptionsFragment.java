@@ -15,6 +15,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.esmeralda.ceramicpro.AppointmentAdapter;
 import com.esmeralda.ceramicpro.R;
@@ -49,11 +53,14 @@ public class SubscriptionsFragment extends Fragment{
     private SwipeRefreshLayout swipeLayout;
     private SharedPreferences cookies;
     private MediaType mediaType = MediaType.parse("application/json");
-
-    RecyclerView recycleSubscriptions;
-    SubscriptionAdapter rvSubscriptionsAdapter;
-    ArrayList<SubscriptionVM> subscriptionsArray;
+    private Button refreshbtn;
+    private RecyclerView recycleSubscriptions;
+    private SubscriptionAdapter rvSubscriptionsAdapter;
+    private ArrayList<SubscriptionVM> subscriptionsArray;
     private List<SubscriptionVM> lst;
+    private RelativeLayout rlvisible;
+    private TextView title;
+    private ScrollView svvis;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +73,19 @@ public class SubscriptionsFragment extends Fragment{
         gson = new Gson();
         cookies = view.getContext().getSharedPreferences("SHA_CST_DB", Context.MODE_PRIVATE);
         token = cookies.getString("strToken", "");
+        rlvisible = view.findViewById(R.id.rlvis);
+        title = view.findViewById(R.id.header_title);
+        refreshbtn = view.findViewById(R.id.RefreshButton);
+        svvis = view.findViewById(R.id.scrollView);
 
+        refreshbtn.setOnClickListener(view -> {
+            refreshbtn.setVisibility(View.GONE);
+            rlvisible.setVisibility(View.VISIBLE);
+            swipeLayout.setVisibility(View.VISIBLE);
+            title.setVisibility(View.VISIBLE);
+            svvis.setVisibility(View.VISIBLE);
+            SearchData();
+        });
 
         swipeLayout = view.findViewById(R.id.swap);
         swipeLayout.setOnRefreshListener(() -> {
@@ -108,7 +127,12 @@ public class SubscriptionsFragment extends Fragment{
                         @Override
                         public void run() {
                             loading.hide();
-                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                            //Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                            refreshbtn.setVisibility(View.VISIBLE);
+                            rlvisible.setVisibility(View.GONE);
+                            swipeLayout.setVisibility(View.GONE);
+                            title.setVisibility(View.GONE);
+                            svvis.setVisibility(View.GONE);
                         }
                     });
 
