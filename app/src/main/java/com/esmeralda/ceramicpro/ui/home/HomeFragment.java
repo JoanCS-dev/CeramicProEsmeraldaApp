@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 /*
@@ -62,11 +63,12 @@ public class HomeFragment extends Fragment {
     private Dialog loading;
     private Integer x = 0;
     private MaterialCardView cw_inversion, cw_new, cw_maintenance;
-
     private SharedPreferences cookies;
     private TextView themename;
     private String NameTheme;
     private List<String> lst_image;
+    private Button refreshbtn;
+    private ScrollView svvis;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,7 +92,13 @@ public class HomeFragment extends Fragment {
         view  = inflater.inflate(R.layout.fragment_home, container, false);
         dialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDialogTheme);
         teamwork = view.findViewById(R.id.TeamWork);
-
+        svvis = view.findViewById(R.id.scrollView);
+        refreshbtn = view.findViewById(R.id.RefreshButton);
+        refreshbtn.setOnClickListener(view -> {
+            refreshbtn.setVisibility(View.GONE);
+            svvis.setVisibility(View.VISIBLE);
+            ShowImage();
+        });
         /*ArrayList<SlideModel> imageList = new ArrayList<SlideModel>(); // Create image list
 
 
@@ -232,7 +240,9 @@ public class HomeFragment extends Fragment {
                         @Override
                         public void run() {
                             //loading.hide();
-                            Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                            //Message("Respuesta fallida!", "Ocurrió un error en el servidor. Verifica tu conexión a internet o por favor contactarse con Sistemas.");
+                            refreshbtn.setVisibility(View.VISIBLE);
+                            svvis.setVisibility(View.GONE);
                         }
                     });
                 }

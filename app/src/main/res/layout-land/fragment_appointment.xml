@@ -203,7 +203,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:paddingTop="275dp">
+        android:paddingTop="250dp">
         <Button
             android:id="@+id/RefreshButton"
             android:visibility="gone"
